@@ -1,9 +1,8 @@
-make --dry-run --keep-going --print-directory
+make --dry-run --always-make --keep-going --print-directory
 make: Entering directory `/Users/jakoh/Desktop/minishell'
 mkdir -p ./objs
-gcc -Wall -Werror -Wextra -lreadline -I includes -c srcs/main.c -o objs/main.o
-gcc -Wall -Werror -Wextra -lreadline -I includes ./objs/main.o -o minishell
+gcc  -I includes -c srcs/main.c -o objs/main.o
+gcc  -lreadline -I includes ./objs/main.o -o minishell
 echo "\033[0;32mMinishell Compiled Successful."
- 
 make: Leaving directory `/Users/jakoh/Desktop/minishell'
  

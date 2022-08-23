@@ -6,7 +6,7 @@ OBJS_DIR := ./objs
 SRCS := main.c
 OBJS := $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
-CC := gcc -Wall -Werror -Wextra
+CC := gcc #-Wall -Werror -Wextra
 
 FLAGS := -lreadline
 
@@ -35,7 +35,7 @@ $(NAME) : $(OBJS)
 # "gcc -o 'file' " use as a naming feature / place the output result to 'file'
 $(OBJS_DIR)/%.o : $(SRCS_DIR)/%.c
 	@mkdir -p $(OBJS_DIR)
-	@$(CC) $(FLAGS) -I includes -c $< -o $@
+	@$(CC) -I includes -c $< -o $@
 
 # "echo -e" to allow backslash escapes \ 
 clean :
