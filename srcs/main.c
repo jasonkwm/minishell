@@ -6,52 +6,31 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 10:35:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/08/23 15:35:47 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/08/24 17:24:28 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int ft_strcmp(char *a, char *b);
-
 int main(void)
 {
     char    *str;
-
+    t_node  *root;
+    
     while (1)
     {
         str = readline("minishell> ");
         if (str && *str)
             add_history(str);
         if (ft_strcmp(str, "exit") == 0)
-            return (0);
-        else if (ft_strcmp(str, "PATH") == 0)
-            printf("%s\n", getenv("PATH"));
-        else if (ft_strcmp(str, "HOME") == 0)
-            printf("%s\n", getenv("HOME"));
-        else if (ft_strcmp(str, "ROOT") == 0)
-            printf("%s\n", getenv("ROOT"));
-        else if (ft_strcmp(str, "pwd") == 0 || ft_strcmp(str, "PWD") == 0)
-            printf("%s\n", getenv("PWD"));
-        else if (ft_strcmp(str, "env") == 0)
-            printf("%s\n", getenv(""));
+            return (0) | printf( "%s\n", str);
         else
-            printf( "%s\n", str);
+            tokenize(str);
     }
     return (0);
 }
 
-int ft_strcmp(char *a, char *b)
-{
-    while (*a || *b)
-    {
-        if (*a != *b)
-            return (1);
-        a++;
-        b++;
-    }
-    return (*a - *b);
-}
+
 
 /*
 Operator -

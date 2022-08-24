@@ -3,12 +3,16 @@ NAME := minishell
 SRCS_DIR := ./srcs
 OBJS_DIR := ./objs
 
-SRCS := main.c
+SRCS := main.c temp.c
 OBJS := $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
 CC := gcc #-Wall -Werror -Wextra
 
-FLAGS := -lreadline
+FLAGS := #
+
+# -L "folder" to looks for library in the folder
+# -l(ft) to link library file. l replaces lib
+LIB := -L./libft -lft -lreadline
 
 RED := \033[0;31m
 GREEN := \033[0;32m
@@ -27,23 +31,26 @@ all : $(NAME)
 # "$<" is to match prerequisites
 # "$@" is to match target
 $(NAME) : $(OBJS)
-	$(CC) $(FLAGS) -I includes $(OBJS) -o $@
-	@echo "$(GREEN)Minishell Compiled Successful."
+	make -C ./libft
+	$(CC) -I includes -I libft $(LIB) $(OBJS) -o $@
+	@echo "$(GREEN)Minishell Compiled Successful.$(NC)"
 
 # "mkdir -p" creates dir if necessary, if dir exist, no error specified
 # "gcc -c" is to create .o files or object files
 # "gcc -o 'file' " use as a naming feature / place the output result to 'file'
 $(OBJS_DIR)/%.o : $(SRCS_DIR)/%.c
 	@mkdir -p $(OBJS_DIR)
-	@$(CC) -I includes -c $< -o $@
+	@$(CC) -I includes -I libft -c $< -o $@
 
 # "echo -e" to allow backslash escapes \ 
 clean :
 	@rm -rf $(OBJS_DIR)
+	@make clean -C ./libft
 	@echo "$(YELLOW)Cleaned.$(NC)"
 
 fclean : clean
 	@rm -rf $(NAME)
+	@make fclean -C ./libft
 	@echo "$(RED)Full Cleaned.$(NC)"
 
 re : fclean all

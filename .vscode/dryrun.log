@@ -1,8 +1,12 @@
 make --dry-run --always-make --keep-going --print-directory
 make: Entering directory `/Users/jakoh/Desktop/minishell'
 mkdir -p ./objs
-gcc  -I includes -c srcs/main.c -o objs/main.o
-gcc  -lreadline -I includes ./objs/main.o -o minishell
-echo "\033[0;32mMinishell Compiled Successful."
+gcc  -I includes -I libft -c srcs/main.c -o objs/main.o
+ 
+mkdir -p ./objs
+gcc  -I includes -I libft -c srcs/temp.c -o objs/temp.o
+make -C ./libft
+gcc  -I includes -I libft -L./libft -lft -lreadline ./objs/main.o ./objs/temp.o -o minishell
+echo "\033[0;32mMinishell Compiled Successful.\033[0m"
 make: Leaving directory `/Users/jakoh/Desktop/minishell'
  
