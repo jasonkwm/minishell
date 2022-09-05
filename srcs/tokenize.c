@@ -98,11 +98,11 @@ int tokenize(char *str, t_node	**list)
 			else if (str[right] == str[prev])
 				right++;
 		}
+		// sub string remainder or any that encounters space
+		// check if its command or not
 		else if ((str[right] == ' ' || str[right] == '\0') && left != right)
 		{
 			temp->val = ft_substr(str, left, (right - left));
-			// int	is_command(char *str) check if temp->val 
-			// is a command if its a command then set temp->type
 			if (is_command(temp->val) == 1)
 				temp->type = 1;
 			else
@@ -113,6 +113,7 @@ int tokenize(char *str, t_node	**list)
 		}
 		else
 			right++;
+		// need another else if to check if check for operators, pipes and stuff
 	}
 	return (0);
 }
