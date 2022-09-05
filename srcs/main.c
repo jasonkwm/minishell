@@ -6,18 +6,18 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 10:35:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/04 16:18:35 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/05 21:01:38 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell.h" 
 
 int main(void)
 {
     char    *str;
-    t_tree  *lists;
+    t_node  *lists;
     
-	lists = ft_node(0, NULL, NULL, NULL);
+	lists = ft_node(0, NULL, 0, NULL);
     while (1)
     {
         str = readline("minishell> ");
@@ -27,7 +27,7 @@ int main(void)
         {
             while (lists != NULL)
             {
-                printf("content: %s\n", lists->val);
+                printf("content: %s, type: %i\n", lists->val, lists->type);
                 lists = lists->next;
             }
             return (0) | printf( "%s\n", str);

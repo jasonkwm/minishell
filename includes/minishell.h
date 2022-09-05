@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:04:18 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/04 16:19:17 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/05 09:07:19 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,14 @@ typedef struct s_tree
 	struct s_tree	*prev;
 }   t_tree;
 
+// type 0 = no type, 1 = command, 2 = arguments, 3 = redirections, 4 = pipe
 typedef struct s_node
 {
 	int				id;
 	char			*val;
 	int				type;
 	struct s_node	*next;
+	struct s_node	*prev;
 }	t_node;
 
 // checker.c
@@ -44,11 +46,12 @@ int	ft_strcmp(char *a, char *b);
 int	is_command(char *str);
 int	is_operator(char c);
 
-// temp.c
-int	tokenize(char *str, t_tree	**tree);
+// tokenize.c
+int	tokenize(char *str, t_node	**tree);
+void	to_lower(char *src, char **dest);
 
 // node_utils.c
 t_tree	*ft_treenode(int  id, char *val, char *type, t_tree **prev);
-t_node	*ft_node(int  id, char *val, int type, t_node **prev);
+t_node	*ft_node(int  id, char *val, int type,  t_node **prev);
 
 #endif

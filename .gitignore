@@ -1,3 +1,5 @@
 objs/
 minishell
+*.o
+trash/
 README.md

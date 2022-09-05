@@ -12,8 +12,6 @@
 
 #include "minishell.h"
 
-
-
 // ****MALLOC WAS USED****
 // convert string pass into src 
 // to lower character
@@ -55,56 +53,66 @@ int tokenize(char *str, t_node	**list)
 	int	left;
 	int	right;
 	int	len;
+	int	prev;
 	t_node *temp;
 
 	temp = *list;
 	left = 0;
 	right = 0;
-	len = ft_strlen(str);
+	len = ft_strlen(str) + 1;
 	
 	while (right < len && left < len)
 	{
-		printf("beginning str[right]: %c\n", str[right]);
-		// Check if its one of the operator character
+		// if its either single '' or double "" quotes
 		// and nothing before it
-		if (is_operator(str[right]) && left == right)
+		if (is_operator(str[right]) == 1 && left == right)
 		{
-			// if its either single '' or double "" quotes
-			if (is_operator(str[right]) == 1)
+			left = right;
+			while (str[++right] != str[left] && str[right] != 0)
+				;
+			if (str[right] == 0)
 			{
-				// tc is temporary character
-				// to compare if its single or double quotes
-				char tc;
-				left = right;
-				if (str[right] == '\'')
-					tc = '\'';
-				else
-					tc = '\"';
-				while (str[++right] != tc && str[right] != 0)
-					;
-				if (str[right] == 0)
-				{
-					// if closing quote is not found
-					// create something like here_doc that waits for tc;
-				}
-				else
-				{
-					// ft_substring that shit with closing quote
-					temp->val = ft_substr(str, left, (++right - left) + 1);
-				}
+				// if closing quote is not found
+				// call readline();
 			}
-			// check for < > | & this 4 symbol
-			// and check if preceding character is similar
-			else if (is_operator(str[right + 1]) == 2)
-				temp->val = ft_substr(str, left, (++right - left) + 1);
 			else
-				temp->val = ft_substr(str, left, (right - left) + 1);
-			temp->left = ft_node(temp->id + 1, NULL, NULL, &temp);
-			temp = temp->left;
+			{
+				// ft_substring that shit with closing quote
+				temp->val = ft_substr(str, left, (++right - left) + 1);
+				temp->type = 2;
+			}
+			temp->next = ft_node(temp->id + 1, NULL, 0, &temp);
+			temp = temp->next;
+			left = right;
+		}
+		else if (is_operator(str[right]) == 1 && left != right)
+		{
+			prev = right;
+			while (str[++right] != str[prev] && str[right] != 0)
+				;
+			if (str[right] == 0)
+			{
+				// if closing quote is not found
+				// call readline();
+			}
+			else if (str[right] == str[prev])
+				right++;
+		}
+		else if ((str[right] == ' ' || str[right] == '\0') && left != right)
+		{
+			temp->val = ft_substr(str, left, (right - left));
+			// int	is_command(char *str) check if temp->val 
+			// is a command if its a command then set temp->type
+			if (is_command(temp->val) == 1)
+				temp->type = 1;
+			else
+				temp->type = 2;
+			temp->next = ft_node(temp->id + 1, NULL, 0, &temp);
+			temp = temp->next;
 			left = ++right;
 		}
-		else if (str[right++] == ' ')
-			left = right;
+		else
+			right++;
 	}
 	return (0);
 }

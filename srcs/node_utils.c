@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 15:04:33 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/04 13:49:57 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/05 16:14:54 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ t_node	*ft_node(int  id, char *val, int type, t_node **prev)
 	node->id = id;
 	node->val = val;
 	node->type = type;
+	node->prev = NULL;
+	if (prev != NULL)
+		node->prev = *prev;
 	node->next = NULL;
 	return (node);
 }
