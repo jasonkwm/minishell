@@ -65,20 +65,24 @@ int tokenize(char *str, t_node	**list)
 	{
 		// if its either single '' or double "" quotes
 		// and nothing before it
+		// ** need to check for foward slash
 		if (is_operator(str[right]) == 1 && left == right)
 		{
 			left = right;
-			while (str[++right] != str[left] && str[right] != 0)
+			
+			while ((str[++right] == str[left] && str[right - 1] == '\\')
+					|| (str[right] != str[left] && str[right] != 0))
 				;
 			if (str[right] == 0)
 			{
 				// if closing quote is not found
 				// call readline();
+				readline("here_doc: ");
 			}
 			else
 			{
 				// ft_substring that shit with closing quote
-				temp->val = ft_substr(str, left, (++right - left) + 1);
+				temp->val = ft_substr(str, left, (++right - left));
 				temp->type = 2;
 			}
 			temp->next = ft_node(temp->id + 1, NULL, 0, &temp);
@@ -94,6 +98,7 @@ int tokenize(char *str, t_node	**list)
 			{
 				// if closing quote is not found
 				// call readline();
+				readline("here_doc: ");
 			}
 			else if (str[right] == str[prev])
 				right++;
@@ -111,6 +116,33 @@ int tokenize(char *str, t_node	**list)
 			temp = temp->next;
 			left = ++right;
 		}
+		// this is for redirection
+		else if (is_operator(str[right]) == 2)
+		{
+			if (left != right)
+			{
+				temp->val = ft_substr(str, left, (right - left));
+				temp->type = 2;
+				temp->next = ft_node(temp->id + 1, NULL, 0, &temp);
+				temp = temp->next;
+				left = right;
+			}
+			if (left == right)
+			{
+				if (str[right] == str[right + 1])
+				{
+					temp->val = ft_substr(str, left, 2);
+					++right;
+				}
+				else
+					temp->val = ft_substr(str, left, 1);
+				temp->type = 3;
+				temp->next = ft_node(temp->id + 1, NULL, 0, &temp);
+				temp = temp->next;
+				left = ++right;
+			}
+		}
+		// need to check for foward slash '\'
 		else
 			right++;
 		// need another else if to check if check for operators, pipes and stuff

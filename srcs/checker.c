@@ -6,25 +6,25 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 16:17:56 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/05 09:07:12 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/06 09:35:20 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // check if both string is similar
-int ft_strcmp(char *a, char *b)
+int	ft_strcmp(char *a, char *b)
 {
-    while (*a || *b)
-        if (*(a++) != *(b++))
-            return (1);
-    return (*a - *b);
+	while (*a || *b)
+		if (*(a++) != *(b++))
+			return (1);
+	return (*a - *b);
 }
 
 int	is_command(char *str)
 {
-	char *lower;
-	int	i;
+	char	*lower;
+	int		i;
 
 	i = 0;
 	to_lower(str, &lower);
@@ -45,11 +45,11 @@ int	is_operator(char c)
 		return (2);
 	if (c == '|' || c == '&')
 		return (3);
-	if ( c == '/' || c == '.')
+	if (c == '/' || c == '.')
 		return (4);
 	if (c == '(' || c == '[' || c == '{')
 		return (5);
-	if ( c == ')' || c == ']' || c == '}')
+	if (c == ')' || c == ']' || c == '}')
 		return (6);
 	if (c == '\\')
 		return (7);

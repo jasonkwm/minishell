@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 10:35:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/05 21:01:38 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/06 13:18:39 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@ int main(void)
 {
     char    *str;
     t_node  *lists;
+    t_node  *temp;
     
 	lists = ft_node(0, NULL, 0, NULL);
     while (1)
     {
         str = readline("minishell> ");
+        // printf("str: %s\n", str);
         if (str && *str)
             add_history(str);
         if (ft_strcmp(str, "exit") == 0)
@@ -31,6 +33,15 @@ int main(void)
                 lists = lists->next;
             }
             return (0) | printf( "%s\n", str);
+        }
+        else if (ft_strcmp(str, "show") == 0)
+        {
+            temp = lists;
+            while (temp != NULL)
+            {
+                printf("content: %s, type: %i\n", temp->val, temp->type);
+                temp = temp->next;
+            }
         }
         else
             tokenize(str, &lists);

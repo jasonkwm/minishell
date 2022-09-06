@@ -4,6 +4,7 @@ mkdir -p ./objs
 gcc -Wall -Werror -Wextra -fsanitize=address -g -I includes -I libft -c srcs/main.c -o objs/main.o
 mkdir -p ./objs
 gcc -Wall -Werror -Wextra -fsanitize=address -g -I includes -I libft -c srcs/tokenize.c -o objs/tokenize.o
+ 
 mkdir -p ./objs
 gcc -Wall -Werror -Wextra -fsanitize=address -g -I includes -I libft -c srcs/node_utils.c -o objs/node_utils.o
 mkdir -p ./objs
