@@ -3,3 +3,4 @@ minishell
 *.o
 trash/
 README.md
+rl_quote
