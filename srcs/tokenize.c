@@ -63,33 +63,9 @@ int tokenize(char *str, t_node	**list)
 	
 	while (right < len && left < len)
 	{
-		// if its either single '' or double "" quotes
-		// and nothing before it
-		// ** need to check for foward slash
-		if (is_operator(str[right]) == 1 && left == right)
-		{
-			left = right;
-			
-			while ((str[++right] == str[left] && str[right - 1] == '\\')
-					|| (str[right] != str[left] && str[right] != 0))
-				;
-			if (str[right] == 0)
-			{
-				// if closing quote is not found
-				// call readline();
-				readline("here_doc: ");
-			}
-			else
-			{
-				// ft_substring that shit with closing quote
-				temp->val = ft_substr(str, left, (++right - left));
-				temp->type = 2;
-			}
-			temp->next = ft_node(temp->id + 1, NULL, 0, &temp);
-			temp = temp->next;
-			left = right;
-		}
-		else if (is_operator(str[right]) == 1 && left != right)
+		// if its a quote ' or " 
+		// loop till end of string or quote found
+		if (is_operator(str[right]) == 1)
 		{
 			prev = right;
 			while (str[++right] != str[prev] && str[right] != 0)
@@ -98,7 +74,7 @@ int tokenize(char *str, t_node	**list)
 			{
 				// if closing quote is not found
 				// call readline();
-				readline("here_doc: ");
+				temp = ft_here_quotes(ft_substr(str, left, (++right - left)), str[prev], &temp);
 			}
 			else if (str[right] == str[prev])
 				right++;
@@ -141,6 +117,22 @@ int tokenize(char *str, t_node	**list)
 				temp = temp->next;
 				left = ++right;
 			}
+		}
+		else if (is_operator(str[right]) == 3)
+		{
+			if (left != right)
+			{
+				temp->val = ft_substr(str, left, (right - left));
+				temp->type = 2;
+				temp->next = ft_node(temp->id + 1, NULL, 0, &temp);
+				temp = temp->next;
+				left = right;
+			}
+			temp->val = ft_substr(str, left, 1);
+			temp->type = 4;
+			temp->next = ft_node(temp->id + 1, NULL, 0, &temp);
+			temp = temp->next;
+			left = ++right;
 		}
 		// need to check for foward slash '\'
 		else

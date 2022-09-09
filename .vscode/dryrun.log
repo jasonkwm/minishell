@@ -1,16 +1,9 @@
-make --dry-run --always-make --keep-going --print-directory
+make --dry-run --keep-going --print-directory
 make: Entering directory `/Users/jakoh/Desktop/minishell'
 mkdir -p ./objs
-gcc -Wall -Werror -Wextra -fsanitize=address -g -I includes -I libft -c srcs/main.c -o objs/main.o
-mkdir -p ./objs
-gcc -Wall -Werror -Wextra -fsanitize=address -g -I includes -I libft -c srcs/tokenize.c -o objs/tokenize.o
- 
-mkdir -p ./objs
-gcc -Wall -Werror -Wextra -fsanitize=address -g -I includes -I libft -c srcs/node_utils.c -o objs/node_utils.o
-mkdir -p ./objs
-gcc -Wall -Werror -Wextra -fsanitize=address -g -I includes -I libft -c srcs/checker.c -o objs/checker.o
+gcc -Wall -Werror -Wextra -fsanitize=address -g -I includes -I libft -c srcs/here_doc.c -o objs/here_doc.o
 make -C ./libft
-gcc -Wall -Werror -Wextra -fsanitize=address -g -I includes -I libft -L./libft -lft -lreadline ./objs/main.o ./objs/tokenize.o ./objs/node_utils.o ./objs/checker.o -o minishell
+gcc -Wall -Werror -Wextra -fsanitize=address -g -I includes -I libft -L./libft -lft -lreadline ./objs/main.o ./objs/tokenize.o ./objs/node_utils.o ./objs/checker.o ./objs/here_doc.o -o minishell
 echo "\033[0;32mMinishell Compiled Successful.\033[0m"
 make: Leaving directory `/Users/jakoh/Desktop/minishell'
  
