@@ -6,12 +6,16 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 15:04:33 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/05 16:14:54 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/10 17:51:43 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// not sure if need to store previous notes or not but yeah.
+// id is position. 
+// type 0 = no type, 1 = command, 2 = arguments,
+// 3 = redirections, 4 = pipe 5 = here_doc file
 t_node	*ft_node(int  id, char *val, int type, t_node **prev)
 {
 	t_node	*node;
@@ -27,7 +31,8 @@ t_node	*ft_node(int  id, char *val, int type, t_node **prev)
 	return (node);
 }
 
-t_tree	*ft_treenode(int  id, char *val, char *type, t_tree **prev)
+// tot of using binary tree but life happens.
+t_tree	*ft_treenode(int  id, char *val, int type, t_tree **prev)
 {
 	t_tree	*node;
 

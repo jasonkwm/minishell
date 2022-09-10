@@ -6,18 +6,39 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 10:35:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/10 16:23:08 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/10 19:07:48 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h" 
 
-int main(void)
+int ft_init_main_var(t_main *main, int ac, char **av, char **envp)
+{
+    main->ac = ac;
+    main->av = av;
+    main->envp = envp;
+    return 1;
+}
+
+int mini_main(t_main *m_var, t_node **lists)
+{
+    int i;
+    t_node  *temp;
+    i = -1;
+    temp = *lists;
+    convert_dollar(m_var, lists);
+    return 0;
+}
+
+int main(int ac, char **av, char **envp)
 {
     char    *str;
     t_node  *lists;
     t_node  *temp;
-    
+    t_main  m_var;
+
+    // put ac av envp into a struct for fucks.
+    ft_init_main_var(&m_var, ac, av, envp);
 	lists = ft_node(0, NULL, 0, NULL);
     while (1)
     {
@@ -39,8 +60,8 @@ int main(void)
         }
         else
             tokenize(str, &lists);
+        mini_main(&m_var, &lists);
     }
-    
     return (0);
 }
 

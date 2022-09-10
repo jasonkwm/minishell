@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 15:28:26 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/09 16:07:08 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/10 17:17:09 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ t_node	*ft_here_quotes(char *str, char quote, t_node **list)
         if (ft_strchr(rl, quote) != 0)
             break;
 		write(temp_fd, "\n", 1);
-        // free(rl);
+        free(rl);
     }
-    // if (rl)
-    //     free(rl);
+    if (rl)
+        free(rl);
     temp->val = "rl_quote";
     temp->type = 5;
     temp->next = ft_node(temp->id + 1, NULL, 0, &temp);
