@@ -73,8 +73,8 @@ int tokenize(char *str, t_node	**list)
 			if (str[right] == 0)
 			{
 				// if closing quote is not found
-				// call readline();
-				temp = ft_here_quotes(ft_substr(str, left, (++right - left)), str[prev], &temp);
+				temp = ft_here_quotes(ft_substr(str, left, (++right - left)),
+					str[prev], &temp);
 			}
 			else if (str[right] == str[prev])
 				right++;

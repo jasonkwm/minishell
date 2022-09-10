@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 10:35:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/09 16:08:54 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/10 16:23:08 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int main(void)
             add_history(str);
         if (ft_strcmp(str, "exit") == 0)
             return (0) | printf( "%s\n", str);
+        // typing 'show' in minishell will show you whats in the link list
         else if (ft_strcmp(str, "show") == 0)
         {
             temp = lists;
