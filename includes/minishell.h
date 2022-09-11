@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:04:18 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/11 16:53:34 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/11 18:38:16 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,12 @@ typedef struct s_main
 	char	**envp;
 }	t_main;
 
-typedef struct s_token_stuff
+typedef struct s_toke_var
 {
 	int	left;
 	int	right;
 	int	len;
-	int	prev;
-}	t_token_stuff;
+}	t_toke_var;
 
 // checker.c
 int		ft_strcmp(char *a, char *b);
@@ -63,7 +62,7 @@ int		is_cmd(char *str);
 int		is_op(char c);
 
 // tokenize.c
-int		tokenize(char *str, t_node	**tree);
+void	tokenize(char *str, t_node	**tree);
 void	to_lower(char *src, char **dest);
 
 // node_utils.c
@@ -72,7 +71,7 @@ t_node	*ft_node(int  id, char *val, int type,  t_node **prev);
 t_node	*assign_node(t_node **cur_node, char *val, int type);
 
 // here_doc.c
-t_node	*ft_here_quotes(char *str, char quote, t_node **list);
+t_node	*here_quote(char *str, char quote, t_node **list);
 
 //expand.c
 // int	convert_dollar(t_main *m_var, t_node **lists);

@@ -6,63 +6,64 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 10:35:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/11 14:56:26 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/11 18:52:03 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h" 
 
-void ft_init_main_var(t_main *main, int ac, char **av, char **envp)
+void	ft_init_main_var(t_main *main, int ac, char **av, char **envp)
 {
-    main->ac = ac;
-    main->av = av;
-    main->envp = envp;
+	main->ac = ac;
+	main->av = av;
+	main->envp = envp;
 }
 
-int mini_main(t_main *m_var, t_node **lists)
+int	mini_main(t_main *m_var, t_node **lists)
 {
-    int i;
-    t_node  *temp;
-    i = -1;
-    temp = *lists;
-    (void)m_var;
-    // convert_dollar(m_var, lists);
-    return 0;
+	int		i;
+	t_node	*temp;
+	
+	i = -1;
+	temp = *lists;
+	(void)m_var;
+	// convert_dollar(m_var, lists);
+	return (0);
 }
 
-int main(int ac, char **av, char **envp)
+int	main(int ac, char **av, char **envp)
 {
-    char    *str;
-    t_node  *lists;
-    t_node  *temp;
-    t_main  m_var;
+	char	*str;
+	t_node  *lists;
+	t_node  *temp;
+	t_main  m_var;
 
-    // put ac av envp into a struct for fucks.
-    ft_init_main_var(&m_var, ac, av, envp);
+	// put ac av envp into a struct for fucks.
+	ft_init_main_var(&m_var, ac, av, envp);
 	lists = ft_node(0, NULL, 0, NULL);
-    while (1)
-    {
-        str = readline("minishell> ");
-        // printf("str: %s\n", str);
-        if (str && *str)
-            add_history(str);
-        if (ft_strcmp(str, "exit") == 0)
-            return (0) | printf( "%s\n", str);
-        // typing 'show' in minishell will show you whats in the link list
-        else if (ft_strcmp(str, "show") == 0)
-        {
-            temp = lists;
-            while (temp != NULL)
-            {
-                printf("content: %s, type: %i\n", temp->val, temp->type);
-                temp = temp->next;
-            }
-        }
-        else
-            tokenize(str, &lists);
-        mini_main(&m_var, &lists);
-    }
-    return (0);
+	while (1)
+	{
+		str = readline("minishell> ");
+		// printf("str: %s\n", str);
+		if (str && *str)
+			add_history(str);
+		if (ft_strcmp(str, "exit") == 0)
+			return (0) | printf( "%s\n", str);
+		// typing 'show' in minishell will show you whats in the link list
+		else if (ft_strcmp(str, "show") == 0)
+		{
+			temp = lists;
+			while (temp != NULL)
+			{
+				printf("content: %s, type: %i\n", temp->val, temp->type);
+				temp = temp->next;
+			}
+		}
+		else
+			tokenize(str, &lists);
+		mini_main(&m_var, &lists);
+	}
+	return (0);
 }
 
 /*

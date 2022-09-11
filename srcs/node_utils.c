@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 15:04:33 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/11 16:52:59 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/11 18:34:20 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // id is position. 
 // type 0 = no type, 1 = command, 2 = arguments,
 // 3 = redirections, 4 = pipe 5 = here_doc file
-t_node	*ft_node(int  id, char *val, int type, t_node **prev)
+t_node	*ft_node(int id, char *val, int type, t_node **prev)
 {
 	t_node	*node;
 
@@ -40,12 +40,14 @@ t_node	*assign_node(t_node **cur_node, char *val, int type)
 	temp = *cur_node;
 	temp->val = val;
 	temp->type = type;
+	if (is_cmd(val) == 1)
+		temp->type = 1;
 	temp->next = ft_node(temp->id + 1, NULL, 0, &temp);
 	return (temp->next);
 }
 
 // tot of using binary tree but life happens.
-t_tree	*ft_treenode(int  id, char *val, int type, t_tree **prev)
+t_tree	*ft_treenode(int id, char *val, int type, t_tree **prev)
 {
 	t_tree	*node;
 
