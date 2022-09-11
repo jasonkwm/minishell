@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 16:17:56 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/10 17:23:25 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/11 16:44:08 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_strcmp(char *a, char *b)
 	return (*a - *b);
 }
 
-int	is_command(char *str)
+int	is_cmd(char *str)
 {
 	char	*lower;
 	int		i;
@@ -37,7 +37,7 @@ int	is_command(char *str)
 	return (i);
 }
 
-int	is_operator(char c)
+int	is_op(char c)
 {
 	if (c == '\'' || c == '\"')
 		return (1);

@@ -6,18 +6,17 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 10:35:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/10 19:07:48 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/11 14:56:26 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h" 
 
-int ft_init_main_var(t_main *main, int ac, char **av, char **envp)
+void ft_init_main_var(t_main *main, int ac, char **av, char **envp)
 {
     main->ac = ac;
     main->av = av;
     main->envp = envp;
-    return 1;
 }
 
 int mini_main(t_main *m_var, t_node **lists)
@@ -26,7 +25,8 @@ int mini_main(t_main *m_var, t_node **lists)
     t_node  *temp;
     i = -1;
     temp = *lists;
-    convert_dollar(m_var, lists);
+    (void)m_var;
+    // convert_dollar(m_var, lists);
     return 0;
 }
 

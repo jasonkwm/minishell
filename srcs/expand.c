@@ -6,14 +6,14 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 18:03:29 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/10 19:25:23 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/11 14:37:57 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // just testing unusable kinda
-int	convert_dollar(t_main *m_var, t_node **lists)
+char	*convert_dollar(t_main *m_var, t_node **lists)
 {
 	t_node	*temp;
 	char	*chr;
@@ -46,5 +46,5 @@ int	convert_dollar(t_main *m_var, t_node **lists)
 		}
 		temp = temp->next;
 	}
-	return 0;
+	return chr;
 }

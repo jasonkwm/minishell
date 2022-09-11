@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:04:18 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/10 18:59:03 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/11 16:53:34 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ typedef struct s_tree
 	struct s_tree	*prev;
 }   t_tree;
 
-// type 0 = no type, 1 = command, 2 = arguments, 3 = redirections, 4 = pipe 5 = here_doc file
+// type 0 = no type, 1 = command, 2 = arguments, 3 = redirections,
+// 4 = pipe, 5 = here_doc file
 typedef struct s_node
 {
 	int				id;
@@ -48,22 +49,31 @@ typedef struct s_main
 	char	**envp;
 }	t_main;
 
+typedef struct s_token_stuff
+{
+	int	left;
+	int	right;
+	int	len;
+	int	prev;
+}	t_token_stuff;
+
 // checker.c
-int	ft_strcmp(char *a, char *b);
-int	is_command(char *str);
-int	is_operator(char c);
+int		ft_strcmp(char *a, char *b);
+int		is_cmd(char *str);
+int		is_op(char c);
 
 // tokenize.c
-int	tokenize(char *str, t_node	**tree);
+int		tokenize(char *str, t_node	**tree);
 void	to_lower(char *src, char **dest);
 
 // node_utils.c
 t_tree	*ft_treenode(int  id, char *val, int type, t_tree **prev);
 t_node	*ft_node(int  id, char *val, int type,  t_node **prev);
+t_node	*assign_node(t_node **cur_node, char *val, int type);
 
 // here_doc.c
 t_node	*ft_here_quotes(char *str, char quote, t_node **list);
 
 //expand.c
-int	convert_dollar(t_main *m_var, t_node **lists);
+// int	convert_dollar(t_main *m_var, t_node **lists);
 #endif
