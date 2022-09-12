@@ -6,13 +6,11 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
- 
 
-# Make data base, printed on Sun Sep 11 18:15:03 2022
+# Make data base, printed on Mon Sep 12 12:59:06 2022
 
 # Variables
 
- 
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
@@ -54,7 +52,7 @@ LIB := -L./libft -lft -lreadline
 # makefile (from `Makefile', line 20)
 PURPLE := \033[0;35m
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.NWVhJWfHbY/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.cKoAvCz6SZ/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -162,7 +160,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 10264
+VSCODE_PID = 26884
 # variable set hash-table stats:
 # Load=75/1024=7%, Rehash=0, Collisions=4/110=4%
 
@@ -173,10 +171,10 @@ VSCODE_PID = 10264
 # Directories
 
 # . (device 16777228, inode 2926037): 15 files, no impossibilities.
-# ./srcs (device 16777228, inode 2926413): 8 files, no impossibilities so far.
-# srcs (device 16777228, inode 2926413): 8 files, no impossibilities so far.
+# ./srcs (device 16777228, inode 2926413): 6 files, no impossibilities so far.
+# srcs (device 16777228, inode 2926413): 6 files, no impossibilities so far.
 
-# 31 files, no impossibilities in 3 directories.
+# 27 files, no impossibilities in 3 directories.
 
 # Implicit Rules
 
@@ -195,9 +193,25 @@ objs/main.o: srcs/main.c
 #  Implicit/static pattern stem: `main'
 #  Last modified 2022-09-11 14:56:28
 #  File has been updated.
-#  Successfully updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := objs/main.o
+# automatic
+# % := 
+# automatic
+# * := main
+# automatic
+# + := srcs/main.c
+# automatic
+# | := 
+# automatic
+# < := srcs/main.c
+# automatic
+# ^ := srcs/main.c
+# automatic
+# ? := srcs/main.c
 # variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+# Load=8/32=25%, Rehash=0, Collisions=1/14=7%
 #  commands to execute (from `Makefile', line 42):
 	@mkdir -p $(OBJS_DIR)
 	@$(CC) -I includes -I libft -c $< -o $@
@@ -248,7 +262,7 @@ Makefile:
 # Not a target:
 srcs/main.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-09-11 14:56:26
+#  Last modified 2022-09-11 18:52:03
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -256,7 +270,7 @@ srcs/main.c:
 
 minishell: objs/main.o objs/tokenize.o objs/node_utils.o objs/checker.o objs/here_doc.o objs/expand.o
 #  Implicit rule search has not been done.
-#  Last modified 2022-09-11 17:47:58
+#  Last modified 2022-09-11 18:32:15
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # variable set hash-table stats:
@@ -266,16 +280,6 @@ minishell: objs/main.o objs/tokenize.o objs/node_utils.o objs/checker.o objs/her
 	$(CC) -I includes -I libft $(LIB) $(OBJS) -o $@
 	@echo "$(GREEN)Minishell Compiled Successful.$(NC)"
 	
-
-# Not a target:
-srcs/tokenize.c:
- 
-#  Implicit rule search has been done.
-#  Last modified 2022-09-11 18:15:03
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 fclean: clean
 #  Phony target (prerequisite of .PHONY).
@@ -294,34 +298,11 @@ fclean: clean
 #  Modification time never checked.
 #  File has not been updated.
 
-objs/tokenize.o: srcs/tokenize.c
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `tokenize'
-#  Last modified 2022-09-11 17:47:58
-#  File has been updated.
-#  Needs to be updated (-q is set).
-# automatic
-# @ := objs/tokenize.o
-# automatic
-# % := 
-# automatic
-# * := tokenize
-# automatic
-# + := srcs/tokenize.c
-# automatic
-# | := 
-# automatic
-# < := srcs/tokenize.c
-# automatic
-# ^ := srcs/tokenize.c
-# automatic
-# ? := srcs/tokenize.c
-# variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=1/14=7%
-#  commands to execute (from `Makefile', line 42):
-	@mkdir -p $(OBJS_DIR)
-	@$(CC) -I includes -I libft -c $< -o $@
-	
+# Not a target:
+objs/tokenize.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 re: fclean all
 #  Phony target (prerequisite of .PHONY).
@@ -337,6 +318,7 @@ objs/here_doc.o:
 
 clean:
 #  Phony target (prerequisite of .PHONY).
+ 
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
@@ -353,7 +335,7 @@ objs/node_utils.o:
 #  File has not been updated.
 
 # files hash-table stats:
-# Load=17/1024=2%, Rehash=0, Collisions=2/50=4%
+# Load=16/1024=2%, Rehash=0, Collisions=2/46=4%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -365,6 +347,6 @@ objs/node_utils.o:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Sun Sep 11 18:15:03 2022
+# Finished Make data base on Mon Sep 12 12:59:06 2022
 
  

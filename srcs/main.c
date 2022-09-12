@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 10:35:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/11 18:52:03 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/12 16:06:05 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ int	mini_main(t_main *m_var, t_node **lists)
 	
 	i = -1;
 	temp = *lists;
-	(void)m_var;
-	// convert_dollar(m_var, lists);
+	spender(m_var, lists);
 	return (0);
 }
 
@@ -48,7 +47,7 @@ int	main(int ac, char **av, char **envp)
 		if (str && *str)
 			add_history(str);
 		if (ft_strcmp(str, "exit") == 0)
-			return (0) | printf( "%s\n", str);
+			return (0) | printf("%s\n", str);
 		// typing 'show' in minishell will show you whats in the link list
 		else if (ft_strcmp(str, "show") == 0)
 		{
