@@ -9,6 +9,7 @@ gcc -Wall -Werror -Wextra -fsanitize=address -g -I includes -I libft -c srcs/nod
 mkdir -p ./objs
 gcc -Wall -Werror -Wextra -fsanitize=address -g -I includes -I libft -c srcs/checker.c -o objs/checker.o
 mkdir -p ./objs
+ 
 gcc -Wall -Werror -Wextra -fsanitize=address -g -I includes -I libft -c srcs/here_doc.c -o objs/here_doc.o
 mkdir -p ./objs
 gcc -Wall -Werror -Wextra -fsanitize=address -g -I includes -I libft -c srcs/expand.c -o objs/expand.o
