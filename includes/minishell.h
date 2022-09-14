@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:04:18 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/12 16:01:32 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/13 16:22:36 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <errno.h>
 # include "libft.h"
 
 # include <readline/readline.h>
@@ -62,7 +63,7 @@ int		is_cmd(char *str);
 int		is_op(char c);
 
 // tokenize.c
-void	tokenize(char *str, t_node	**tree);
+void	tokenize(t_main *m_var, char *str, t_node	**tree);
 void	to_lower(char *src, char **dest);
 
 // node_utils.c
@@ -74,6 +75,7 @@ t_node	*assign_node(t_node **cur_node, char *val, int type);
 t_node	*here_quote(char *str, char quote, t_node **list);
 
 //expand.c
-void	spender(t_main *m_var, t_node **lists);
+void	exspender(t_main *m_var, t_node **cur_node);
+// void	spender(t_main *m_var, t_node **lists);
 // int	convert_dollar(t_main *m_var, t_node **lists);
 #endif

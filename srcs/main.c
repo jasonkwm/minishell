@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 10:35:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/12 16:06:05 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/13 08:34:26 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@ void	ft_init_main_var(t_main *main, int ac, char **av, char **envp)
 	main->envp = envp;
 }
 
-int	mini_main(t_main *m_var, t_node **lists)
-{
-	int		i;
-	t_node	*temp;
+// int	mini_main(t_main *m_var, t_node **lists)
+// {
+// 	int		i;
+// 	t_node	*temp;
 	
-	i = -1;
-	temp = *lists;
-	spender(m_var, lists);
-	return (0);
-}
+// 	i = -1;
+// 	temp = *lists;
+// 	spender(m_var, lists);
+// 	return (0);
+// }
 
 int	main(int ac, char **av, char **envp)
 {
@@ -59,8 +59,8 @@ int	main(int ac, char **av, char **envp)
 			}
 		}
 		else
-			tokenize(str, &lists);
-		mini_main(&m_var, &lists);
+			tokenize(&m_var, str, &lists);
+		// mini_main(&m_var, &lists);
 	}
 	return (0);
 }

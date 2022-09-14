@@ -1,1 +1,2 @@
 echo bananapotato $USER"ASdf$USER"sdf'$USERASDfasdf'asdf"asdfasdf"
+echo "banana potato $USER $USER' $USERa $USER1 $USER; "$USER DOG

@@ -7,7 +7,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 
 # This program built for i386-apple-darwin11.3.0
 
-# Make data base, printed on Mon Sep 12 18:11:13 2022
+# Make data base, printed on Wed Sep 14 10:30:18 2022
 
 # Variables
 
@@ -41,6 +41,8 @@ VSCODE_CWD = /
 PATH = /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Applications/Visual Studio Code.app/Contents/Resources/app/bin
 # environment
 LSCOLORS = Gxfxcxdxbxegedabagacad
+# environment
+LaunchInstanceID = 34F7E2E1-C0B2-4E30-9033-AF697AEABF16
 # makefile (from `Makefile', line 3)
 SRCS_DIR := ./srcs
 # environment
@@ -52,7 +54,7 @@ LIB := -L./libft -lft -lreadline
 # makefile (from `Makefile', line 20)
 PURPLE := \033[0;35m
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.TYPqP87FeQ/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.3veGpkQlYf/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -86,7 +88,6 @@ MAKE = $(MAKE_COMMAND)
 # default
 MAKECMDGOALS := all
 # makefile (from `Makefile', line 6)
- 
 SRCS := main.c tokenize.c node_utils.c checker.c here_doc.c expand.c
 # environment
 SHLVL = 1
@@ -127,7 +128,7 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = com.microsoft.VSCode.3040
+XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x10000047.Electron
 # makefile (from `Makefile', line 4)
 OBJS_DIR := ./objs
 # automatic
@@ -140,6 +141,8 @@ CYAN := \033[0;36m
 +F = $(notdir $+)
 # environment
 __CF_USER_TEXT_ENCODING = 0x18C0E:0x0:0x2
+# environment
+COMMAND_MODE = unix2003
 # default
 MAKEFILES := 
 # automatic
@@ -148,6 +151,8 @@ MAKEFILES :=
 PAGER = less
 # environment
 LC_ALL = C
+# environment
+SECURITYSESSIONID = 187bd
 # automatic
 ^F = $(notdir $^)
 # default
@@ -161,9 +166,9 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 54201
+VSCODE_PID = 52786
 # variable set hash-table stats:
-# Load=75/1024=7%, Rehash=0, Collisions=4/110=4%
+# Load=78/1024=8%, Rehash=0, Collisions=4/109=4%
 
 # Pattern-specific Variable Values
 
@@ -171,11 +176,11 @@ VSCODE_PID = 54201
 
 # Directories
 
-# . (device 16777228, inode 2926037): 15 files, no impossibilities.
+# . (device 16777228, inode 2926037): 16 files, no impossibilities.
 # ./srcs (device 16777228, inode 2926413): 8 files, no impossibilities so far.
 # srcs (device 16777228, inode 2926413): 8 files, no impossibilities so far.
 
-# 31 files, no impossibilities in 3 directories.
+# 32 files, no impossibilities in 3 directories.
 
 # Implicit Rules
 
@@ -201,7 +206,7 @@ srcs/node_utils.c:
 objs/main.o: srcs/main.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `main'
-#  Last modified 2022-09-12 18:04:11
+#  Last modified 2022-09-13 17:04:45
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -217,9 +222,9 @@ all: minishell
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has been updated.
-#  Needs to be updated (-q is set).
+#  Successfully updated.
 # variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/4=0%
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 .PHONY: all clean fclean re
 #  Implicit rule search has not been done.
@@ -229,27 +234,11 @@ all: minishell
 objs/expand.o: srcs/expand.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `expand'
-#  Last modified 2022-09-12 18:06:19
+#  Last modified 2022-09-13 17:37:11
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# automatic
-# @ := objs/expand.o
-# automatic
-# % := 
-# automatic
-# * := expand
-# automatic
-# + := srcs/expand.c
-# automatic
-# | := 
-# automatic
-# < := srcs/expand.c
-# automatic
-# ^ := srcs/expand.c
-# automatic
-# ? := srcs/expand.c
+#  Successfully updated.
 # variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=1/14=7%
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 #  commands to execute (from `Makefile', line 42):
 	@mkdir -p $(OBJS_DIR)
 	@$(CC) -I includes -I libft -c $< -o $@
@@ -264,7 +253,7 @@ objs/expand.o: srcs/expand.c
 objs/checker.o: srcs/checker.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `checker'
-#  Last modified 2022-09-12 18:04:11
+#  Last modified 2022-09-13 17:04:45
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -286,7 +275,7 @@ Makefile:
 # Not a target:
 srcs/main.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-09-12 16:06:05
+#  Last modified 2022-09-13 08:34:26
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -295,7 +284,7 @@ srcs/main.c:
 # Not a target:
 srcs/expand.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-09-12 18:08:33
+#  Last modified 2022-09-13 17:37:00
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -303,11 +292,11 @@ srcs/expand.c:
 
 minishell: objs/main.o objs/tokenize.o objs/node_utils.o objs/checker.o objs/here_doc.o objs/expand.o
 #  Implicit rule search has not been done.
-#  Last modified 2022-09-12 18:06:19
+#  Last modified 2022-09-13 17:37:11
 #  File has been updated.
-#  Needs to be updated (-q is set).
+#  Successfully updated.
 # variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/4=0%
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 #  commands to execute (from `Makefile', line 34):
 	make -C ./libft
 	$(CC) -I includes -I libft $(LIB) $(OBJS) -o $@
@@ -315,9 +304,10 @@ minishell: objs/main.o objs/tokenize.o objs/node_utils.o objs/checker.o objs/her
 	
 
 # Not a target:
+ 
 srcs/tokenize.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-09-11 18:51:32
+#  Last modified 2022-09-13 16:30:37
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -326,7 +316,7 @@ srcs/tokenize.c:
 # Not a target:
 srcs/checker.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-09-12 14:27:57
+#  Last modified 2022-09-13 07:54:56
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -352,7 +342,7 @@ fclean: clean
 objs/tokenize.o: srcs/tokenize.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `tokenize'
-#  Last modified 2022-09-12 18:04:11
+#  Last modified 2022-09-13 17:04:45
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -371,7 +361,7 @@ re: fclean all
 objs/here_doc.o: srcs/here_doc.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `here_doc'
-#  Last modified 2022-09-12 18:04:11
+#  Last modified 2022-09-13 17:04:45
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -395,13 +385,12 @@ clean:
 objs/node_utils.o: srcs/node_utils.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `node_utils'
-#  Last modified 2022-09-12 18:04:11
+#  Last modified 2022-09-13 17:04:45
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 #  commands to execute (from `Makefile', line 42):
- 
 	@mkdir -p $(OBJS_DIR)
 	@$(CC) -I includes -I libft -c $< -o $@
 	
@@ -428,6 +417,6 @@ srcs/here_doc.c:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Mon Sep 12 18:11:13 2022
+# Finished Make data base on Wed Sep 14 10:30:18 2022
 
  

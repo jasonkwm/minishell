@@ -6,6 +6,7 @@
         "libft.h": "c",
         "iterator": "c",
         "ios": "c",
-        "sstream": "c"
+        "sstream": "c",
+        "__node_handle": "c"
     }
 }

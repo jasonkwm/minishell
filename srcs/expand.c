@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 18:03:29 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/12 18:31:31 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/13 17:37:00 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ void	exspender(t_main *m_var, t_node **cur_node)
 				temp = ft_substr(node->val, s.left, s.right - s.left);
 				str = sjoin_ext(str, temp);
 			}
-			else if (node->val[(s.left)] == '\"')
+			else if (node->val[(s.right)] == '\"')
 			{
 				++(s.left);
-				while (node->val[++(s.right)] != '\"')
+				while (++(s.right) < s.len && node->val[s.right] != '\"')
 				{
 					if (node->val[s.right] == '$')
 					{
@@ -77,18 +77,40 @@ void	exspender(t_main *m_var, t_node **cur_node)
 							str = sjoin_ext(str, temp);
 						}
 						s.left = s.right;
-						s.left++;
-						while (is_op(node->val[++s.right]) != 9 && node->val[s.right] != '\"')
-							;
+						++(s.left);
+						while (is_op(node->val[s.right]) != 9 && is_op(node->val[s.right]) != 1)
+							++(s.right);
 						temp = ft_substr(node->val, s.left, s.right - s.left);
 						str = ft_monies(m_var, str, temp);
 						s.left = s.right;
+						if (node->val[s.right] == '\"')
+							break ;
 					}
 				}
+				if (s.left != s.right)
+				{
+					temp = ft_substr(node->val, s.left, s.right - s.left);
+					str = sjoin_ext(str, temp);
+				}
+			}
+			s.left = ++(s.right);
+		}
+		else if (node->val[s.right] == '$')
+		{
+			// if question mark only do nothing
+			// get errno number
+			if (s.left != s.right)
+			{
 				temp = ft_substr(node->val, s.left, s.right - s.left);
 				str = sjoin_ext(str, temp);
 			}
-			s.left = ++s.right;
+			s.left = s.right;
+			s.left++;
+			while (is_op(node->val[s.right]) != 9 && is_op(node->val[s.right]) != 1)
+				++(s.right);
+			temp = ft_substr(node->val, s.left, s.right - s.left);
+			str = ft_monies(m_var, str, temp);
+			s.left = s.right;
 		}
 		else
 			++(s.right);
@@ -97,6 +119,8 @@ void	exspender(t_main *m_var, t_node **cur_node)
 	str = sjoin_ext(str, temp);
 	free(node->val);
 	node->val = str;
+	if (is_cmd(node->val) == 1)
+		node->type = 1;
 }
 
 char	*sjoin_ext(char *s1, char *s2)
@@ -105,7 +129,7 @@ char	*sjoin_ext(char *s1, char *s2)
 	
 	if (s1 == NULL)
 		return (s2);
-	else if (s2 == NULL)
+	if (s2 == NULL)
 		return (s1);
 	temp = ft_strjoin(s1, s2);
 	free(s1);
