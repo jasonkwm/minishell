@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:04:18 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/13 16:22:36 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/14 14:43:26 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,24 @@ typedef struct s_node
 	struct s_node	*prev;
 }	t_node;
 
+// linked-list like data struct 
+// to store enviroment variable
+typedef struct s_envp
+{
+	char			*val;
+	struct s_envp	*next;
+}	t_envp;
+
+// struct to store main parameters
 typedef struct s_main
 {
 	int		ac;
 	char	**av;
-	char	**envp;
+	t_envp	*envp;
 }	t_main;
 
+// tokenizing/parsing struct
+// use to shorten code.
 typedef struct s_toke_var
 {
 	int	left;

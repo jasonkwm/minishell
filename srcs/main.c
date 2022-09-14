@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 10:35:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/13 08:34:26 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/14 14:27:38 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,28 @@
 
 void	ft_init_main_var(t_main *main, int ac, char **av, char **envp)
 {
+	int	i;
+	t_envp	*temp;
+
 	main->ac = ac;
 	main->av = av;
-	main->envp = envp;
+	main->envp = NULL;
+	temp = NULL;
+	i = -1;
+	while (envp[++i] != NULL)
+	{
+		if (temp == NULL)
+			temp = ft_calloc(1, sizeof(t_envp));
+		else
+		{
+			temp->next = ft_calloc(1, sizeof(t_envp));
+			temp = temp->next;
+		}
+		temp->val = envp[i];
+		temp->next = NULL;
+		if (main->envp == NULL)
+			main->envp = temp;
+	}
 }
 
 // int	mini_main(t_main *m_var, t_node **lists)
