@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 16:42:02 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/13 16:30:37 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/15 15:41:46 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	parse_quote(t_main *m_var, char *str, t_toke_var *s, t_node **cur_node)
 	{
 		temp = ft_substr(str, s->left, (s->right - s->left + 1));
 		*cur_node = here_quote(temp, str[prev], cur_node);
-		exspender(m_var, &((*cur_node)->prev));
+		expand_env(m_var, &((*cur_node)->prev));
 	}
 	++(s->right);
 }
@@ -79,7 +79,7 @@ void	parse_arg(t_main *m_var, char *str, t_toke_var *s, t_node **cur_node)
 
 	temp = ft_substr(str, s->left, (s->right - s->left));
 	*cur_node = assign_node(cur_node, temp, 2);
-	exspender(m_var, &((*cur_node)->prev));
+	expand_env(m_var, &((*cur_node)->prev));
 	s->left = ++(s->right);
 }
 

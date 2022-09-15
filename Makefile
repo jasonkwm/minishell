@@ -3,7 +3,7 @@ NAME := minishell
 SRCS_DIR := ./srcs
 OBJS_DIR := ./objs
 
-SRCS := main.c tokenize.c node_utils.c checker.c here_doc.c expand.c
+SRCS := main.c inits.c node_utils.c checker.c tokenize.c expand.c expand_utils.c here_doc.c env.c
 OBJS := $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
 CC := gcc -Wall -Werror -Wextra -fsanitize=address -g
@@ -44,12 +44,12 @@ $(OBJS_DIR)/%.o : $(SRCS_DIR)/%.c
 
 # "echo -e" to allow backslash escapes \ 
 clean :
-	@rm -rf $(OBJS_DIR)
+	rm -rf $(OBJS_DIR)
 	@make clean -C ./libft
 	@echo "$(YELLOW)Cleaned.$(NC)"
 
 fclean : clean
-	@rm -rf $(NAME)
+	rm -rf $(NAME)
 	@make fclean -C ./libft
 	@echo "$(RED)Full Cleaned.$(NC)"
 

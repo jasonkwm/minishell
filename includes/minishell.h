@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:04:18 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/14 14:43:26 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/15 16:07:17 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,10 @@ typedef struct s_main
 // use to shorten code.
 typedef struct s_toke_var
 {
-	int	left;
-	int	right;
-	int	len;
+	int		left;
+	int		right;
+	int		len;
+	char	*str;
 }	t_toke_var;
 
 // checker.c
@@ -85,8 +86,24 @@ t_node	*assign_node(t_node **cur_node, char *val, int type);
 // here_doc.c
 t_node	*here_quote(char *str, char quote, t_node **list);
 
-//expand.c
-void	exspender(t_main *m_var, t_node **cur_node);
-// void	spender(t_main *m_var, t_node **lists);
-// int	convert_dollar(t_main *m_var, t_node **lists);
+// expand.c
+void	expand_env(t_main *m_var, t_node **cur_node);
+void	expand_env_ext(t_main *m_var, t_node **cur_node, t_toke_var *s);
+void	expand_env_ext_quote(t_main *m_var, t_node **cur_node, t_toke_var *s);
+
+// expand_utils.c
+char	*sjoin_ext(char *s1, char *s2);
+char	*dollar_join(t_main *m_var, char *s1, char *s2);
+void	cut_and_paste(t_toke_var *s, t_node **cur_node, int i);
+void	found_cash(t_main *m_var, t_node **cur_node, t_toke_var	*s);
+
+// env.c
+char	*get_ev(t_main *m_var, char *var);
+void	add_env(t_main *m_var, char *str);
+
+// inits.c
+void	ft_init_main_var(t_main *main, int ac, char **av, char **envp);
+void	init_toke_var(t_toke_var *s, int len, char *temp);
+
+
 #endif
