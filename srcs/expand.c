@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 18:03:29 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/15 16:11:35 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/15 16:39:01 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	expand_env_ext(t_main *m_var, t_node **cur_node, t_toke_var *s)
 }
 
 // if single quote dont expand just loop till it finds it significant other
-// if in double quote and found $ then expand  
+// if in double quote and found $ then expand
 // but also traverse till it finds its significant other
 void	expand_env_ext_quote(t_main *m_var, t_node **cur_node, t_toke_var *s)
 {

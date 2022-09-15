@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 15:59:27 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/15 16:06:56 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/15 18:08:47 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,13 @@ void	found_cash(t_main *m_var, t_node **cur_node, t_toke_var	*s)
 	node = *cur_node;
 	cut_and_paste(s, cur_node, 1);
 	s->left = s->right;
-	s->left++;
+    if (is_op(node->val[s->right + 1]) == 9
+            || is_op(node->val[s->right + 1]) == 1)
+    {
+        ++(s->right);
+        return ;
+    }
+	++(s->left);
 	while (is_op(node->val[s->right]) != 9 && is_op(node->val[s->right]) != 1)
 		++(s->right);
 	temp = ft_substr(node->val, s->left, s->right - s->left);

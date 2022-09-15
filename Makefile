@@ -44,12 +44,12 @@ $(OBJS_DIR)/%.o : $(SRCS_DIR)/%.c
 
 # "echo -e" to allow backslash escapes \ 
 clean :
-	rm -rf $(OBJS_DIR)
+	@rm -rf $(OBJS_DIR)
 	@make clean -C ./libft
 	@echo "$(YELLOW)Cleaned.$(NC)"
 
 fclean : clean
-	rm -rf $(NAME)
+	@rm -rf $(NAME)
 	@make fclean -C ./libft
 	@echo "$(RED)Full Cleaned.$(NC)"
 
