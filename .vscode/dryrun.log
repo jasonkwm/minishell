@@ -1,5 +1,25 @@
-make --dry-run --keep-going --print-directory
-make: Entering directory `/Users/jakoh/Desktop/minishell'
-make: Nothing to be done for `all'.
-make: Leaving directory `/Users/jakoh/Desktop/minishell'
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory `/Users/jakoh/Desktop/m'
+mkdir -p ./objs
+gcc -Wall -Werror -Wextra -fsanitize=address -g -I includes -I libft -c srcs/main.c -o objs/main.o
+mkdir -p ./objs
+gcc -Wall -Werror -Wextra -fsanitize=address -g -I includes -I libft -c srcs/inits.c -o objs/inits.o
+mkdir -p ./objs
+gcc -Wall -Werror -Wextra -fsanitize=address -g -I includes -I libft -c srcs/node_utils.c -o objs/node_utils.o
+mkdir -p ./objs
+gcc -Wall -Werror -Wextra -fsanitize=address -g -I includes -I libft -c srcs/checker.c -o objs/checker.o
+mkdir -p ./objs
+gcc -Wall -Werror -Wextra -fsanitize=address -g -I includes -I libft -c srcs/tokenize.c -o objs/tokenize.o
+mkdir -p ./objs
+gcc -Wall -Werror -Wextra -fsanitize=address -g -I includes -I libft -c srcs/expand.c -o objs/expand.o
+mkdir -p ./objs
+gcc -Wall -Werror -Wextra -fsanitize=address -g -I includes -I libft -c srcs/expand_utils.c -o objs/expand_utils.o
+mkdir -p ./objs
+gcc -Wall -Werror -Wextra -fsanitize=address -g -I includes -I libft -c srcs/here_doc.c -o objs/here_doc.o
+mkdir -p ./objs
+gcc -Wall -Werror -Wextra -fsanitize=address -g -I includes -I libft -c srcs/env.c -o objs/env.o
+make -C ./libft
+gcc -Wall -Werror -Wextra -fsanitize=address -g -I includes -I libft -L./libft -lft -lreadline ./objs/main.o ./objs/inits.o ./objs/node_utils.o ./objs/checker.o ./objs/tokenize.o ./objs/expand.o ./objs/expand_utils.o ./objs/here_doc.o ./objs/env.o -o minishell
+echo "\033[0;32mMinishell Compiled Successful.\033[0m"
+make: Leaving directory `/Users/jakoh/Desktop/m'
  
