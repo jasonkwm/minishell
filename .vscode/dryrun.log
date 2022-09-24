@@ -1,4 +1,4 @@
-make --dry-run --always-make --keep-going --print-directory
+make --dry-run --keep-going --print-directory
 make: Entering directory `/Users/jakoh/Desktop/ms'
 mkdir -p ./objs
 gcc -Wall -Werror -Wextra -fsanitize=address -g -I includes -I libft -c srcs/main.c -o objs/main.o
@@ -12,6 +12,7 @@ mkdir -p ./objs
 gcc -Wall -Werror -Wextra -fsanitize=address -g -I includes -I libft -c srcs/tokenize.c -o objs/tokenize.o
 mkdir -p ./objs
 gcc -Wall -Werror -Wextra -fsanitize=address -g -I includes -I libft -c srcs/expand.c -o objs/expand.o
+ 
 mkdir -p ./objs
 gcc -Wall -Werror -Wextra -fsanitize=address -g -I includes -I libft -c srcs/expand_utils.c -o objs/expand_utils.o
 mkdir -p ./objs

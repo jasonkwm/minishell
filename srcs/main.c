@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 10:35:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/15 17:02:30 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/24 11:40:17 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 // int	mini_main(t_main *m_var, t_node **lists)
 // {
 // }
-
+void	free_lists(t_node **lists);
 int	main(int ac, char **av, char **envp)
 {
 	char	*str;
@@ -45,12 +45,29 @@ int	main(int ac, char **av, char **envp)
 			}
 		}
 		else
+		{
+			free_lists(&lists);
+			lists = ft_node(0, NULL, 0, NULL);
 			tokenize(&m_var, str, &lists);
+		}
 		// mini_main(&m_var, &lists);
 	}
 	return (0);
 }
 
+void	free_lists(t_node **lists)
+{
+	t_node	*cur_node;
+	t_node	*temp;
+	cur_node = *lists;
+	while (cur_node != NULL)
+	{
+		temp = cur_node;
+		cur_node = cur_node->next;
+		free(temp->val);
+		free(temp);
+	}
+}
 /*
 Operator -
 Single Quotes   : ' (print string as string)
