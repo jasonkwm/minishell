@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 16:17:56 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/13 07:54:56 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/24 16:17:56 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 // check if both string is similar
 int	ft_strcmp(char *a, char *b)
 {
+	if (ft_strlen(a) != ft_strlen(b))
+		return (1);
 	while (*a || *b)
 		if (*(a++) != *(b++))
 			return (1);
@@ -42,7 +44,7 @@ void	to_lower(char *src, char **dest)
 }
 
 // check wether string is a command or not
-int	is_cmd(char *str)
+int	is_built_in(char *str)
 {
 	char	*lower;
 	int		i;
@@ -52,7 +54,7 @@ int	is_cmd(char *str)
 	if (!ft_strcmp(lower, "echo") || !ft_strcmp(lower, "cd")
 		|| !ft_strcmp(lower, "pwd") || !ft_strcmp(lower, "export")
 		|| !ft_strcmp(lower, "unset") || !ft_strcmp(lower, "env")
-		|| !ft_strcmp(lower, "exit") || !ft_strcmp(lower, "cat"))
+		|| !ft_strcmp(lower, "exit"))
 		i = 1;
 	free(lower);
 	return (i);

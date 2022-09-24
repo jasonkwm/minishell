@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 15:04:33 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/24 11:33:36 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/24 13:53:34 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_node	*assign_node(t_node **cur_node, char *val, int type)
 {
 	t_node	*temp;
 
-	if (is_cmd(val) == 1)
+	if (is_built_in(val) == 1)
 		type = 1;
 	if ((*cur_node)->val == NULL)
 	{

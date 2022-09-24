@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 18:03:29 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/15 16:39:01 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/24 17:24:36 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	expand_env(t_main *m_var, t_node **cur_node)
 	expand_env_ext(m_var, cur_node, &s);
 	free(node->val);
 	node->val = s.str;
-	if (is_cmd(node->val) == 1)
+	if (is_built_in(node->val) == 1)
 		node->type = 1;
 }
 
@@ -79,6 +79,7 @@ void	expand_env_ext_quote(t_main *m_var, t_node **cur_node, t_toke_var *s)
 			if (node->val[s->right] == '$')
 			{
 				found_cash(m_var, cur_node, s);
+				--(s->right);
 				if (node->val[s->right] == '\"')
 					break ;
 			}

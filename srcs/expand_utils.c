@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 15:59:27 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/15 18:08:47 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/24 17:13:32 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,21 @@ char	*dollar_join(t_main *m_var, char *s1, char *s2)
 {
 	char	*str;
 	char	*temp;
-
-	temp = get_ev(m_var, s2);
-	if (temp == NULL)
-		str = ft_strdup("");
+	
+	if (ft_strcmp(s2, "?") == 0)
+		str = ft_itoa(errno);
+	else if (ft_strcmp(s2, "$") == 0)
+		str = ft_strdup("$");
 	else
-		str = ft_strdup(temp + ft_strlen(s2) + 1);
+	{
+		temp = NULL;
+		if (ft_strlen(s2) != 0)
+			temp = get_ev(m_var, s2);
+		if (temp == NULL)
+			str = ft_strdup("");
+		else
+			str = ft_strdup(temp + ft_strlen(s2) + 1);
+	}
 	str = sjoin_ext(s1, str);
 	free(s2);
 	return (str);
@@ -80,16 +89,17 @@ void	found_cash(t_main *m_var, t_node **cur_node, t_toke_var	*s)
 	node = *cur_node;
 	cut_and_paste(s, cur_node, 1);
 	s->left = s->right;
-    if (is_op(node->val[s->right + 1]) == 9
-            || is_op(node->val[s->right + 1]) == 1)
-    {
-        ++(s->right);
+	++(s->right);
+    if (is_op(node->val[s->right]) == 9
+            || is_op(node->val[s->right]) == 1)
         return ;
-    }
-	++(s->left);
-	while (is_op(node->val[s->right]) != 9 && is_op(node->val[s->right]) != 1)
+	while (is_op(node->val[s->right]) != 9 && is_op(node->val[s->right]) != 1
+			&& node->val[s->right - 1] != '?' && node->val[s->right] != '$')
 		++(s->right);
-	temp = ft_substr(node->val, s->left, s->right - s->left);
+	if (node->val[s->right] == '$' && node->val[s->right - 1] == '$')
+		temp = ft_substr(node->val, s->left, s->right - s->left);
+	else
+		temp = ft_substr(node->val, s->left + 1, s->right - s->left - 1);
 	s->str = dollar_join(m_var, s->str, temp);
 	s->left = s->right;
 }

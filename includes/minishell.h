@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:04:18 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/15 16:07:17 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/24 13:53:30 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ typedef struct s_toke_var
 
 // checker.c
 int		ft_strcmp(char *a, char *b);
-int		is_cmd(char *str);
+int		is_built_in(char *str);
 int		is_op(char c);
 
 // tokenize.c

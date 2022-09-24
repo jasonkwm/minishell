@@ -6,16 +6,21 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 10:35:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/24 11:40:17 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/24 17:25:20 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h" 
 
-
-
 // int	mini_main(t_main *m_var, t_node **lists)
 // {
+// 	t_node	*temp;
+
+// 	temp = *lists;
+// 	if (temp->type == 1)
+// 		run_built_in(m_var, &temp);
+// 	else
+// 		run_execve(m_var, &temp);
 // }
 void	free_lists(t_node **lists);
 int	main(int ac, char **av, char **envp)
