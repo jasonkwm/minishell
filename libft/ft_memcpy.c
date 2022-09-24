@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jakoh <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 19:01:37 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/06 08:59:04 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/04/06 19:02:19 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,13 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 
 	dstcpy = (char *)dst;
 	srccpy = (char *)src;
-	i = -1;
-	while (++i < n)
+	i = 0;
+	while (i < n)
 	{
 		if (dstcpy == srccpy)
 			return (0);
 		dstcpy[i] = srccpy[i];
+		i++;
 	}
 	return (dst);
 }

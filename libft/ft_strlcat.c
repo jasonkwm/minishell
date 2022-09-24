@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 16:20:32 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/06 09:04:52 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/06/23 14:41:13 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,11 @@ size_t	ft_strlcat(char *dest, char *src, size_t size)
 		tol += cur_d;
 	cur_s = 0;
 	while (cur_d + 1 < size && src[cur_s] != 0)
-		dest[cur_d++] = src[cur_s++];
+	{
+		dest[cur_d] = src[cur_s];
+		cur_d++;
+		cur_s++;
+	}
 	dest[cur_d] = 0;
 	return (tol);
 }
@@ -42,6 +46,8 @@ size_t	len(char *str)
 
 	count = 0;
 	while (str[count] != 0)
-		++count;
+	{
+		count++;
+	}
 	return (count);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jakoh <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 14:28:45 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/06 09:10:49 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/04/07 14:29:02 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,20 @@ int	get_first(char const *s1, char const *set)
 	int	j;
 	int	have;
 
-	i = -1;
-	while (s1[++i] != 0)
+	i = 0;
+	while (s1[i] != 0)
 	{
-		j = -1;
+		j = 0;
 		have = 0;
-		while (set[++j] != 0)
+		while (set[j] != 0)
+		{
 			if (s1[i] == set[j])
 				have++;
+			j++;
+		}
 		if (have == 0)
 			return (i);
+		i++;
 	}
 	return (i);
 }
@@ -54,16 +58,21 @@ int	get_last(char const *s1, char const *set)
 {
 	int	j;
 	int	len;
+	int	last;
 	int	have;
 
 	len = ft_strlen(s1);
+	last = 0;
 	while (--len != 0)
 	{
-		j = -1;
+		j = 0;
 		have = 0;
-		while (set[++j] != 0)
+		while (set[j] != 0)
+		{
 			if (s1[len] == set[j])
 				have++;
+			j++;
+		}
 		if (have == 0)
 			return (len);
 	}

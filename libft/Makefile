@@ -38,11 +38,9 @@ bonus : ${OBJS_BONUS}
 
 clean :
 		@rm -f ${OBJS} ${OBJS_BONUS}
-		@echo "${YELLOW}Cleaned libft.${NC}"
 
 fclean : clean
 		@rm -f libft.a
-		@echo "${YELLOW}Full Cleaned libft.${NC}"
 
 re : fclean all
 

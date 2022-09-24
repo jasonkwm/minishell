@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 10:05:39 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/06 09:13:40 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/07/09 12:09:18 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*get_next_line(int fd)
 	ft_reader(fd, rd, str, temp);
 	i = 0;
 	while (str[fd][i] != '\n' && str[fd][i] != '\0')
-		++i;
+		i++;
 	free(temp);
 	return (ft_substr(str[fd], 0, i + 1));
 }
@@ -62,10 +62,10 @@ char	*ft_check_str(char *s)
 	if (!s)
 		return (ft_calloc(1, sizeof(char)));
 	while (s[i] != 0 && s[i] != '\n')
-		++i;
+		i++;
 	if (s[i] == '\n')
 	{
-		++i;
+		i++;
 		temp = ft_substr(s, i, ft_strlen(s) - i);
 		free(s);
 		return (temp);

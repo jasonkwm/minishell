@@ -1,5 +1,5 @@
 make --dry-run --always-make --keep-going --print-directory
-make: Entering directory `/Users/jakoh/Desktop/m'
+make: Entering directory `/Users/jakoh/Desktop/ms'
 mkdir -p ./objs
 gcc -Wall -Werror -Wextra -fsanitize=address -g -I includes -I libft -c srcs/main.c -o objs/main.o
 mkdir -p ./objs
@@ -21,5 +21,5 @@ gcc -Wall -Werror -Wextra -fsanitize=address -g -I includes -I libft -c srcs/env
 make -C ./libft
 gcc -Wall -Werror -Wextra -fsanitize=address -g -I includes -I libft -L./libft -lft -lreadline ./objs/main.o ./objs/inits.o ./objs/node_utils.o ./objs/checker.o ./objs/tokenize.o ./objs/expand.o ./objs/expand_utils.o ./objs/here_doc.o ./objs/env.o -o minishell
 echo "\033[0;32mMinishell Compiled Successful.\033[0m"
-make: Leaving directory `/Users/jakoh/Desktop/m'
+make: Leaving directory `/Users/jakoh/Desktop/ms'
  

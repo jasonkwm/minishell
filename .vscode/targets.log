@@ -6,9 +6,8 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
- 
 
-# Make data base, printed on Fri Sep 23 15:55:50 2022
+# Make data base, printed on Sat Sep 24 11:04:31 2022
 
 # Variables
 
@@ -23,7 +22,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # automatic
 @F = $(notdir $@)
 # makefile
-CURDIR := /Users/jakoh/Desktop/m
+CURDIR := /Users/jakoh/Desktop/ms
 # makefile
 SHELL = /bin/sh
 # environment
@@ -43,7 +42,7 @@ PATH = /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Applicatio
 # environment
 LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
-LaunchInstanceID = 243C3636-17FB-44E1-8EFB-CA88794B6C96
+LaunchInstanceID = C20655C1-7FC4-41E9-B280-654FC8A72E93
 # makefile (from `Makefile', line 3)
 SRCS_DIR := ./srcs
 # environment
@@ -55,11 +54,11 @@ LIB := -L./libft -lft -lreadline
 # makefile (from `Makefile', line 20)
 PURPLE := \033[0;35m
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.cMHcNerEqc/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.s3BeCr9FbJ/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
-PWD = /Users/jakoh/Desktop/m
+PWD = /Users/jakoh/Desktop/ms
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = undefined
 # makefile (from `Makefile', line 18)
@@ -129,7 +128,7 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x10000003.Electron
+XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x10000008.Electron
 # makefile (from `Makefile', line 4)
 OBJS_DIR := ./objs
 # automatic
@@ -153,7 +152,7 @@ PAGER = less
 # environment
 LC_ALL = C
 # environment
-SECURITYSESSIONID = 186a6
+SECURITYSESSIONID = 186be
 # automatic
 ^F = $(notdir $^)
 # default
@@ -167,7 +166,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 1868
+VSCODE_PID = 7482
 # variable set hash-table stats:
 # Load=78/1024=8%, Rehash=0, Collisions=4/113=4%
 
@@ -177,9 +176,9 @@ VSCODE_PID = 1868
 
 # Directories
 
-# . (device 16777228, inode 3322750): 11 files, no impossibilities.
-# ./srcs (device 16777228, inode 3322825): 9 files, no impossibilities so far.
-# srcs (device 16777228, inode 3322825): 9 files, no impossibilities so far.
+# . (device 16777228, inode 3326548): 11 files, no impossibilities.
+# ./srcs (device 16777228, inode 3326673): 9 files, no impossibilities so far.
+# srcs (device 16777228, inode 3326673): 9 files, no impossibilities so far.
 
 # 29 files, no impossibilities in 3 directories.
 
@@ -260,7 +259,7 @@ objs/checker.o:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-09-23 15:55:31
+#  Last modified 2022-09-24 11:01:40
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -269,7 +268,7 @@ Makefile:
 # Not a target:
 srcs/main.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-09-23 15:55:31
+#  Last modified 2022-09-24 11:01:41
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -315,6 +314,7 @@ fclean: clean
 objs/tokenize.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
+ 
 #  File has not been updated.
 
 re: fclean all
@@ -326,7 +326,6 @@ re: fclean all
 # Not a target:
 objs/here_doc.o:
 #  Implicit rule search has not been done.
- 
 #  Modification time never checked.
 #  File has not been updated.
 
@@ -372,6 +371,6 @@ objs/node_utils.o:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Fri Sep 23 15:55:50 2022
+# Finished Make data base on Sat Sep 24 11:04:31 2022
 
  
