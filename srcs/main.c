@@ -6,22 +6,194 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 10:35:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/24 17:25:20 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/27 17:58:38 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h" 
 
-// int	mini_main(t_main *m_var, t_node **lists)
-// {
-// 	t_node	*temp;
+void	run_execve(t_main *m_var, char **args);
+void	mini_main(t_main *m_var, t_node **lists)
+{
+	t_node	*temp;
+	t_cmds	**cmd_grps;
+	int		tol_pipes;
+	int		**pipe_fd;
+	temp = *lists;
 
-// 	temp = *lists;
-// 	if (temp->type == 1)
-// 		run_built_in(m_var, &temp);
-// 	else
-// 		run_execve(m_var, &temp);
-// }
+}
+
+t_cmds	**group_cmd(t_node **lists)
+{
+	t_node	*temp;
+	t_cmds	**cmd_grps;
+	int	tol_pipes;
+	int	tol_heredoc;
+	char	**heredoc_delim;
+	int	hd_count;
+	int	i;
+	int	j;
+	int	error;
+
+	error = 0;
+	tol_pipes = 0;
+	tol_heredoc = 0;
+	i = 0;
+	j = -1;
+	temp = *lists;
+	// getting size of command groups
+	// how many groups should there be
+	// groups are seperated by pipes |
+	while (temp != NULL)
+	{
+		if (temp->type == PIPE)
+			tol_pipes++;
+		else if (ft_strcmp(temp->val, "<<") == 0)
+		{
+			if (temp->next == NULL)
+			{
+				ft_putstr_fd("parse error near `\\n'\n", 2);
+				error = 1;
+				break ;
+			}
+			else if (temp->next->type == PIPE || temp->next->type == REDIRECT)
+			{
+				ft_putstr_fd("parse error near `", 2);
+				ft_putstr_fd(temp->next->val, 2);
+				ft_putstr_fd("'\n", 2);
+				error = 1;
+				break ;
+			}
+			++tol_heredoc;
+		}
+		temp = temp->next;
+	}
+	// Runs Heredoc
+	// then check if there was a error before 
+	// if error before 
+	// then stop running program
+
+	// malloc number of groups and stores heredoc delimiter
+	// number of groups = number of pipes + 1 add 1 more to NULL terminate 2D
+	// this is mostly for input and output 
+	error = 0;
+	cmd_grps = ft_calloc(tol_pipes + 1 + 1, sizeof(t_cmds));
+	heredoc_delim = ft_calloc(tol_heredoc + 1, sizeof(char *));
+	temp = *lists;
+	cmd_grps[tol_pipes + 2] = NULL;
+	hd_count = 0;
+	cmd_grps[i]->heredoc_count = 0;
+	while (temp != NULL && i < tol_pipes)
+	{
+		if (temp->type == PIPE)
+		{
+			++i;
+			cmd_grps[i]->heredoc_count = 0;
+			temp = temp->next;
+			if (temp == NULL)
+			{
+				ft_putstr_fd("parse error near `\\n'\n", 2);
+				error = 1;
+				break ;
+			}
+		}
+		else if (temp->type == REDIRECT)
+		{
+			if (temp->next == NULL)
+			{
+				ft_putstr_fd("parse error near `\\n'\n", 2);
+				break ;
+			}
+			else if (temp->next->type == PIPE || temp->next->type == REDIRECT)
+			{
+				ft_putstr_fd("parse error near `", 2);
+				ft_putstr_fd(temp->next->val, 2);
+				ft_putstr_fd("'\n", 2);
+				break ;
+			}
+			if (ft_strcmp(temp->val, "<") == 0)
+			{
+				if (ft_err_handle(temp->next->val, R_OK, 0) == 0)
+					cmd_grps[i]->input_fd = open(temp->next->val, O_RDONLY);
+			}
+			else if (ft_strcmp(temp->val, ">") == 0)
+			{
+				cmd_grps[i]->output_fd = open(temp->next->val, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+				if (cmd_grps[i]->output_fd == -1)
+					ft_err_handle(temp->next->val, W_OK, 0);
+			}
+			else if (ft_strcmp(temp->val, ">>") == 0)
+			{
+				cmd_grps[i]->output_fd = open(temp->next->val, O_CREAT | O_RDWR | O_APPEND, 0644);
+				if (cmd_grps[i]->output_fd == -1)
+					ft_err_handle(temp->next->val, W_OK, 0);
+			}
+			else if (ft_strcmp(temp->val, "<<") == 0)
+			{
+				// fuck this dog shit
+				++(cmd_grps[i]->heredoc_count);
+				heredoc_delim[++j] = ft_strdup(temp->next->val);
+			}
+			temp = temp->next->next;
+		}
+		else
+			temp = temp->next;
+	}
+	heredoc_delim[j] = NULL;
+}
+
+// int id;
+// id = fork();
+// if (id == 0)
+// 	run_execve(m_var, chain);
+// else
+// 	wait(NULL);
+
+void	run_execve(t_main *m_var, char **args)
+{
+	t_envp	*env;
+	char	**split;
+	char	*temp;
+	char	*exec;
+	int		i;
+	env = m_var->envp;
+	while (env != NULL)
+	{
+		if (ft_strnstr(env->val, "PATH", ft_strlen("PATH")) != 0)
+			break ;
+		env = env->next;
+	}
+	if (env == NULL)
+	{
+		printf("PATH NOT FOUND IN ENVIROMENT\n");
+		exit(2);
+	}
+	split = ft_split(env->val + ft_strlen("PATH="), ':');
+	i = -1;
+	while (split[++i] != NULL)
+	{
+		// if (access(args[0], X_OK) == 0)
+		// 	break ;
+		temp = ft_strjoin(split[i], "/");
+		free(split[i]);
+		split[i] = ft_strjoin(temp, args[0]);
+		free(temp);
+		if (access(split[i], X_OK) == 0)
+		{
+			exec = ft_strdup(split[i]);
+			break;
+		}
+	}
+	if (split[i] == NULL)
+		exec = NULL;
+	i = -1;
+	while (split[++i] != NULL)
+		free(split[i]);
+	free(split);
+	execve(exec, args, NULL);
+	ft_err_handle(*args, 0, 1);
+}
+
 void	free_lists(t_node **lists);
 int	main(int ac, char **av, char **envp)
 {
@@ -30,7 +202,6 @@ int	main(int ac, char **av, char **envp)
 	t_node  *temp;
 	t_main  m_var;
 
-	// put ac av envp into a struct for fucks.
 	ft_init_main_var(&m_var, ac, av, envp);
 	lists = ft_node(0, NULL, 0, NULL);
 	while (1)
@@ -40,7 +211,7 @@ int	main(int ac, char **av, char **envp)
 			add_history(str);
 		if (ft_strcmp(str, "exit") == 0)
 			return (0) | printf("%s\n", str);
-		else if (ft_strcmp(str, "show") == 0)
+		if (ft_strcmp(str, "show") == 0)
 		{
 			temp = lists;
 			while (temp != NULL)
@@ -55,7 +226,7 @@ int	main(int ac, char **av, char **envp)
 			lists = ft_node(0, NULL, 0, NULL);
 			tokenize(&m_var, str, &lists);
 		}
-		// mini_main(&m_var, &lists);
+		mini_main(&m_var, &lists);
 	}
 	return (0);
 }
@@ -108,3 +279,52 @@ exit	: no options
 // echo if echo met < or > do as the operator expects. 
 // if echo met quotes ' or " then continue finding that quote until the end of time
 // if cant find quote then read line again and again until quote is found. 
+
+/*
+//convert linked list into array for execve
+	tol_pipes = 0;
+	i = 0;
+	while (temp != NULL)
+	{
+		// if encounter < or > try to change to output or input 
+		if (temp->type == PIPE)
+		{
+			tol_pipes++;
+			break ;
+		}
+		else if (temp->type == REDIRECT)
+		{
+			if (temp->next == NULL)
+			{
+				printf("UNAVAILABLE TO REDIRECT\n");
+				break ;
+			}
+			temp = temp->next->next;
+		}
+		else
+		{
+			++i;
+			temp = temp->next;
+		}
+	}
+	chain = ft_calloc(i + 1, sizeof(char *));
+	int j = -1;
+	temp = *lists;
+	// int	file;
+	while (temp != NULL)
+	{
+		if (temp->type == PIPE)
+			break ;
+		else if (temp->type == REDIRECT)
+		{
+			// redirector()
+			temp = temp->next->next;
+		}
+		if (temp != NULL)
+		{
+			chain[++j] = ft_strdup(temp->val);
+			temp = temp->next;
+		}
+	}
+	chain[j + 1] = NULL;
+*/

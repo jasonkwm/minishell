@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:04:18 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/24 13:53:30 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/27 17:28:50 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,20 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <errno.h>
+# include <string.h>
 # include "libft.h"
-
 # include <readline/readline.h>
 # include <readline/history.h>
+
+enum type
+{
+	NO_TYPE,
+	CMD,
+	ARG,
+	REDIRECT,
+	PIPE,
+	HERE_DOC
+};
 
 typedef struct s_tree
 {
@@ -69,6 +79,16 @@ typedef struct s_toke_var
 	char	*str;
 }	t_toke_var;
 
+typedef struct s_cmds
+{
+	int		input_fd;
+	int		output_fd;
+	int		tol_heredoc;
+	int		heredoc_count;
+	char	**heredoc_delim;
+	char	*args;
+	char	**here_doc;
+}	t_cmds;
 // checker.c
 int		ft_strcmp(char *a, char *b);
 int		is_built_in(char *str);
@@ -105,5 +125,7 @@ void	add_env(t_main *m_var, char *str);
 void	ft_init_main_var(t_main *main, int ac, char **av, char **envp);
 void	init_toke_var(t_toke_var *s, int len, char *temp);
 
+// error.c
+int	ft_err_handle(char *path, int perm, int type);
 
 #endif

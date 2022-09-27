@@ -3,7 +3,7 @@ NAME := minishell
 SRCS_DIR := ./srcs
 OBJS_DIR := ./objs
 
-SRCS := main.c inits.c node_utils.c checker.c tokenize.c expand.c expand_utils.c here_doc.c env.c
+SRCS := main.c inits.c node_utils.c checker.c tokenize.c expand.c expand_utils.c here_doc.c env.c error.c
 OBJS := $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
 CC := gcc -Wall -Werror -Wextra -fsanitize=address -g
