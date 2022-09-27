@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 10:35:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/27 21:03:56 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/27 21:40:36 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@ void	mini_main(t_main *m_var, t_node **lists)
 {
 	t_total	*total;
 
+	(void)m_var;
 	total = ft_calloc(1, sizeof(t_total));
 	total->error = 0;
 	total->tol_heredoc = 0;
 	total->tol_pipes = 0;
 	get_total(lists, &total);
 	get_delim(lists, &total);
+	write_to_heredoc(&total);
 }
 
 /*
@@ -31,130 +33,11 @@ typedef struct s_total
 	int	error;
 	int	tol_heredoc;
 	int	tol_pipes;
-	char	**heredoc_delim;
+	char	**delim;
 	int		*fd_pipes[2];
 	int		*fd_heredoc[2];
 }	t_total;
 */
-
-t_cmds	**group_cmd(t_node **lists)
-{
-	t_node	*temp;
-	t_cmds	**cmd_grps;
-	int	tol_pipes;
-	int	tol_heredoc;
-	char	**heredoc_delim;
-	int	hd_count;
-	int	i;
-	int	j;
-	int	error;
-
-	error = 0;
-	tol_pipes = 0;
-	tol_heredoc = 0;
-	i = 0;
-	j = -1;
-	temp = *lists;
-	// getting size of command groups
-	// how many groups should there be
-	// groups are seperated by pipes |
-	while (temp != NULL)
-	{
-		if (temp->type == PIPE)
-			tol_pipes++;
-		else if (ft_strcmp(temp->val, "<<") == 0)
-		{
-			if (temp->next == NULL)
-			{
-				ft_putstr_fd("parse error near `\\n'\n", 2);
-				error = 1;
-				break ;
-			}
-			else if (temp->next->type == PIPE || temp->next->type == REDIRECT)
-			{
-				ft_putstr_fd("parse error near `", 2);
-				ft_putstr_fd(temp->next->val, 2);
-				ft_putstr_fd("'\n", 2);
-				error = 1;
-				break ;
-			}
-			++tol_heredoc;
-		}
-		temp = temp->next;
-	}
-	// Runs Heredoc
-	// then check if there was a error before 
-	// if error before 
-	// then stop running program
-
-	// malloc number of groups and stores heredoc delimiter
-	// number of groups = number of pipes + 1 add 1 more to NULL terminate 2D
-	// this is mostly for input and output 
-	error = 0;
-	cmd_grps = ft_calloc(tol_pipes + 1 + 1, sizeof(t_cmds));
-	heredoc_delim = ft_calloc(tol_heredoc + 1, sizeof(char *));
-	temp = *lists;
-	cmd_grps[tol_pipes + 2] = NULL;
-	hd_count = 0;
-	cmd_grps[i]->heredoc_count = 0;
-	while (temp != NULL && i < tol_pipes)
-	{
-		if (temp->type == PIPE)
-		{
-			++i;
-			cmd_grps[i]->heredoc_count = 0;
-			temp = temp->next;
-			if (temp == NULL)
-			{
-				ft_putstr_fd("parse error near `\\n'\n", 2);
-				error = 1;
-				break ;
-			}
-		}
-		else if (temp->type == REDIRECT)
-		{
-			if (temp->next == NULL)
-			{
-				ft_putstr_fd("parse error near `\\n'\n", 2);
-				break ;
-			}
-			else if (temp->next->type == PIPE || temp->next->type == REDIRECT)
-			{
-				ft_putstr_fd("parse error near `", 2);
-				ft_putstr_fd(temp->next->val, 2);
-				ft_putstr_fd("'\n", 2);
-				break ;
-			}
-			if (ft_strcmp(temp->val, "<") == 0)
-			{
-				if (ft_err_handle(temp->next->val, R_OK, 0) == 0)
-					cmd_grps[i]->input_fd = open(temp->next->val, O_RDONLY);
-			}
-			else if (ft_strcmp(temp->val, ">") == 0)
-			{
-				cmd_grps[i]->output_fd = open(temp->next->val, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-				if (cmd_grps[i]->output_fd == -1)
-					ft_err_handle(temp->next->val, W_OK, 0);
-			}
-			else if (ft_strcmp(temp->val, ">>") == 0)
-			{
-				cmd_grps[i]->output_fd = open(temp->next->val, O_CREAT | O_RDWR | O_APPEND, 0644);
-				if (cmd_grps[i]->output_fd == -1)
-					ft_err_handle(temp->next->val, W_OK, 0);
-			}
-			else if (ft_strcmp(temp->val, "<<") == 0)
-			{
-				// fuck this dog shit
-				++(cmd_grps[i]->heredoc_count);
-				heredoc_delim[++j] = ft_strdup(temp->next->val);
-			}
-			temp = temp->next->next;
-		}
-		else
-			temp = temp->next;
-	}
-	heredoc_delim[j] = NULL;
-}
 
 // int id;
 // id = fork();

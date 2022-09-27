@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 21:01:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/27 21:04:19 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/27 21:46:08 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ void	get_total(t_node **lists, t_total **total)
 }
 
 // malloc & pipe for pipe fd & here_doc fd
-// also malloc for heredoc_Delim
-void	malloc_size(t_node **lists, t_total **total)
+// also malloc for delim
+void	malloc_size(t_total **total)
 {
 	t_total	*temp;
 	int		i;
 
 	temp = *total;
-	temp->heredoc_delim = ft_calloc(temp->tol_heredoc + 1, sizeof(char *));
+	temp->delim = ft_calloc(temp->tol_heredoc + 1, sizeof(char *));
 	temp->fd_heredoc = ft_calloc(temp->tol_heredoc + 1, sizeof(int *));
 	temp->fd_pipes = ft_calloc(temp->tol_pipes + 1, sizeof(int *));
 	temp->fd_heredoc[temp->tol_heredoc] = NULL;
@@ -68,22 +68,22 @@ void	malloc_size(t_node **lists, t_total **total)
 		temp->fd_pipes[i] = ft_calloc(2, sizeof(int));
 		pipe(temp->fd_pipes[i]);
 	}
-	temp->heredoc_delim = ft_calloc(temp->tol_heredoc + 1, sizeof(char *));
-	temp->heredoc_delim[temp->tol_heredoc] == NULL;
+	temp->delim = ft_calloc(temp->tol_heredoc + 1, sizeof(char *));
+	temp->delim[temp->tol_heredoc] = NULL;
 }
 
-// string dup here_doc delimiter to total->heredoc_delim
+// string dup here_doc delimiter to total->delim
 void	get_delim(t_node **lists, t_total **total)
 {
 	t_node	*cur_node;
 	t_total	*cur_tol;
 	int		i;
 
-	i = -1;
+	i = 0;
 	cur_node = *lists;
 	cur_tol = *total;
-	malloc_size(lists, total);
-	while (cur_node != NULL)
+	malloc_size(total);
+	while (cur_node != NULL && i < cur_tol->tol_heredoc)
 	{
 		if (ft_strcmp(cur_node->val, "<<") == 0)
 		{
@@ -92,10 +92,36 @@ void	get_delim(t_node **lists, t_total **total)
 			else if (cur_node->next->type == PIPE || cur_node->next->type == REDIRECT)
 				break ;
 			cur_node = cur_node->next;
-			cur_tol->heredoc_delim[++i] = ft_strdup(cur_node->val);
+			cur_tol->delim[i] = ft_strdup(cur_node->val);
+			i++;
 		}
 		cur_node = cur_node->next;
 	}
 }
 
-void    
+// write to all the heredoc pipe
+void    write_to_heredoc(t_total **total)
+{
+	t_total	*temp;
+	char	*gnl;
+	int		i;
+
+	i = -1;
+	temp = *total;
+	gnl = NULL;
+	while (++i < temp->tol_heredoc)
+	{
+		while (1)
+		{
+			gnl = readline("heredoc> ");
+			if (ft_strlen(temp->delim[i]) == (ft_strlen(gnl))
+				&& ft_strncmp(temp->delim[i], gnl, ft_strlen(temp->delim[i])) == 0)
+				break;
+			write(temp->fd_heredoc[i][1], gnl, ft_strlen(gnl));
+			free(gnl);
+		}
+		close(temp->fd_heredoc[i][1]);
+	}
+	if (gnl)
+		free(gnl);
+}

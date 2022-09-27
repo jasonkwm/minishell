@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:04:18 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/27 21:03:42 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/27 21:31:16 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ typedef struct s_total
 	int	error;
 	int	tol_heredoc;
 	int	tol_pipes;
-	char	**heredoc_delim;
+	char	**delim;
 	int		**fd_pipes;
 	int		**fd_heredoc;
 }	t_total;
@@ -135,9 +135,12 @@ void	init_toke_var(t_toke_var *s, int len, char *temp);
 
 // error.c
 int	ft_err_handle(char *path, int perm, int type);
+int	parse_error(char *msg);
 
 //parse.c
+void	malloc_size(t_total **total);
+void    write_to_heredoc(t_total **total);
 void	get_total(t_node **lists, t_total **total);
-void	malloc_size(t_node **lists, t_total **total);
 void	get_delim(t_node **lists, t_total **total);
+
 #endif
