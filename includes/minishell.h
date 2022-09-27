@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:04:18 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/27 17:28:50 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/27 21:03:42 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,20 @@ typedef struct s_cmds
 {
 	int		input_fd;
 	int		output_fd;
-	int		tol_heredoc;
 	int		heredoc_count;
-	char	**heredoc_delim;
 	char	*args;
-	char	**here_doc;
 }	t_cmds;
+
+typedef struct s_total
+{
+	int	error;
+	int	tol_heredoc;
+	int	tol_pipes;
+	char	**heredoc_delim;
+	int		**fd_pipes;
+	int		**fd_heredoc;
+}	t_total;
+
 // checker.c
 int		ft_strcmp(char *a, char *b);
 int		is_built_in(char *str);
@@ -128,4 +136,8 @@ void	init_toke_var(t_toke_var *s, int len, char *temp);
 // error.c
 int	ft_err_handle(char *path, int perm, int type);
 
+//parse.c
+void	get_total(t_node **lists, t_total **total);
+void	malloc_size(t_node **lists, t_total **total);
+void	get_delim(t_node **lists, t_total **total);
 #endif

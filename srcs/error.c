@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 11:02:23 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/27 14:01:02 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/27 21:03:04 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,13 @@ int	ft_err_handle(char *path, int perm, int type)
 		exit(1);
 	}
 	return (0);
+}
+
+// returns 1 to shorten code
+int	parse_error(char *msg)
+{
+	ft_putstr_fd("parse error near `", 2);
+	ft_putstr_fd(msg, 2);
+	ft_putstr_fd("'\n", 2);
+	return (1);
 }

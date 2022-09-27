@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 10:35:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/27 17:58:38 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/27 21:03:56 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,27 @@
 void	run_execve(t_main *m_var, char **args);
 void	mini_main(t_main *m_var, t_node **lists)
 {
-	t_node	*temp;
-	t_cmds	**cmd_grps;
-	int		tol_pipes;
-	int		**pipe_fd;
-	temp = *lists;
+	t_total	*total;
 
+	total = ft_calloc(1, sizeof(t_total));
+	total->error = 0;
+	total->tol_heredoc = 0;
+	total->tol_pipes = 0;
+	get_total(lists, &total);
+	get_delim(lists, &total);
 }
+
+/*
+typedef struct s_total
+{
+	int	error;
+	int	tol_heredoc;
+	int	tol_pipes;
+	char	**heredoc_delim;
+	int		*fd_pipes[2];
+	int		*fd_heredoc[2];
+}	t_total;
+*/
 
 t_cmds	**group_cmd(t_node **lists)
 {
