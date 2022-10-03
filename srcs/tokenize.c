@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 16:42:02 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/24 17:03:42 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/28 14:34:25 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ void	tokenize(t_main *m_var, char *str, t_node **list)
 				++(s.right);
 		else if (is_op(str[s.right]) == 1)
 			parse_quote(m_var, str, &s, &cur_node);
-		else if (is_op(str[s.right]) == 9 && s.left != s.right)
+		else if (s.left != s.right && (is_op(str[s.right]) == 9
+				|| is_op(str[s.right]) == 2 || is_op(str[s.right]) == 3))
 			parse_arg(m_var, str, &s, &cur_node);
 		else if (is_op(str[s.right]) == 2 || is_op(str[s.right]) == 3)
 			parse_symbol(str, &s, &cur_node);
@@ -76,10 +77,19 @@ void	parse_arg(t_main *m_var, char *str, t_toke_var *s, t_node **cur_node)
 {
 	char	*temp;
 
+	if (is_op(str[s->left]) == 9)
+		s->left++;
+	if (s->left == s->right && is_op(str[s->left]) == 9)
+		return ;
 	temp = ft_substr(str, s->left, (s->right - s->left));
 	*cur_node = assign_node(cur_node, temp, 2);
 	expand_env(m_var, cur_node);
-	s->left = ++(s->right);
+	if (is_op(str[s->right]) != 2 && is_op(str[s->right]) != 3)
+	{
+		s->left = ++(s->right);
+	}
+	else
+		s->left = s->right;
 }
 
 // parse redirection and pipe "<" "<<" ">" ">>" "|"
@@ -91,9 +101,12 @@ void	parse_symbol(char *str, t_toke_var *s, t_node **cur_node)
 {
 	char	*temp;
 
-	temp = ft_substr(str, s->left, (s->right - s->left));
-	if (s->left != s->right)
+	
+	if (s->left != s->right && !(s->right - s->left == 1 && is_op(str[s->left]) == 9))
+	{
+		temp = ft_substr(str, s->left, (s->right - s->left));
 		*cur_node = assign_node(cur_node, temp, 2);
+	}
 	s->left = s->right;
 	if (is_op(str[s->right]) == 2)
 	{

@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 10:35:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/27 21:40:36 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/03 13:35:15 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,28 +23,13 @@ void	mini_main(t_main *m_var, t_node **lists)
 	total->tol_heredoc = 0;
 	total->tol_pipes = 0;
 	get_total(lists, &total);
-	get_delim(lists, &total);
-	write_to_heredoc(&total);
+	if (total->tol_heredoc != 0)
+	{
+		malloc_heredoc(&total);
+		get_delim(lists, &total);
+		write_to_heredoc(&total);
+	}
 }
-
-/*
-typedef struct s_total
-{
-	int	error;
-	int	tol_heredoc;
-	int	tol_pipes;
-	char	**delim;
-	int		*fd_pipes[2];
-	int		*fd_heredoc[2];
-}	t_total;
-*/
-
-// int id;
-// id = fork();
-// if (id == 0)
-// 	run_execve(m_var, chain);
-// else
-// 	wait(NULL);
 
 void	run_execve(t_main *m_var, char **args)
 {
@@ -63,6 +48,7 @@ void	run_execve(t_main *m_var, char **args)
 	if (env == NULL)
 	{
 		printf("PATH NOT FOUND IN ENVIROMENT\n");
+		system("leaks minishell");
 		exit(2);
 	}
 	split = ft_split(env->val + ft_strlen("PATH="), ':');
@@ -107,7 +93,10 @@ int	main(int ac, char **av, char **envp)
 		if (str && *str)
 			add_history(str);
 		if (ft_strcmp(str, "exit") == 0)
+		{
+			system("leaks minishell");
 			return (0) | printf("%s\n", str);
+		}
 		if (ft_strcmp(str, "show") == 0)
 		{
 			temp = lists;

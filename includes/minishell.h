@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:04:18 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/27 21:31:16 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/03 13:19:40 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,6 @@ enum type
 	PIPE,
 	HERE_DOC
 };
-
-typedef struct s_tree
-{
-	int				id;
-	char			*val;
-	int				type;;
-	struct s_tree	*left;
-	struct s_tree	*right;
-	struct s_tree	*prev;
-}   t_tree;
 
 // type 0 = no type, 1 = command, 2 = arguments, 3 = redirections,
 // 4 = pipe, 5 = here_doc file
@@ -94,7 +84,7 @@ typedef struct s_total
 	int	tol_pipes;
 	char	**delim;
 	int		**fd_pipes;
-	int		**fd_heredoc;
+	char	**heredoc;
 }	t_total;
 
 // checker.c
@@ -107,13 +97,12 @@ void	tokenize(t_main *m_var, char *str, t_node	**tree);
 void	to_lower(char *src, char **dest);
 
 // node_utils.c
-t_tree	*ft_treenode(int  id, char *val, int type, t_tree **prev);
 t_node	*ft_node(int  id, char *val, int type,  t_node **prev);
 t_node	*assign_node(t_node **cur_node, char *val, int type);
 
 // here_doc.c
 t_node	*here_quote(char *str, char quote, t_node **list);
-
+char	*here_doc(char *delim);
 // expand.c
 void	expand_env(t_main *m_var, t_node **cur_node);
 void	expand_env_ext(t_main *m_var, t_node **cur_node, t_toke_var *s);
@@ -143,4 +132,7 @@ void    write_to_heredoc(t_total **total);
 void	get_total(t_node **lists, t_total **total);
 void	get_delim(t_node **lists, t_total **total);
 
+// parse_utils.c
+void	malloc_pipes(t_total **total);
+void	malloc_heredoc(t_total **total);
 #endif

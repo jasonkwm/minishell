@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 15:04:33 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/24 13:53:34 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/09/29 13:10:41 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,22 +52,4 @@ t_node	*assign_node(t_node **cur_node, char *val, int type)
 		(*cur_node)->next = temp;
 	}
 	return (temp);
-}
-
-// tot of using binary tree but life happens.
-t_tree	*ft_treenode(int id, char *val, int type, t_tree **prev)
-{
-	t_tree	*node;
-
-	node = ft_calloc(1, sizeof(t_tree));
-	node->id = id;
-	node->val = val;
-	node->type = type;
-	if (prev == NULL)
-		node->prev = NULL;
-	else
-		node->prev = *prev;
-	node->left = NULL;
-	node->right = NULL;
-	return (node);
 }

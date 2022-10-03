@@ -1,6 +1,0 @@
-echo bananapotato $USER"ASdf$USER"sdf'$USERASDfasdf'asdf"asdfasdf"
-echo "banana potato $USER $USER' $USERa $USER1 $USER; "$USER DOG
-echo asdfasdfasdf$USER $USER $USER'$USER'"$USER""$USER ""a$USER;"asdfasdfasdfgh asdfasdf
-echo hi < Makefile cat banana potato
-echo hi | < Makefile cat cases.txt 
-cat cases.txt > b << banana | cat > c
