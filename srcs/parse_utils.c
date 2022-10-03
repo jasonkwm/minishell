@@ -6,14 +6,19 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 13:18:39 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/03 13:31:28 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/03 13:40:03 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// malloc & pipe for pipe fd & here_doc fd
-// also malloc for delim
+/**
+ * @brief malloc space for heredoc delimiter & heredoc,
+ * heredoc is stored in string format.
+ * 
+ * @param total 
+ * total is struct to store pipes & heredoc stuff
+ */
 void	malloc_heredoc(t_total **total)
 {
 	t_total	*temp;

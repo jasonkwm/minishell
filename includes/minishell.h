@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:04:18 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/03 13:19:40 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/03 17:47:36 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,15 @@ typedef struct s_cmds
 	char	*args;
 }	t_cmds;
 
+/**
+ * @brief stores
+ * parsing error,
+ * total heredoc,
+ * total pipes,
+ * delimiter in 2d char *,
+ * fd for pipes in 2d int array,
+ * heredocs as string in 2d  char *
+ */
 typedef struct s_total
 {
 	int	error;
@@ -91,6 +100,7 @@ typedef struct s_total
 int		ft_strcmp(char *a, char *b);
 int		is_built_in(char *str);
 int		is_op(char c);
+int		is_token(char	*str);
 
 // tokenize.c
 void	tokenize(t_main *m_var, char *str, t_node	**tree);
@@ -124,7 +134,7 @@ void	init_toke_var(t_toke_var *s, int len, char *temp);
 
 // error.c
 int	ft_err_handle(char *path, int perm, int type);
-int	parse_error(char *msg);
+int	syntax_error(char *msg);
 
 //parse.c
 void	malloc_size(t_total **total);

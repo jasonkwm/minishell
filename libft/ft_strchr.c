@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 16:39:47 by jakoh             #+#    #+#             */
-/*   Updated: 2022/04/05 18:06:42 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/03 18:19:07 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@
 char	*ft_strchr(const char *s, int c)
 {
 	while (*s != (char)c && *s != 0)
-	{
-		s++;
-	}
+		++s;
 	if (*s == (char)c)
 		return ((char *)s);
 	return (0);

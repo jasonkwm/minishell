@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 15:28:26 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/30 12:25:05 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/03 18:46:45 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_node	*here_quote(char *str, char quote, t_node **cur_node)
 	char	*schr;
 
 	temp = ft_strjoin(str, "\n");
+	free(str);
 	while (1)
 	{
 		rl = readline("> ");
@@ -38,7 +39,49 @@ t_node	*here_quote(char *str, char quote, t_node **cur_node)
 	return (assign_node(cur_node, store, 2));
 }
 
-// write to all the heredoc pipe
+
+/**
+ * @brief 
+ * get delimiter for each heredoc 
+ * and store in malloc (*total)->delim 2d array
+ * 
+ * @param lists 
+ * link list of tokenized input string.
+ * @param total 
+ * total contains info for pipes and here_doc
+ */
+void	get_delim(t_node **lists, t_total **total)
+{
+	t_node	*cur_node;
+	t_total	*cur_tol;
+	int		i;
+
+	i = 0;
+	cur_node = *lists;
+	cur_tol = *total;
+	
+	while (cur_node != NULL && i < cur_tol->tol_heredoc)
+	{
+		if (ft_strcmp(cur_node->val, "<<") == 0)
+		{
+			if (cur_node->next == NULL)
+				break ;
+			else if (cur_node->next->type == PIPE || cur_node->next->type == REDIRECT)
+				break ;
+			cur_node = cur_node->next;
+			cur_tol->delim[i] = ft_strdup(cur_node->val);
+			i++;
+		}
+		cur_node = cur_node->next;
+	}
+}
+
+/**
+ * @brief write/store heredoc 2d array in total
+ * 
+ * @param total 
+ * contains info for pipes and here_doc
+ */
 void    write_to_heredoc(t_total **total)
 {
 	t_total	*temp;
@@ -47,31 +90,35 @@ void    write_to_heredoc(t_total **total)
 	i = -1;
 	temp = *total;
 	while (++i < temp->tol_heredoc)
-	{
-		printf("temp->delim[i]: %s\n", temp->delim[i]);
 		temp->heredoc[i] = here_doc(temp->delim[i]);
-	}
-	printf("heredoc: %s\n", temp->heredoc[i - 1]);
 }
 
-
+/**
+ * @brief keeps reading input, if input == delimiter then loop ends
+ * 
+ * @param delim
+ * delimiter to stop readling line
+ * @return char*
+ * heredoc stored as string format.
+ */
 char	*here_doc(char *delim)
 {
 	char	*rl;
 	char	*store;
 
 	store = NULL;
+	// printf("delim: %s\n", delim);
 	while (1)
 	{
 		rl = readline("heredoc> ");
-		if (ft_strlen(delim) == (ft_strlen(rl))
-				&& ft_strncmp(delim, rl, ft_strlen(delim) - 1) == 0)
-				break;
+		if (ft_strcmp(rl, delim) == 0)
+		{
+			free(rl);
+			break ;
+		}
 		if (store != NULL)
 			store = sjoin_ext(store, ft_strdup("\n"));
 		store = sjoin_ext(store, rl);
 	}
-	if (rl)
-		free(rl);
 	return (store);
 }
