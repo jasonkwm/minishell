@@ -6,11 +6,28 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 13:18:39 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/03 13:40:03 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/04 18:25:43 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/**
+ * @brief check if input str is a token,
+ * like redirection, heredoc or pipe
+ * 
+ * @param str normal string
+ * @return int 
+ * 0 if string is token
+ * 1 if string is not token
+ */
+int	is_token(char	*str)
+{
+	if (!ft_strcmp(str, "<<") || !ft_strcmp(str, ">>") || !ft_strcmp(str, "<")
+		|| !ft_strcmp(str, ">") || !ft_strcmp(str, "|"))
+		return (0);
+	return (1);
+}
 
 /**
  * @brief malloc space for heredoc delimiter & heredoc,
@@ -33,6 +50,13 @@ void	malloc_heredoc(t_total **total)
 	}
 }
 
+/**
+ * @brief 
+ * malloc and init fd for pipes
+ * 
+ * @param total 
+ * total struct that contains info on pipes and heredoc
+ */
 void	malloc_pipes(t_total **total)
 {
 	t_total	*temp;

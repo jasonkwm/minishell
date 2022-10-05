@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 16:17:56 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/03 17:28:58 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/04 18:22:35 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,21 +113,4 @@ int	is_op(char c)
 	if ((c >= '\t' && c <= '\r') || c == ' ' || c == ';' || c == '\0')
 		return (9);
 	return (0);
-}
-
-/**
- * @brief check if input str is a token,
- * like redirection, heredoc or pipe
- * 
- * @param str normal string
- * @return int 
- * 0 if string is token
- * 1 if string is not token
- */
-int	is_token(char	*str)
-{
-	if (!ft_strcmp(str, "<<") || !ft_strcmp(str, ">>") || !ft_strcmp(str, "<")
-		|| !ft_strcmp(str, ">") || !ft_strcmp(str, "|"))
-		return (0);
-	return (1);
 }

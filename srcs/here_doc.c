@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 15:28:26 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/03 18:46:45 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/04 11:54:15 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,34 @@ t_node	*here_quote(char *str, char quote, t_node **cur_node)
 	return (assign_node(cur_node, store, 2));
 }
 
+/**
+ * @brief keeps reading input, if input == delimiter then loop ends
+ * 
+ * @param delim
+ * delimiter to stop readling line
+ * @return char*
+ * heredoc stored as string format.
+ */
+char	*here_doc(char *delim)
+{
+	char	*rl;
+	char	*store;
+
+	store = NULL;
+	// printf("delim: %s\n", delim);
+	while (1)
+	{
+		rl = readline("heredoc> ");
+		if (ft_strcmp(rl, delim) == 0)
+			break ;
+		if (store != NULL)
+			store = sjoin_ext(store, ft_strdup("\n"));
+		store = sjoin_ext(store, rl);
+	}
+	if (rl)
+		free(rl);
+	return (store);
+}
 
 /**
  * @brief 
@@ -91,34 +119,4 @@ void    write_to_heredoc(t_total **total)
 	temp = *total;
 	while (++i < temp->tol_heredoc)
 		temp->heredoc[i] = here_doc(temp->delim[i]);
-}
-
-/**
- * @brief keeps reading input, if input == delimiter then loop ends
- * 
- * @param delim
- * delimiter to stop readling line
- * @return char*
- * heredoc stored as string format.
- */
-char	*here_doc(char *delim)
-{
-	char	*rl;
-	char	*store;
-
-	store = NULL;
-	// printf("delim: %s\n", delim);
-	while (1)
-	{
-		rl = readline("heredoc> ");
-		if (ft_strcmp(rl, delim) == 0)
-		{
-			free(rl);
-			break ;
-		}
-		if (store != NULL)
-			store = sjoin_ext(store, ft_strdup("\n"));
-		store = sjoin_ext(store, rl);
-	}
-	return (store);
 }

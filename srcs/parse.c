@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 21:01:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/03 17:36:36 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/04 18:39:48 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,40 @@ void	get_total(t_node **lists, t_total **total)
 	temp = *lists;
 	while (temp != NULL && temp->val != NULL)
 	{
-		if (is_token(temp->val) == 0)
-		{
-			if (temp->next == NULL)
-				(*total)->error = syntax_error("newline");
-			else if (is_token(temp->next->val) == 0)
-				(*total)->error = syntax_error(temp->next->val);
-			if ((*total)->error == 1)
-				break ;
-			if (ft_strcmp(temp->val, "<<") == 0)
-				++((*total)->tol_heredoc);
-			else if (temp->type == PIPE)
-				++((*total)->tol_pipes);
-		}
+		get_tol_condition(total, temp);
+		if ((*total)->error == 1)
+			return ;
 		temp = temp->next;
 	}
 }
 
+/**
+ * @brief extention of get_total function,
+ * checks and print token error. And count number of 
+ * pipes '|' , redirection '< > >>' and here_doc '<<'
+ * @param total 
+ * total contains info for pipes and here_doc
+ * @param cur_node 
+ * current node in loop
+ */
+void	get_tol_condition(t_total **total, t_node *cur_node)
+{
+	if (cur_node->type == PIPE)
+	{
+		if (cur_node->next == NULL || cur_node->next->type == PIPE)
+			(*total)->error = syntax_error(cur_node->val);
+	}
+	else if (cur_node->type == REDIRECT)
+	{
+		if (cur_node->next == NULL)
+			(*total)->error = syntax_error("newline");
+		else if (is_token(cur_node->next->val) == 0)
+			(*total)->error = syntax_error(cur_node->next->val);
+	}
+	if ((*total)->error == 1)
+		return ;
+	if (ft_strcmp(cur_node->val, "<<") == 0)
+		++((*total)->tol_heredoc);
+	else if (cur_node->type == PIPE)
+		++((*total)->tol_pipes);
+}

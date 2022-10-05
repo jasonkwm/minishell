@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:04:18 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/03 17:47:36 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/04 18:39:26 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ enum type
 	ARG,
 	REDIRECT,
 	PIPE,
-	HERE_DOC
 };
 
-// type 0 = no type, 1 = command, 2 = arguments, 3 = redirections,
+// type 0 = no type, 1 = command,
+// 2 = arguments, 3 = redirections,
 // 4 = pipe, 5 = here_doc file
 typedef struct s_node
 {
@@ -69,22 +69,12 @@ typedef struct s_toke_var
 	char	*str;
 }	t_toke_var;
 
-typedef struct s_cmds
-{
-	int		input_fd;
-	int		output_fd;
-	int		heredoc_count;
-	char	*args;
-}	t_cmds;
-
 /**
  * @brief stores
- * parsing error,
- * total heredoc,
- * total pipes,
+ * parsing error, total heredoc, total pipes,
  * delimiter in 2d char *,
- * fd for pipes in 2d int array,
  * heredocs as string in 2d  char *
+ * fd for pipes in 2d int array,
  */
 typedef struct s_total
 {
@@ -96,23 +86,38 @@ typedef struct s_total
 	char	**heredoc;
 }	t_total;
 
+typedef struct s_cmds
+{
+	int		input_fd;
+	int		output_fd;
+	int		heredoc_no;
+	char	*args;
+	struct s_cmds	*next;
+}	t_cmds;
+
 // checker.c
 int		ft_strcmp(char *a, char *b);
 int		is_built_in(char *str);
 int		is_op(char c);
 int		is_token(char	*str);
 
-// tokenize.c
-void	tokenize(t_main *m_var, char *str, t_node	**tree);
-void	to_lower(char *src, char **dest);
+// inits.c
+void	ft_init_main_var(t_main *main, int ac, char **av, char **envp);
+void	init_toke_var(t_toke_var *s, int len, char *temp);
+void	init_total(t_total **total);
+
+// env.c
+char	*get_ev(t_main *m_var, char *var);
+void	add_env(t_main *m_var, char *str);
 
 // node_utils.c
 t_node	*ft_node(int  id, char *val, int type,  t_node **prev);
 t_node	*assign_node(t_node **cur_node, char *val, int type);
 
-// here_doc.c
-t_node	*here_quote(char *str, char quote, t_node **list);
-char	*here_doc(char *delim);
+// tokenize.c
+void	tokenize(t_main *m_var, char *str, t_node	**tree);
+void	to_lower(char *src, char **dest);
+
 // expand.c
 void	expand_env(t_main *m_var, t_node **cur_node);
 void	expand_env_ext(t_main *m_var, t_node **cur_node, t_toke_var *s);
@@ -124,14 +129,6 @@ char	*dollar_join(t_main *m_var, char *s1, char *s2);
 void	cut_and_paste(t_toke_var *s, t_node **cur_node, int i);
 void	found_cash(t_main *m_var, t_node **cur_node, t_toke_var	*s);
 
-// env.c
-char	*get_ev(t_main *m_var, char *var);
-void	add_env(t_main *m_var, char *str);
-
-// inits.c
-void	ft_init_main_var(t_main *main, int ac, char **av, char **envp);
-void	init_toke_var(t_toke_var *s, int len, char *temp);
-
 // error.c
 int	ft_err_handle(char *path, int perm, int type);
 int	syntax_error(char *msg);
@@ -141,8 +138,17 @@ void	malloc_size(t_total **total);
 void    write_to_heredoc(t_total **total);
 void	get_total(t_node **lists, t_total **total);
 void	get_delim(t_node **lists, t_total **total);
-
+void	get_tol_condition(t_total **total, t_node *cur_node);
 // parse_utils.c
 void	malloc_pipes(t_total **total);
 void	malloc_heredoc(t_total **total);
+
+// here_doc.c
+t_node	*here_quote(char *str, char quote, t_node **list);
+char	*here_doc(char *delim);
+
+// free.c
+void	free_lists(t_node **lists);
+void	free_total(t_total **total);
+void	free_envp(t_envp **envp);
 #endif

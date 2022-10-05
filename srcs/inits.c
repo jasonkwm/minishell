@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 15:37:16 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/15 15:54:23 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/04 13:07:10 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,25 @@ void	init_toke_var(t_toke_var *s, int len, char *temp)
 	s->right = 0;
 	s->len = len;
 	s->str = temp;
+}
+
+void	init_total(t_total **total)
+{
+	(*total) = ft_calloc(1, sizeof(t_total));
+	(*total)->error = 0;
+	(*total)->tol_heredoc = 0;
+	(*total)->tol_pipes = 0;
+	(*total)->delim = NULL;
+	(*total)->heredoc = NULL;
+	(*total)->fd_pipes = NULL;
+}
+
+void	init_groups(t_cmds **groups)
+{
+	(*groups) = ft_calloc(1, sizeof(t_cmds));
+	(*groups)->args = NULL;
+	(*groups)->heredoc_no = 0;
+	(*groups)->input_fd = 0;
+	(*groups)->output_fd = 1;
+	(*groups)->next = NULL;
 }

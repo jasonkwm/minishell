@@ -6,15 +6,15 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 16:42:02 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/28 14:34:25 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/04 18:39:56 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	parse_quote(t_main *m_var, char *str, t_toke_var *s, t_node **cur_node);
-void	parse_arg(t_main *m_var, char *str, t_toke_var *s, t_node **cur_node);
-void	parse_symbol(char *str, t_toke_var *s, t_node **cur_node);
+void	token_quote(t_main *m_var, char *str, t_toke_var *s, t_node **cur_node);
+void	token_arg(t_main *m_var, char *str, t_toke_var *s, t_node **cur_node);
+void	token_symbol(char *str, t_toke_var *s, t_node **cur_node);
 
 // store and parse readline string into link list
 // 1st if statement checks if quote ' or " is accompanied by '\'
@@ -39,12 +39,12 @@ void	tokenize(t_main *m_var, char *str, t_node **list)
 			&& is_op(str[s.right]) == 1)
 				++(s.right);
 		else if (is_op(str[s.right]) == 1)
-			parse_quote(m_var, str, &s, &cur_node);
+			token_quote(m_var, str, &s, &cur_node);
 		else if (s.left != s.right && (is_op(str[s.right]) == 9
 				|| is_op(str[s.right]) == 2 || is_op(str[s.right]) == 3))
-			parse_arg(m_var, str, &s, &cur_node);
+			token_arg(m_var, str, &s, &cur_node);
 		else if (is_op(str[s.right]) == 2 || is_op(str[s.right]) == 3)
-			parse_symbol(str, &s, &cur_node);
+			token_symbol(str, &s, &cur_node);
 		else
 			++(s.right);
 	}
@@ -54,7 +54,7 @@ void	tokenize(t_main *m_var, char *str, t_node **list)
 // if closing quote not found 
 // then call here_quote which will call readline
 // until quote is found 
-void	parse_quote(t_main *m_var, char *str, t_toke_var *s, t_node **cur_node)
+void	token_quote(t_main *m_var, char *str, t_toke_var *s, t_node **cur_node)
 {
 	int		prev;
 	char	*temp;
@@ -73,13 +73,13 @@ void	parse_quote(t_main *m_var, char *str, t_toke_var *s, t_node **cur_node)
 
 // parse arguments and check if its a command or not
 // function will only be called if hits a space, end of string or ';'
-void	parse_arg(t_main *m_var, char *str, t_toke_var *s, t_node **cur_node)
+void	token_arg(t_main *m_var, char *str, t_toke_var *s, t_node **cur_node)
 {
 	char	*temp;
 
 	if (is_op(str[s->left]) == 9)
 		s->left++;
-	if (s->left == s->right && is_op(str[s->left]) == 9)
+	if ((s->left == s->right || is_op(str[s->left]) == 9))
 		return ;
 	temp = ft_substr(str, s->left, (s->right - s->left));
 	*cur_node = assign_node(cur_node, temp, 2);
@@ -97,11 +97,10 @@ void	parse_arg(t_main *m_var, char *str, t_toke_var *s, t_node **cur_node)
 // store it in linked list before storing symbol
 // example : asd<
 // stores "asd" in link list before storing "<"
-void	parse_symbol(char *str, t_toke_var *s, t_node **cur_node)
+void	token_symbol(char *str, t_toke_var *s, t_node **cur_node)
 {
 	char	*temp;
 
-	
 	if (s->left != s->right && !(s->right - s->left == 1 && is_op(str[s->left]) == 9))
 	{
 		temp = ft_substr(str, s->left, (s->right - s->left));

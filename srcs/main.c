@@ -6,89 +6,65 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 10:35:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/03 18:47:27 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/05 11:46:59 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h" 
 
 void	run_execve(t_main *m_var, char **args);
-void	free_total(t_total **total);
+void	grouping(t_main *m_var, t_node **lists, t_total **total);
 
-void	init_total(t_total **total)
+void	mini_main(t_main *m_var, t_node **lists, t_total **total)
 {
-	(*total) = ft_calloc(1, sizeof(t_total));
-	(*total)->error = 0;
-	(*total)->tol_heredoc = 0;
-	(*total)->tol_pipes = 0;
-	(*total)->delim = NULL;
-	(*total)->heredoc = NULL;
-	(*total)->fd_pipes = NULL;
-}
-void	mini_main(t_main *m_var, t_node **lists)
-{
-	t_total	*total;
+	t_total	*tol;
 
-	(void)m_var;
-	init_total(&total);
-	get_total(lists, &total);
-	if (total->tol_heredoc != 0)
+	tol = *total;
+	if ((*lists)->type == PIPE)
 	{
-		malloc_heredoc(&total);
-		get_delim(lists, &total);
-		write_to_heredoc(&total);
-	}
-	if (total->error == 1)
-	{
-		free_total(&total);
+		syntax_error((*lists)->val);
 		return ;
 	}
-	if (total->tol_pipes != 0)
-		malloc_pipes(&total);
-}
-
-void	free_total(t_total **total)
-{
-	t_total	*temp;
-	int		i;
-
-	i = -1;
-	temp = *total;
-	if (temp->tol_heredoc != 0)
+	get_total(lists, total);
+	if (tol->tol_heredoc != 0)
 	{
-		while (++i < temp->tol_heredoc)
-		{
-			free(temp->delim[i]);
-			free(temp->heredoc[i]);
-		}
-		free(temp->delim);
-		free(temp->heredoc);
+		malloc_heredoc(total);
+		get_delim(lists, total);
+		write_to_heredoc(total);
 	}
-
+	if (tol->error == 1)
+		return ;
+	if (tol->tol_pipes != 0)
+		malloc_pipes(total);
+	grouping(m_var, lists, total);
+	(void)m_var;
 }
 
-void	free_envp(t_envp **envp)
+void	grouping(t_main *m_var, t_node **lists, t_total **total)
 {
-	t_envp *temp;
-	t_envp *temp2;
-	temp = *envp;
-	temp2 = temp->next;
+	// t_cmds	*groups;
+	// int		i;
+	// init_groups(&groups);
+	t_node	*temp;
+
+	temp = *lists;
+	(void)m_var;
+	(void)total;
 	while (temp != NULL)
 	{
-		free(temp->val);
-		free(temp);
-		temp = temp2;
-		if (temp != NULL)
-			temp2 = temp2->next;
+		printf("lists id: %i, val: %s, type: %i\n", temp->id, temp->val, temp->type);
+		temp = temp->next;
+		// if 
 	}
 }
-void	free_lists(t_node **lists);
+
 int	main(int ac, char **av, char **envp)
 {
 	char	*str;
 	t_node  *lists;
 	t_node  *temp;
 	t_main  m_var;
+	t_total	*total;
 
 	ft_init_main_var(&m_var, ac, av, envp);
 	lists = ft_node(0, NULL, 0, NULL);
@@ -100,6 +76,7 @@ int	main(int ac, char **av, char **envp)
 		if (ft_strcmp(str, "exit") == 0)
 		{
 			free(str);
+			free_lists(&lists);
 			system("leaks minishell");
 			printf("Exit\n");
 			return (0);
@@ -120,27 +97,13 @@ int	main(int ac, char **av, char **envp)
 			tokenize(&m_var, str, &lists);
 			free(str);
 		}
-		mini_main(&m_var, &lists);
-	}
+		init_total(&total);
+		mini_main(&m_var, &lists, &total);
+		free_total(&total);
+	}	
 	return (0);
 }
 
-void	free_lists(t_node **lists)
-{
-	t_node	*temp;
-	t_node	*temp2;
-	
-	temp = *lists;
-	temp2 = temp->next;
-	while (temp != NULL)
-	{
-		free(temp->val);
-		free(temp);
-		temp = temp2;
-		if (temp != NULL)
-			temp2 = temp2->next;
-	}
-}
 /*
 Operator -
 Single Quotes   : ' (print string as string)
@@ -176,56 +139,6 @@ exit	: no options
 // echo if echo met < or > do as the operator expects. 
 // if echo met quotes ' or " then continue finding that quote until the end of time
 // if cant find quote then read line again and again until quote is found. 
-
-/*
-//convert linked list into array for execve
-	tol_pipes = 0;
-	i = 0;
-	while (temp != NULL)
-	{
-		// if encounter < or > try to change to output or input 
-		if (temp->type == PIPE)
-		{
-			tol_pipes++;
-			break ;
-		}
-		else if (temp->type == REDIRECT)
-		{
-			if (temp->next == NULL)
-			{
-				printf("UNAVAILABLE TO REDIRECT\n");
-				break ;
-			}
-			temp = temp->next->next;
-		}
-		else
-		{
-			++i;
-			temp = temp->next;
-		}
-	}
-	chain = ft_calloc(i + 1, sizeof(char *));
-	int j = -1;
-	temp = *lists;
-	// int	file;
-	while (temp != NULL)
-	{
-		if (temp->type == PIPE)
-			break ;
-		else if (temp->type == REDIRECT)
-		{
-			// redirector()
-			temp = temp->next->next;
-		}
-		if (temp != NULL)
-		{
-			chain[++j] = ft_strdup(temp->val);
-			temp = temp->next;
-		}
-	}
-	chain[j + 1] = NULL;
-*/
-
 
 void	run_execve(t_main *m_var, char **args)
 {
