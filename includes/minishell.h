@@ -31,9 +31,9 @@ enum type
 	PIPE,
 };
 
-// type 0 = no type, 1 = command,
+// type 0 = no type, 1 = built in command,
 // 2 = arguments, 3 = redirections,
-// 4 = pipe, 5 = here_doc file
+// 4 = pipe
 typedef struct s_node
 {
 	int				id;
