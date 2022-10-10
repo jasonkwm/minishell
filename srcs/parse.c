@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 21:01:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/04 18:39:48 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/06 13:36:50 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	get_total(t_node **lists, t_total **total)
 /**
  * @brief extention of get_total function,
  * checks and print token error. And count number of 
- * pipes '|' , redirection '< > >>' and here_doc '<<'
+ * pipes '|' and redirection '< > >> <<'
  * @param total 
  * total contains info for pipes and here_doc
  * @param cur_node 

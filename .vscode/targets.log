@@ -6,9 +6,8 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
- 
 
-# Make data base, printed on Wed Oct  5 11:08:22 2022
+# Make data base, printed on Mon Oct 10 14:34:38 2022
 
 # Variables
 
@@ -43,7 +42,7 @@ PATH = /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Applicatio
 # environment
 LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
-LaunchInstanceID = A3B30347-92E9-4023-A226-031C1D56E64B
+LaunchInstanceID = CC877FFA-BA5F-468E-B54D-A51AC9AFA6C9
 # makefile (from `Makefile', line 3)
 SRCS_DIR := ./srcs
 # environment
@@ -55,7 +54,7 @@ LIB := -L./libft -lft -lreadline
 # makefile (from `Makefile', line 25)
 PURPLE := \033[0;35m
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.cF0x2VeADd/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.Toca7F5tDu/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -76,7 +75,6 @@ VSCODE_CODE_CACHE_PATH = /Users/jakoh/Library/Application Support/Code/CachedDat
 LOGNAME = jakoh
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
- 
 # environment
 ZSH = /Users/jakoh/.oh-my-zsh
 # environment
@@ -130,7 +128,7 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x10000012.Electron
+XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x10000046.Electron
 # makefile (from `Makefile', line 4)
 OBJS_DIR := ./objs
 # automatic
@@ -154,13 +152,13 @@ PAGER = less
 # environment
 LC_ALL = C
 # environment
-SECURITYSESSIONID = 186ce
+SECURITYSESSIONID = 18752
 # automatic
 ^F = $(notdir $^)
 # default
 SUFFIXES := 
 # makefile (from `Makefile', line 16)
-FLAGS := -g 
+FLAGS := -g -fsanitize=address 
 # default
 .INCLUDE_DIRS = /usr/local/include
 # environment
@@ -168,7 +166,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 66686
+VSCODE_PID = 30980
 # variable set hash-table stats:
 # Load=78/1024=8%, Rehash=0, Collisions=4/113=4%
 
@@ -178,11 +176,11 @@ VSCODE_PID = 66686
 
 # Directories
 
-# . (device 16777228, inode 3330042): 14 files, no impossibilities.
+# . (device 16777228, inode 3330042): 15 files, no impossibilities.
 # ./srcs (device 16777228, inode 3330177): 11 files, no impossibilities so far.
 # srcs (device 16777228, inode 3330177): 11 files, no impossibilities so far.
 
-# 36 files, no impossibilities in 3 directories.
+# 37 files, no impossibilities in 3 directories.
 
 # Implicit Rules
 
@@ -199,7 +197,7 @@ objs/%.o: ./srcs/%.c
 objs/main.o: srcs/main.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `main'
-#  Last modified 2022-10-04 18:38:27
+#  Last modified 2022-10-07 15:40:59
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # automatic
@@ -273,7 +271,7 @@ objs/checker.o:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-10-04 13:42:41
+#  Last modified 2022-10-07 14:29:21
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -282,7 +280,7 @@ Makefile:
 # Not a target:
 srcs/main.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-10-04 18:40:00
+#  Last modified 2022-10-07 15:41:23
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -302,13 +300,14 @@ objs/free.o:
 
 minishell: objs/main.o objs/inits.o objs/node_utils.o objs/checker.o objs/tokenize.o objs/expand.o objs/expand_utils.o objs/here_doc.o objs/env.o objs/error.o objs/parse.o objs/parse_utils.o objs/free.o
 #  Implicit rule search has not been done.
-#  Last modified 2022-10-04 18:38:40
+#  Last modified 2022-10-07 15:41:00
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/4=0%
 #  commands to execute (from `Makefile', line 39):
 	make -C ./libft
+ 
 	$(CC) -I includes -I libft $(LIB) $(OBJS) -o $@
 	@echo "$(GREEN)Minishell Compiled Successful.$(NC)"
 	
@@ -396,6 +395,6 @@ objs/node_utils.o:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Wed Oct  5 11:08:22 2022
+# Finished Make data base on Mon Oct 10 14:34:38 2022
 
  

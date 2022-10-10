@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 10:35:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/05 11:46:59 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/10 17:22:21 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	mini_main(t_main *m_var, t_node **lists, t_total **total)
 	tol = *total;
 	if ((*lists)->type == PIPE)
 	{
-		syntax_error((*lists)->val);
+		(*total)->error = syntax_error((*lists)->val);
 		return ;
 	}
 	get_total(lists, total);
@@ -36,26 +36,134 @@ void	mini_main(t_main *m_var, t_node **lists, t_total **total)
 		return ;
 	if (tol->tol_pipes != 0)
 		malloc_pipes(total);
-	grouping(m_var, lists, total);
+	// grouping(m_var, lists, total);
+
 	(void)m_var;
 }
 
+t_node	*get_num_args(t_node **lists, int *num_args, int *hd)
+{
+	t_node	*temp;
+
+	temp = *lists;
+	while (temp != NULL)
+	{
+		if (temp->type == PIPE)
+			break ;
+		else if (temp->type == REDIRECT)
+		{
+			if (ft_strcmp(temp->val, "<<") == 0)
+				++(*hd);
+			temp = temp->next;
+		}
+		else
+			++(*num_args);
+		temp = temp->next;
+	}
+	return (temp);
+}
+
+t_cmds	*cmd_groups_init(int ipt, int opt, char	**args, int hd)
+{
+	t_cmds	*temp;
+
+	temp = ft_calloc(1, sizeof(t_cmds));
+	temp->input = ipt;
+	temp->output = opt;
+	temp->envp = NULL;
+	temp->args = args;
+	temp->heredoc_no = hd;
+	temp->next = NULL;
+	return (temp);
+}
+
+/**
+ * @brief 
+ * create command group link list
+ * set each groups input, output and arguments
+ * 
+ * @param m_var 
+ * @param lists 
+ * @param total 
+ */
 void	grouping(t_main *m_var, t_node **lists, t_total **total)
 {
 	// t_cmds	*groups;
 	// int		i;
 	// init_groups(&groups);
 	t_node	*temp;
-
+	t_node	*temp2;
+	t_cmds	*cmd_groups;
+	t_cmds	*cur_group;
 	temp = *lists;
-	(void)m_var;
-	(void)total;
+	
+	int	num_args;
+	int	hd;
+	int i = -1;
+	hd = 0;
+	num_args = 0;
+	temp2 = get_num_args(&temp, &num_args, &hd);
+	cmd_groups = cmd_groups_init(0, 1, ft_calloc(num_args + 1, sizeof(char *)), hd);
+	cur_group = cmd_groups;
+	cur_group->args[num_args] = NULL;
 	while (temp != NULL)
 	{
-		printf("lists id: %i, val: %s, type: %i\n", temp->id, temp->val, temp->type);
+		if (temp->type == PIPE)
+		{
+			num_args = 0;
+			i = -1;
+			temp2 = get_num_args(&(temp->next), &num_args, &hd);
+			cur_group->next = cmd_groups_init(0, 1, ft_calloc(num_args + 1, sizeof(char *)), hd);
+			cur_group = cur_group->next;
+			cur_group->args[num_args] = NULL;
+			printf("args: %d, hd: %d\n", num_args, hd);
+		}
+		else if (temp->type == REDIRECT)
+		{
+			if (ft_strcmp(temp->val, "<") == 0)
+			{
+				if (access(temp->next->val, R_OK) == -1)
+				{
+					printf("errno: %d, str: %s\n", errno, strerror(errno));
+					break ;
+				}
+				cur_group->input = open(temp->next->val, O_RDONLY);
+			}
+			else if (ft_strcmp(temp->val, "<<") == 0)
+				cur_group->input = -2;
+			else if (ft_strcmp(temp->val, ">") == 0)
+			{
+				cur_group->output = open(temp->next->val, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+				if (cur_group->output == -1)
+				{
+					if (access(temp->next->val, W_OK) == -1)
+					{
+						printf("errno: %d, str: %s\n", errno, strerror(errno));
+						break ;
+					}
+				}
+			}
+			else if (ft_strcmp(temp->val, ">>") == 0)
+			{
+				cur_group->output = open(temp->next->val, O_CREAT | O_RDWR | O_APPEND, 0644);
+				if (cur_group->output == -1)
+				{
+					if (access(temp->next->val, W_OK) == -1)
+					{
+						printf("errno: %d, str: %s\n", errno, strerror(errno));
+						break ;
+					}
+				}
+			}
+			temp = temp->next;
+		}
+		else
+			cur_group->args[++i] = ft_strdup(temp->val);
 		temp = temp->next;
-		// if 
 	}
+	ft_see_group(&cmd_groups);
+	(void)m_var;
+	(void)total;
 }
 
 int	main(int ac, char **av, char **envp)
@@ -77,7 +185,7 @@ int	main(int ac, char **av, char **envp)
 		{
 			free(str);
 			free_lists(&lists);
-			system("leaks minishell");
+			// system("leaks minishell");
 			printf("Exit\n");
 			return (0);
 		}
@@ -99,8 +207,11 @@ int	main(int ac, char **av, char **envp)
 		}
 		init_total(&total);
 		mini_main(&m_var, &lists, &total);
+		if (total->error != 1)
+			grouping(&m_var, &lists, &total);
+		ft_see(&lists);
 		free_total(&total);
-	}	
+	}
 	return (0);
 }
 

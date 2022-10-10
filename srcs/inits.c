@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 15:37:16 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/04 13:07:10 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/07 13:27:39 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	init_groups(t_cmds **groups)
 	(*groups) = ft_calloc(1, sizeof(t_cmds));
 	(*groups)->args = NULL;
 	(*groups)->heredoc_no = 0;
-	(*groups)->input_fd = 0;
-	(*groups)->output_fd = 1;
+	(*groups)->input = 0;
+	(*groups)->output = 1;
 	(*groups)->next = NULL;
 }

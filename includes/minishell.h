@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:04:18 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/04 18:39:26 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/10 17:23:20 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,14 @@ typedef struct s_toke_var
 
 /**
  * @brief stores
- * parsing error, total heredoc, total pipes,
+ * @param error
+ * error = 1 if error encountered during parsing
+ * else error = 0;
+ * @param tol_hereodc
+ * total number of heredoc 
+ * @param tol_pipes
+ * total number of pipes
+ * @param delim
  * delimiter in 2d char *,
  * heredocs as string in 2d  char *
  * fd for pipes in 2d int array,
@@ -86,12 +93,35 @@ typedef struct s_total
 	char	**heredoc;
 }	t_total;
 
+/**
+ * @brief this is execution group
+ * determines input and output fd
+ * @param input
+ * 0 is default else will be read end of pipe or heredoc fd
+ * @param output_fd
+ * 1 is default else will be write end of pipe or fd of output file
+ * @param heredoc_no
+ * all heredoc is called before any execution, 
+ * this determines which heredoc to use 
+ * if there "<<a <<b | <<c" 3 heredoc but for first command group,
+ * we use heredoc number 2 "<<b" and second command group we use,
+ * heredoc 3 "<<c". This will store the number of heredoc we need
+ * to put into a heredoc file and set input to fd of that heredoc file.
+ * if theres heredoc changes input to heredoc file
+ * @param args
+ * arguments to be run in execve, args[0] will be command
+ * @param envp
+ * enviroment variable in array format
+ * @param next
+ * next command group, for piping
+ */
 typedef struct s_cmds
 {
-	int		input_fd;
-	int		output_fd;
+	int		input;
+	int		output;
 	int		heredoc_no;
-	char	*args;
+	char	**args;
+	char	**envp;
 	struct s_cmds	*next;
 }	t_cmds;
 
@@ -105,6 +135,7 @@ int		is_token(char	*str);
 void	ft_init_main_var(t_main *main, int ac, char **av, char **envp);
 void	init_toke_var(t_toke_var *s, int len, char *temp);
 void	init_total(t_total **total);
+// void	init_groups(t_cmds **groups);
 
 // env.c
 char	*get_ev(t_main *m_var, char *var);
@@ -139,6 +170,7 @@ void    write_to_heredoc(t_total **total);
 void	get_total(t_node **lists, t_total **total);
 void	get_delim(t_node **lists, t_total **total);
 void	get_tol_condition(t_total **total, t_node *cur_node);
+
 // parse_utils.c
 void	malloc_pipes(t_total **total);
 void	malloc_heredoc(t_total **total);
@@ -151,4 +183,8 @@ char	*here_doc(char *delim);
 void	free_lists(t_node **lists);
 void	free_total(t_total **total);
 void	free_envp(t_envp **envp);
+
+// see.c
+void	ft_see_group(t_cmds **groups);
+void	ft_see(t_node **lists);
 #endif

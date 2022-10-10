@@ -8,12 +8,12 @@ SRCS := main.c inits.c node_utils.c \
 		expand.c expand_utils.c \
 		here_doc.c env.c error.c \
 		parse.c parse_utils.c \
-		free.c
+		free.c see.c
 OBJS := $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
 CC := gcc -Wall -Werror -Wextra 
 
-FLAGS := -g #-fsanitize=address 
+FLAGS := -g -fsanitize=address 
 
 # -L "folder" to looks for library in the folder
 # -l(ft) to link library file. l replaces lib
