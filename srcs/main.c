@@ -157,6 +157,22 @@ void	grouping(t_main *m_var, t_node **lists, t_total **total)
 			}
 			temp = temp->next;
 		}
+		else if (temp->type == CMD)
+		{
+			if (ft_strcmp(temp->val, "cd") == 0)
+			{
+				if (temp->next != NULL)
+				{
+					if (chdir(temp->next->val) == -1)
+						printf("cd: no such file or directory: %s\n", temp->next->val);
+				}
+			}
+			if (ft_strcmp(temp->val, "pwd") == 0)
+			{
+				char cwd[PATH_MAX];
+				printf("%s", getcwd(cwd, sizeof(cwd)));
+			}
+		}
 		else
 			cur_group->args[++i] = ft_strdup(temp->val);
 		temp = temp->next;
@@ -209,7 +225,7 @@ int	main(int ac, char **av, char **envp)
 		mini_main(&m_var, &lists, &total);
 		if (total->error != 1)
 			grouping(&m_var, &lists, &total);
-		ft_see(&lists);
+		// ft_see(&lists);
 		free_total(&total);
 	}
 	return (0);

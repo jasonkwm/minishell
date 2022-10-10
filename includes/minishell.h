@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <errno.h>
 # include <string.h>
+# include <limits.h>
 # include "libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
