@@ -163,6 +163,7 @@ void	grouping(t_main *m_var, t_node **lists, t_total **total)
 			{
 				if (temp->next != NULL)
 				{
+					// If pipe should do nothing
 					if (chdir(temp->next->val) == -1)
 						printf("cd: no such file or directory: %s\n", temp->next->val);
 				}
@@ -170,14 +171,14 @@ void	grouping(t_main *m_var, t_node **lists, t_total **total)
 			if (ft_strcmp(temp->val, "pwd") == 0)
 			{
 				char cwd[PATH_MAX];
-				printf("%s", getcwd(cwd, sizeof(cwd)));
+				printf("%s\n", getcwd(cwd, sizeof(cwd)));
 			}
 		}
 		else
 			cur_group->args[++i] = ft_strdup(temp->val);
 		temp = temp->next;
 	}
-	ft_see_group(&cmd_groups);
+	// ft_see_group(&cmd_groups);
 	(void)m_var;
 	(void)total;
 }
