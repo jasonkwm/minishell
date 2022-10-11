@@ -106,7 +106,7 @@ void	grouping(t_main *m_var, t_node **lists, t_total **total)
 	cmd_groups = cmd_groups_init(0, 1, ft_calloc(num_args + 1, sizeof(char *)), hd);
 	cur_group = cmd_groups;
 	cur_group->args[num_args] = NULL;
-	while (temp != NULL)
+	while (temp != NULL && temp->val != NULL)
 	{
 		if (temp->type == PIPE)
 		{
@@ -157,29 +157,12 @@ void	grouping(t_main *m_var, t_node **lists, t_total **total)
 			}
 			temp = temp->next;
 		}
-		else if (temp->type == CMD)
-		{
-			if (ft_strcmp(temp->val, "cd") == 0)
-			{
-				if (temp->next != NULL)
-				{
-					// If pipe should do nothing
-					if (chdir(temp->next->val) == -1)
-						printf("cd: no such file or directory: %s\n", temp->next->val);
-				}
-			}
-			if (ft_strcmp(temp->val, "pwd") == 0)
-			{
-				char cwd[PATH_MAX];
-				printf("%s\n", getcwd(cwd, sizeof(cwd)));
-			}
-		}
 		else
 			cur_group->args[++i] = ft_strdup(temp->val);
 		temp = temp->next;
 	}
-	// ft_see_group(&cmd_groups);
-	(void)m_var;
+	ft_see_group(&cmd_groups);
+	cdpwd(m_var, &cmd_groups);
 	(void)total;
 }
 

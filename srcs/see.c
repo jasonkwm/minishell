@@ -26,8 +26,8 @@ void	ft_see_group(t_cmds **groups)
 		i = -1;
 		printf("args : [ ");
 		while (temp->args[++i] != NULL)
-			printf("%s", temp->args[i]);
-		printf(" ]\n");
+			printf("%s, ", temp->args[i]);
+		printf("]\n");
 		printf("\n====END %d===\n\n", j);
 		temp = temp->next;
 	}

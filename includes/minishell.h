@@ -188,4 +188,7 @@ void	free_envp(t_envp **envp);
 // see.c
 void	ft_see_group(t_cmds **groups);
 void	ft_see(t_node **lists);
+
+void	cdpwd(t_main *m_var, t_cmds **cmd_groups);
+
 #endif
