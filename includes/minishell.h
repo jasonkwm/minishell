@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:04:18 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/10 17:23:20 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/11 11:32:10 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,10 +132,10 @@ int		is_op(char c);
 int		is_token(char	*str);
 
 // inits.c
+t_cmds	*cmd_groups_init(int ipt, int opt, char	**args, int hd);
 void	ft_init_main_var(t_main *main, int ac, char **av, char **envp);
 void	init_toke_var(t_toke_var *s, int len, char *temp);
 void	init_total(t_total **total);
-// void	init_groups(t_cmds **groups);
 
 // env.c
 char	*get_ev(t_main *m_var, char *var);

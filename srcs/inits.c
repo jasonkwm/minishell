@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 15:37:16 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/07 13:27:39 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/11 11:31:29 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,16 @@ void	init_total(t_total **total)
 	(*total)->fd_pipes = NULL;
 }
 
-void	init_groups(t_cmds **groups)
+t_cmds	*cmd_groups_init(int ipt, int opt, char	**args, int hd)
 {
-	(*groups) = ft_calloc(1, sizeof(t_cmds));
-	(*groups)->args = NULL;
-	(*groups)->heredoc_no = 0;
-	(*groups)->input = 0;
-	(*groups)->output = 1;
-	(*groups)->next = NULL;
+	t_cmds	*temp;
+
+	temp = ft_calloc(1, sizeof(t_cmds));
+	temp->input = ipt;
+	temp->output = opt;
+	temp->envp = NULL;
+	temp->args = args;
+	temp->heredoc_no = hd;
+	temp->next = NULL;
+	return (temp);
 }

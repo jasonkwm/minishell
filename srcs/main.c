@@ -6,14 +6,13 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 10:35:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/10 17:24:33 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/11 14:29:19 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h" 
 
-void	run_execve(t_main *m_var, char **args);
-void	grouping(t_main *m_var, t_node **lists, t_total **total);
+t_cmds	*grouping(t_main *m_var, t_node **lists, t_total **total);
 
 void	mini_main(t_main *m_var, t_node **lists, t_total **total)
 {
@@ -36,7 +35,6 @@ void	mini_main(t_main *m_var, t_node **lists, t_total **total)
 		return ;
 	if (tol->tol_pipes != 0)
 		malloc_pipes(total);
-	// grouping(m_var, lists, total);
 
 	(void)m_var;
 }
@@ -63,50 +61,34 @@ t_node	*get_num_args(t_node **lists, int *num_args, int *hd)
 	return (temp);
 }
 
-t_cmds	*cmd_groups_init(int ipt, int opt, char	**args, int hd)
-{
-	t_cmds	*temp;
-
-	temp = ft_calloc(1, sizeof(t_cmds));
-	temp->input = ipt;
-	temp->output = opt;
-	temp->envp = NULL;
-	temp->args = args;
-	temp->heredoc_no = hd;
-	temp->next = NULL;
-	return (temp);
-}
 
 /**
- * @brief 
- * create command group link list
- * set each groups input, output and arguments
+ * @brief Create command group link list \
+ * @brief set each groups input, output and arguments
  * 
  * @param m_var 
  * @param lists 
  * @param total 
+ * 
  */
-void	grouping(t_main *m_var, t_node **lists, t_total **total)
+t_cmds	*grouping(t_main *m_var, t_node **lists, t_total **total)
 {
-	// t_cmds	*groups;
-	// int		i;
-	// init_groups(&groups);
 	t_node	*temp;
 	t_node	*temp2;
 	t_cmds	*cmd_groups;
 	t_cmds	*cur_group;
-	temp = *lists;
-	
 	int	num_args;
 	int	hd;
 	int i = -1;
+	
+	temp = *lists;
 	hd = 0;
 	num_args = 0;
 	temp2 = get_num_args(&temp, &num_args, &hd);
 	cmd_groups = cmd_groups_init(0, 1, ft_calloc(num_args + 1, sizeof(char *)), hd);
 	cur_group = cmd_groups;
 	cur_group->args[num_args] = NULL;
-	while (temp != NULL)
+	while (temp != NULL && temp->val != NULL)
 	{
 		if (temp->type == PIPE)
 		{
@@ -116,7 +98,6 @@ void	grouping(t_main *m_var, t_node **lists, t_total **total)
 			cur_group->next = cmd_groups_init(0, 1, ft_calloc(num_args + 1, sizeof(char *)), hd);
 			cur_group = cur_group->next;
 			cur_group->args[num_args] = NULL;
-			printf("args: %d, hd: %d\n", num_args, hd);
 		}
 		else if (temp->type == REDIRECT)
 		{
@@ -161,7 +142,7 @@ void	grouping(t_main *m_var, t_node **lists, t_total **total)
 			cur_group->args[++i] = ft_strdup(temp->val);
 		temp = temp->next;
 	}
-	ft_see_group(&cmd_groups);
+	return (cmd_groups);
 	(void)m_var;
 	(void)total;
 }
@@ -173,6 +154,7 @@ int	main(int ac, char **av, char **envp)
 	t_node  *temp;
 	t_main  m_var;
 	t_total	*total;
+	t_cmds	*groups;
 
 	ft_init_main_var(&m_var, ac, av, envp);
 	lists = ft_node(0, NULL, 0, NULL);
@@ -208,8 +190,9 @@ int	main(int ac, char **av, char **envp)
 		init_total(&total);
 		mini_main(&m_var, &lists, &total);
 		if (total->error != 1)
-			grouping(&m_var, &lists, &total);
-		ft_see(&lists);
+			groups = grouping(&m_var, &lists, &total);
+		ft_see_group(&groups);
+		// ft_see(&lists);
 		free_total(&total);
 	}
 	return (0);
@@ -246,53 +229,3 @@ unset	: no options
 env		: no options or args
 exit	: no options
 */
-
-// echo if echo met < or > do as the operator expects. 
-// if echo met quotes ' or " then continue finding that quote until the end of time
-// if cant find quote then read line again and again until quote is found. 
-
-void	run_execve(t_main *m_var, char **args)
-{
-	t_envp	*env;
-	char	**split;
-	char	*temp;
-	char	*exec;
-	int		i;
-	env = m_var->envp;
-	while (env != NULL)
-	{
-		if (ft_strnstr(env->val, "PATH", ft_strlen("PATH")) != 0)
-			break ;
-		env = env->next;
-	}
-	if (env == NULL)
-	{
-		printf("PATH NOT FOUND IN ENVIROMENT\n");
-		system("leaks minishell");
-		exit(2);
-	}
-	split = ft_split(env->val + ft_strlen("PATH="), ':');
-	i = -1;
-	while (split[++i] != NULL)
-	{
-		// if (access(args[0], X_OK) == 0)
-		// 	break ;
-		temp = ft_strjoin(split[i], "/");
-		free(split[i]);
-		split[i] = ft_strjoin(temp, args[0]);
-		free(temp);
-		if (access(split[i], X_OK) == 0)
-		{
-			exec = ft_strdup(split[i]);
-			break;
-		}
-	}
-	if (split[i] == NULL)
-		exec = NULL;
-	i = -1;
-	while (split[++i] != NULL)
-		free(split[i]);
-	free(split);
-	execve(exec, args, NULL);
-	ft_err_handle(*args, 0, 1);
-}
