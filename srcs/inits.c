@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 15:37:16 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/11 11:31:29 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/17 14:21:23 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,18 +53,21 @@ void	init_toke_var(t_toke_var *s, int len, char *temp)
 	s->str = temp;
 }
 
-void	init_total(t_total **total)
+t_direct	 *init_direct(void)
 {
-	(*total) = ft_calloc(1, sizeof(t_total));
-	(*total)->error = 0;
-	(*total)->tol_heredoc = 0;
-	(*total)->tol_pipes = 0;
-	(*total)->delim = NULL;
-	(*total)->heredoc = NULL;
-	(*total)->fd_pipes = NULL;
+	t_direct	*tol;
+
+	tol = ft_calloc(1, sizeof(t_direct));
+	tol->error = 0;
+	tol->tol_heredoc = 0;
+	tol->tol_pipes = 0;
+	tol->delim = NULL;
+	tol->heredoc = NULL;
+	tol->fd_pipes = NULL;
+	return (tol);
 }
 
-t_cmds	*cmd_groups_init(int ipt, int opt, char	**args, int hd)
+t_cmds	*cmd_groups_init(int ipt, int opt, int num_args, int hd)
 {
 	t_cmds	*temp;
 
@@ -72,7 +75,8 @@ t_cmds	*cmd_groups_init(int ipt, int opt, char	**args, int hd)
 	temp->input = ipt;
 	temp->output = opt;
 	temp->envp = NULL;
-	temp->args = args;
+	temp->args = ft_calloc(num_args + 1, sizeof(char *));
+	temp->args[num_args] = NULL;
 	temp->heredoc_no = hd;
 	temp->next = NULL;
 	return (temp);

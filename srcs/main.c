@@ -6,52 +6,34 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 10:35:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/12 15:44:09 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/17 14:37:02 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h" 
 
-t_cmds	*grouping(t_main *m_var, t_node **lists, t_total **total);
-
-void	mini_main(t_main *m_var, t_node **lists, t_total **total)
+void	mini_main(t_main *m_var, t_node **lists)
 {
-	t_total	*tol;
+	t_direct	*direct;
+	t_cmds		*cmds;
 
-	tol = *total;
-	if ((*lists)->type == PIPE)
-	{
-		(*total)->error = syntax_error((*lists)->val);
-		return ;
-	}
-	get_total(lists, total);
-	if (tol->tol_heredoc != 0)
-	{
-		malloc_heredoc(total);
-		get_delim(lists, total);
-		write_to_heredoc(total);
-	}
-	if (tol->error == 1)
-		return ;
-	if (tol->tol_pipes != 0)
-		malloc_pipes(total);
-
+	direct = director(lists);
+	if (direct->error != 1)
+		cmds = grouping(lists);
+	free_direct(&direct);
 	(void)m_var;
 }
 
 // THING TO DO :
 // SIMPLIFIED GROUPING IN parse.c
 // STORES EVERYTHING CORRECTLY
-// COMBINE functions that does t_total & t_cmds together
+// COMBINE functions that does t_direct & t_cmds together
 // returns t_cmds groups for execution
 int	main(int ac, char **av, char **envp)
 {
 	char	*str;
 	t_node  *lists;
-	t_node  *temp;
 	t_main  m_var;
-	t_total	*total;
-	t_cmds	*groups;
 
 	ft_init_main_var(&m_var, ac, av, envp);
 	lists = ft_node(0, NULL, 0, NULL);
@@ -68,15 +50,6 @@ int	main(int ac, char **av, char **envp)
 			printf("Exit\n");
 			return (0);
 		}
-		if (ft_strcmp(str, "show") == 0)
-		{
-			temp = lists;
-			while (temp != NULL)
-			{
-				printf("content: %s, type: %i\n", temp->val, temp->type);
-				temp = temp->next;
-			}
-		}
 		else
 		{
 			free_lists(&lists);
@@ -84,13 +57,8 @@ int	main(int ac, char **av, char **envp)
 			tokenize(&m_var, str, &lists);
 			free(str);
 		}
-		init_total(&total);
-		mini_main(&m_var, &lists, &total);
-		if (total->error != 1)
-			groups = grouping(&m_var, &lists, &total);
-		ft_see_group(&groups);
+		mini_main(&m_var, &lists);
 		// ft_see(&lists);
-		free_total(&total);
 	}
 	return (0);
 }

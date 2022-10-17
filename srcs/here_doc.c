@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 15:28:26 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/04 11:54:15 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/17 12:58:24 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,22 +71,22 @@ char	*here_doc(char *delim)
 /**
  * @brief 
  * get delimiter for each heredoc 
- * and store in malloc (*total)->delim 2d array
+ * and store in malloc (*direct)->delim 2d array
  * 
  * @param lists 
  * link list of tokenized input string.
- * @param total 
- * total contains info for pipes and here_doc
+ * @param direct 
+ * direct contains info for pipes and here_doc
  */
-void	get_delim(t_node **lists, t_total **total)
+void	get_delim(t_node **lists, t_direct **direct)
 {
 	t_node	*cur_node;
-	t_total	*cur_tol;
+	t_direct	*cur_tol;
 	int		i;
 
 	i = 0;
 	cur_node = *lists;
-	cur_tol = *total;
+	cur_tol = *direct;
 	
 	while (cur_node != NULL && i < cur_tol->tol_heredoc)
 	{
@@ -105,18 +105,18 @@ void	get_delim(t_node **lists, t_total **total)
 }
 
 /**
- * @brief write/store heredoc 2d array in total
+ * @brief write/store heredoc 2d array in direct
  * 
- * @param total 
+ * @param direct 
  * contains info for pipes and here_doc
  */
-void    write_to_heredoc(t_total **total)
+void    write_to_heredoc(t_direct **direct)
 {
-	t_total	*temp;
+	t_direct	*temp;
 	int		i;
 
 	i = -1;
-	temp = *total;
+	temp = *direct;
 	while (++i < temp->tol_heredoc)
 		temp->heredoc[i] = here_doc(temp->delim[i]);
 }

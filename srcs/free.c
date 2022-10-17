@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 12:00:13 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/04 12:49:00 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/17 12:58:04 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ void	free_envp(t_envp **envp)
 	}
 }
 
-void	free_total(t_total **total)
+void	free_direct(t_direct **direct)
 {
-	t_total	*temp;
+	t_direct	*temp;
 	int		i;
 
 	i = -1;
-	temp = *total;
+	temp = *direct;
 	if (temp->delim != NULL)
 	{
 		while (temp->delim[++i] != NULL)

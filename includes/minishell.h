@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:04:18 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/11 11:32:10 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/17 14:44:34 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ typedef struct s_toke_var
  * heredocs as string in 2d  char *
  * fd for pipes in 2d int array,
  */
-typedef struct s_total
+typedef struct s_direct
 {
 	int	error;
 	int	tol_heredoc;
@@ -91,7 +91,7 @@ typedef struct s_total
 	char	**delim;
 	int		**fd_pipes;
 	char	**heredoc;
-}	t_total;
+}	t_direct;
 
 /**
  * @brief this is execution group
@@ -132,10 +132,10 @@ int		is_op(char c);
 int		is_token(char	*str);
 
 // inits.c
-t_cmds	*cmd_groups_init(int ipt, int opt, char	**args, int hd);
+t_cmds	*cmd_groups_init(int ipt, int opt, int num_args, int hd);
 void	ft_init_main_var(t_main *main, int ac, char **av, char **envp);
 void	init_toke_var(t_toke_var *s, int len, char *temp);
-void	init_total(t_total **total);
+t_direct	 *init_direct(void);
 
 // env.c
 char	*get_ev(t_main *m_var, char *var);
@@ -165,15 +165,16 @@ int	ft_err_handle(char *path, int perm, int type);
 int	syntax_error(char *msg);
 
 //parse.c
-void	malloc_size(t_total **total);
-void    write_to_heredoc(t_total **total);
-void	get_total(t_node **lists, t_total **total);
-void	get_delim(t_node **lists, t_total **total);
-void	get_tol_condition(t_total **total, t_node *cur_node);
+t_cmds	*grouping(t_node **lists);
+void	malloc_size(t_direct **direct);
+void    write_to_heredoc(t_direct **direct);
+void	get_total(t_node **lists, t_direct **direct);
+void	get_delim(t_node **lists, t_direct **direct);
+void	get_tol_condition(t_direct **direct, t_node *cur_node);
 
-// parse_utils.c
-void	malloc_pipes(t_total **total);
-void	malloc_heredoc(t_total **total);
+// direct_utils.c
+void	malloc_pipes(t_direct **direct);
+void	malloc_heredoc(t_direct **direct);
 
 // here_doc.c
 t_node	*here_quote(char *str, char quote, t_node **list);
@@ -181,10 +182,13 @@ char	*here_doc(char *delim);
 
 // free.c
 void	free_lists(t_node **lists);
-void	free_total(t_total **total);
+void	free_direct(t_direct **direct);
 void	free_envp(t_envp **envp);
 
 // see.c
 void	ft_see_group(t_cmds **groups);
 void	ft_see(t_node **lists);
+
+// direct.c
+t_direct	*director(t_node **lists);
 #endif
