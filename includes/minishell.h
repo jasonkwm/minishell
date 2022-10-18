@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:04:18 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/17 14:44:34 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/18 19:01:13 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,12 +165,19 @@ int	ft_err_handle(char *path, int perm, int type);
 int	syntax_error(char *msg);
 
 //parse.c
-t_cmds	*grouping(t_node **lists);
+t_cmds	*grouping(t_node *lists);
 void	malloc_size(t_direct **direct);
 void    write_to_heredoc(t_direct **direct);
 void	get_total(t_node **lists, t_direct **direct);
 void	get_delim(t_node **lists, t_direct **direct);
 void	get_tol_condition(t_direct **direct, t_node *cur_node);
+t_cmds	*init_cur_group(t_node *lists, int *hd);
+
+// parse_utils.c
+int function(t_node *list, t_cmds **cur_group, int *i, int *hd);
+
+// direct.c
+t_direct	*director(t_node **lists);
 
 // direct_utils.c
 void	malloc_pipes(t_direct **direct);
@@ -184,11 +191,9 @@ char	*here_doc(char *delim);
 void	free_lists(t_node **lists);
 void	free_direct(t_direct **direct);
 void	free_envp(t_envp **envp);
-
+void	free_cmds(t_cmds **cmds);
 // see.c
 void	ft_see_group(t_cmds **groups);
 void	ft_see(t_node **lists);
 
-// direct.c
-t_direct	*director(t_node **lists);
 #endif

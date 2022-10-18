@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 12:00:13 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/17 12:58:04 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/18 16:21:28 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,26 @@ void	free_lists(t_node **lists)
 		temp = temp2;
 		if (temp != NULL)
 			temp2 = temp2->next;
+	}
+}
+
+void	free_cmds(t_cmds **cmds)
+{
+	t_cmds	*temp;
+	int		i;
+	temp = *cmds;
+	while (temp != NULL)
+	{
+		i = -1;
+		while (temp->args[++i] != NULL)
+			free(temp->args[i]);
+		free(temp->args);
+		// i = -1;
+		// while (temp->envp[++i] != NULL)
+		// 	free(temp->envp[i]);
+		// free(temp->envp);
+		*cmds = (*cmds)->next;
+		free(temp);
+		temp = *cmds;
 	}
 }

@@ -33,6 +33,7 @@ t_direct	*director(t_node **lists)
 		malloc_pipes(&tol);
 	return (tol);
 }
+
 /**
  * @brief
  * Gets total number of pipes,

@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 10:35:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/17 14:37:02 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/18 16:50:28 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ void	mini_main(t_main *m_var, t_node **lists)
 
 	direct = director(lists);
 	if (direct->error != 1)
-		cmds = grouping(lists);
+		cmds = grouping(*lists);
+	ft_see_group(&cmds);
+	free_cmds(&cmds);
 	free_direct(&direct);
 	(void)m_var;
 }
