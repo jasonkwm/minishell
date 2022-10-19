@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 13:18:39 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/17 14:49:25 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/19 11:27:21 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ void	malloc_heredoc(t_direct **direct)
 void	malloc_pipes(t_direct **direct)
 {
 	t_direct	*temp;
-	int		i;
-    
-    temp = *direct;
+	int			i;
+
+	temp = *direct;
 	if (temp->tol_pipes != 0)
 	{
 		temp->fd_pipes = ft_calloc(temp->tol_pipes + 1, sizeof(int *));

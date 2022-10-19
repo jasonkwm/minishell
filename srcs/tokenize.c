@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 16:42:02 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/04 18:39:56 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/19 11:20:58 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,8 @@ void	token_symbol(char *str, t_toke_var *s, t_node **cur_node)
 {
 	char	*temp;
 
-	if (s->left != s->right && !(s->right - s->left == 1 && is_op(str[s->left]) == 9))
+	if (s->left != s->right && !(s->right - s->left == 1
+			&& is_op(str[s->left]) == 9))
 	{
 		temp = ft_substr(str, s->left, (s->right - s->left));
 		*cur_node = assign_node(cur_node, temp, 2);

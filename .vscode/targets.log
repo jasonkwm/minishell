@@ -6,9 +6,8 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
- 
 
-# Make data base, printed on Tue Oct 18 18:20:08 2022
+# Make data base, printed on Wed Oct 19 15:59:41 2022
 
 # Variables
 
@@ -35,7 +34,7 @@ BLUE := \033[0;34m
 # makefile (from `Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
 # makefile (from `Makefile', line 13)
-OBJS := ./objs/main.o ./objs/inits.o ./objs/node_utils.o ./objs/checker.o ./objs/tokenize.o ./objs/expand.o ./objs/expand_utils.o ./objs/here_doc.o ./objs/env.o ./objs/error.o ./objs/direct.o ./objs/direct_utils.o ./objs/parse.o ./objs/parse_utils.o ./objs/free.o ./objs/see.o
+OBJS := ./objs/main.o ./objs/inits.o ./objs/node_utils.o ./objs/checker.o ./objs/tokenize.o ./objs/expand.o ./objs/expand_utils.o ./objs/here_doc.o ./objs/env.o ./objs/error.o ./objs/direct.o ./objs/direct_utils.o ./objs/parse.o ./objs/free.o ./objs/see.o
 # environment
 VSCODE_CWD = /
 # environment
@@ -43,7 +42,7 @@ PATH = /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Applicatio
 # environment
 LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
-LaunchInstanceID = 34A532AD-0EAC-4117-ADF8-2E85AB4E3A12
+LaunchInstanceID = 1655C0E1-B048-4CF8-A5D6-31F5BEE3DC33
 # makefile (from `Makefile', line 3)
 SRCS_DIR := ./srcs
 # environment
@@ -55,7 +54,7 @@ LIB := -L./libft -lft -lreadline
 # makefile (from `Makefile', line 26)
 PURPLE := \033[0;35m
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.CQCUSM0JqV/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.JmcUnGJVI3/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -89,7 +88,7 @@ MAKE = $(MAKE_COMMAND)
 # default
 MAKECMDGOALS := all
 # makefile (from `Makefile', line 6)
-SRCS := main.c inits.c node_utils.c checker.c tokenize.c expand.c expand_utils.c here_doc.c env.c error.c direct.c direct_utils.c parse.c parse_utils.c free.c see.c
+SRCS := main.c inits.c node_utils.c checker.c tokenize.c expand.c expand_utils.c here_doc.c env.c error.c direct.c direct_utils.c parse.c free.c see.c
 # environment
 SHLVL = 1
 # makefile (from `Makefile', line 15)
@@ -129,7 +128,7 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x10000002.Electron
+XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x1000001c.Electron
 # makefile (from `Makefile', line 4)
 OBJS_DIR := ./objs
 # automatic
@@ -153,7 +152,7 @@ PAGER = less
 # environment
 LC_ALL = C
 # environment
-SECURITYSESSIONID = 186a5
+SECURITYSESSIONID = 18702
 # automatic
 ^F = $(notdir $^)
 # default
@@ -167,7 +166,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 15746
+VSCODE_PID = 95118
 # variable set hash-table stats:
 # Load=78/1024=8%, Rehash=0, Collisions=4/113=4%
 
@@ -204,7 +203,7 @@ objs/direct_utils.o:
 objs/main.o: srcs/main.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `main'
-#  Last modified 2022-10-18 16:49:50
+#  Last modified 2022-10-19 14:56:16
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # automatic
@@ -252,12 +251,6 @@ objs/error.o:
 #  File has not been updated.
 
 # Not a target:
-objs/parse_utils.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
 objs/expand.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
@@ -278,7 +271,7 @@ objs/checker.o:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-10-18 16:13:33
+#  Last modified 2022-10-19 11:19:01
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -287,7 +280,7 @@ Makefile:
 # Not a target:
 srcs/main.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-10-18 16:50:28
+#  Last modified 2022-10-19 15:39:24
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -311,12 +304,12 @@ objs/free.o:
 #  Modification time never checked.
 #  File has not been updated.
 
-minishell: objs/main.o objs/inits.o objs/node_utils.o objs/checker.o objs/tokenize.o objs/expand.o objs/expand_utils.o objs/here_doc.o objs/env.o objs/error.o objs/direct.o objs/direct_utils.o objs/parse.o objs/parse_utils.o objs/free.o objs/see.o
+minishell: objs/main.o objs/inits.o objs/node_utils.o objs/checker.o objs/tokenize.o objs/expand.o objs/expand_utils.o objs/here_doc.o objs/env.o objs/error.o objs/direct.o objs/direct_utils.o objs/parse.o objs/free.o objs/see.o
 #  Implicit rule search has not been done.
-#  Last modified 2022-10-18 16:49:50
+#  Last modified 2022-10-19 14:56:16
+ 
 #  File has been updated.
 #  Needs to be updated (-q is set).
- 
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/4=0%
 #  commands to execute (from `Makefile', line 40):
@@ -402,7 +395,7 @@ objs/node_utils.o:
 #  File has not been updated.
 
 # files hash-table stats:
-# Load=26/1024=3%, Rehash=0, Collisions=3/66=5%
+# Load=25/1024=2%, Rehash=0, Collisions=3/64=5%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -414,6 +407,6 @@ objs/node_utils.o:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Tue Oct 18 18:20:08 2022
+# Finished Make data base on Wed Oct 19 15:59:41 2022
 
  

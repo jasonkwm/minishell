@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:04:18 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/18 19:01:13 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/19 14:54:11 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,7 @@ void	get_tol_condition(t_direct **direct, t_node *cur_node);
 t_cmds	*init_cur_group(t_node *lists, int *hd);
 
 // parse_utils.c
-int function(t_node *list, t_cmds **cur_group, int *i, int *hd);
+int function(t_node **list, t_cmds **cur_group, int *i, int *hd);
 
 // direct.c
 t_direct	*director(t_node **lists);
@@ -195,5 +195,9 @@ void	free_cmds(t_cmds **cmds);
 // see.c
 void	ft_see_group(t_cmds **groups);
 void	ft_see(t_node **lists);
+
+
+t_node	*token_reader(t_main *m_var);
+
 
 #endif

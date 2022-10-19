@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 12:00:13 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/18 16:21:28 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/19 11:25:24 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 void	free_envp(t_envp **envp)
 {
-	t_envp *temp;
-	t_envp *temp2;
+	t_envp	*temp;
+	t_envp	*temp2;
+
 	temp = *envp;
 	temp2 = temp->next;
 	while (temp != NULL)
@@ -31,7 +32,7 @@ void	free_envp(t_envp **envp)
 void	free_direct(t_direct **direct)
 {
 	t_direct	*temp;
-	int		i;
+	int			i;
 
 	i = -1;
 	temp = *direct;
@@ -52,15 +53,15 @@ void	free_direct(t_direct **direct)
 			free(temp->fd_pipes[i]);
 		free(temp->fd_pipes);
 	}
-    if (temp != NULL)
-        free(temp);
+	if (temp != NULL)
+		free(temp);
 }
 
 void	free_lists(t_node **lists)
 {
 	t_node	*temp;
 	t_node	*temp2;
-	
+
 	temp = *lists;
 	temp2 = temp->next;
 	while (temp != NULL)
@@ -77,6 +78,7 @@ void	free_cmds(t_cmds **cmds)
 {
 	t_cmds	*temp;
 	int		i;
+
 	temp = *cmds;
 	while (temp != NULL)
 	{

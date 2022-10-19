@@ -6,13 +6,21 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 15:28:26 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/17 12:58:24 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/19 17:05:49 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// Readline and string join '\n' if quote not found.
+/**
+ * @brief Readline and string join '\n' if quote not found. \
+ * @brief this function handles missing quote not needed to pass \
+ * @brief but already handle so ._.
+ * @param str user input string
+ * @param quote the quote to look for ' or "
+ * @param cur_node current node in tokenization process
+ * @return type: t_node *, a new token node with string. 
+ */
 t_node	*here_quote(char *str, char quote, t_node **cur_node)
 {
 	char	*rl;
@@ -40,12 +48,13 @@ t_node	*here_quote(char *str, char quote, t_node **cur_node)
 }
 
 /**
+ * @brief here_doc function \
  * @brief keeps reading input, if input == delimiter then loop ends
+ * @brief here_doc is stored in string format for now.
  * 
- * @param delim
- * delimiter to stop readling line
- * @return char*
- * heredoc stored as string format.
+ * @param delim delimiter to stop readling line
+ * @return type: char *,
+ * here_doc is stored in string format for now.
  */
 char	*here_doc(char *delim)
 {
@@ -53,7 +62,6 @@ char	*here_doc(char *delim)
 	char	*store;
 
 	store = NULL;
-	// printf("delim: %s\n", delim);
 	while (1)
 	{
 		rl = readline("heredoc> ");
@@ -80,21 +88,21 @@ char	*here_doc(char *delim)
  */
 void	get_delim(t_node **lists, t_direct **direct)
 {
-	t_node	*cur_node;
+	t_node		*cur_node;
 	t_direct	*cur_tol;
-	int		i;
+	int			i;
 
 	i = 0;
 	cur_node = *lists;
 	cur_tol = *direct;
-	
 	while (cur_node != NULL && i < cur_tol->tol_heredoc)
 	{
 		if (ft_strcmp(cur_node->val, "<<") == 0)
 		{
 			if (cur_node->next == NULL)
 				break ;
-			else if (cur_node->next->type == PIPE || cur_node->next->type == REDIRECT)
+			else if (cur_node->next->type == PIPE
+				|| cur_node->next->type == REDIRECT)
 				break ;
 			cur_node = cur_node->next;
 			cur_tol->delim[i] = ft_strdup(cur_node->val);
@@ -110,10 +118,10 @@ void	get_delim(t_node **lists, t_direct **direct)
  * @param direct 
  * contains info for pipes and here_doc
  */
-void    write_to_heredoc(t_direct **direct)
+void	write_to_heredoc(t_direct **direct)
 {
 	t_direct	*temp;
-	int		i;
+	int			i;
 
 	i = -1;
 	temp = *direct;

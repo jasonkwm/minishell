@@ -6,12 +6,50 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 10:35:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/18 16:50:28 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/19 15:39:24 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h" 
 
+/**
+ * @brief read user input and tokenize input into linked list
+ * 
+ * @param m_var main variable which contains "ac, av, envp"
+ * @return t_node* 
+ * return a tokenize linked list
+ */
+t_node	*token_reader(t_main *m_var)
+{
+	char	*str;
+	t_node	*lists;
+
+	str = readline("minishell> ");
+	if (str && *str)
+		add_history(str);
+	if (ft_strcmp(str, "exit") == 0)
+	{
+		free(str);
+		system("leaks minishell");
+		printf("Exit\n");
+		exit(0);
+	}
+	else
+	{
+		lists = ft_node(0, NULL, 0, NULL);
+		tokenize(m_var, str, &lists);
+		free(str);
+	}
+	return (lists);
+}
+
+/**
+ * @brief for now it get info on redirection \
+ * @brief and create command groups for execution
+ * 
+ * @param m_var contains main variable "ac, av, envp"
+ * @param lists tokenize linked list of 
+ */
 void	mini_main(t_main *m_var, t_node **lists)
 {
 	t_direct	*direct;
@@ -21,46 +59,22 @@ void	mini_main(t_main *m_var, t_node **lists)
 	if (direct->error != 1)
 		cmds = grouping(*lists);
 	ft_see_group(&cmds);
+	free_lists(lists);
 	free_cmds(&cmds);
 	free_direct(&direct);
 	(void)m_var;
 }
 
-// THING TO DO :
-// SIMPLIFIED GROUPING IN parse.c
-// STORES EVERYTHING CORRECTLY
-// COMBINE functions that does t_direct & t_cmds together
-// returns t_cmds groups for execution
 int	main(int ac, char **av, char **envp)
 {
-	char	*str;
-	t_node  *lists;
-	t_main  m_var;
+	t_node	*lists;
+	t_main	m_var;
 
 	ft_init_main_var(&m_var, ac, av, envp);
-	lists = ft_node(0, NULL, 0, NULL);
 	while (1)
 	{
-		str = readline("minishell> ");
-		if (str && *str)
-			add_history(str);
-		if (ft_strcmp(str, "exit") == 0)
-		{
-			free(str);
-			free_lists(&lists);
-			// system("leaks minishell");
-			printf("Exit\n");
-			return (0);
-		}
-		else
-		{
-			free_lists(&lists);
-			lists = ft_node(0, NULL, 0, NULL);
-			tokenize(&m_var, str, &lists);
-			free(str);
-		}
+		lists = token_reader(&m_var);
 		mini_main(&m_var, &lists);
-		// ft_see(&lists);
 	}
 	return (0);
 }

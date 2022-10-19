@@ -6,12 +6,11 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 13:35:54 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/15 13:36:23 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/19 11:26:48 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 // get specific enviroment variable from linked list envp
 char	*get_ev(t_main *m_var, char *var)
@@ -22,11 +21,11 @@ char	*get_ev(t_main *m_var, char *var)
 	while (temp != NULL)
 	{
 		if (ft_strnstr(temp->val, var, ft_strlen(var)) != 0)
-			break;
+			break ;
 		temp = temp->next;
 	}
 	if (temp == NULL)
-		return NULL;
+		return (NULL);
 	return (temp->val);
 }
 
