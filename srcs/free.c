@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 12:00:13 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/19 11:25:24 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/19 21:32:53 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,16 +80,20 @@ void	free_cmds(t_cmds **cmds)
 	int		i;
 
 	temp = *cmds;
+	if (temp != NULL && temp->envp != NULL)
+	{
+		i = -1;
+		while (temp->envp[++i] != NULL)
+			free(temp->envp[i]);
+		free(temp->envp);
+	}
 	while (temp != NULL)
 	{
 		i = -1;
 		while (temp->args[++i] != NULL)
 			free(temp->args[i]);
 		free(temp->args);
-		// i = -1;
-		// while (temp->envp[++i] != NULL)
-		// 	free(temp->envp[i]);
-		// free(temp->envp);
+		
 		*cmds = (*cmds)->next;
 		free(temp);
 		temp = *cmds;

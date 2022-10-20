@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 15:28:26 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/19 17:05:49 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/19 21:12:35 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@
  * @brief Readline and string join '\n' if quote not found. \
  * @brief this function handles missing quote not needed to pass \
  * @brief but already handle so ._.
+ * 
  * @param str user input string
  * @param quote the quote to look for ' or "
  * @param cur_node current node in tokenization process
+ * 
  * @return type: t_node *, a new token node with string. 
  */
 t_node	*here_quote(char *str, char quote, t_node **cur_node)
@@ -53,6 +55,7 @@ t_node	*here_quote(char *str, char quote, t_node **cur_node)
  * @brief here_doc is stored in string format for now.
  * 
  * @param delim delimiter to stop readling line
+ * 
  * @return type: char *,
  * here_doc is stored in string format for now.
  */

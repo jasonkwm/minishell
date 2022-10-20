@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:04:18 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/19 14:54:11 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/19 21:34:51 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ int	ft_err_handle(char *path, int perm, int type);
 int	syntax_error(char *msg);
 
 //parse.c
-t_cmds	*grouping(t_node *lists);
+t_cmds	*grouping(t_main *m_var, t_node *lists);
 void	malloc_size(t_direct **direct);
 void    write_to_heredoc(t_direct **direct);
 void	get_total(t_node **lists, t_direct **direct);
@@ -174,7 +174,8 @@ void	get_tol_condition(t_direct **direct, t_node *cur_node);
 t_cmds	*init_cur_group(t_node *lists, int *hd);
 
 // parse_utils.c
-int function(t_node **list, t_cmds **cur_group, int *i, int *hd);
+char	**envp_converter(t_main *m_var);
+void	add_envp(t_main *m_var, t_cmds **cmd_groups);
 
 // direct.c
 t_direct	*director(t_node **lists);

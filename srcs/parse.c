@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 21:01:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/19 16:56:39 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/20 14:00:11 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
  * 
  * @param lists tokenize list
  * @param hd destination for here doc
+ * 
  * @return type: t_node *, returns a empty command group hd is set.
  */
 t_cmds	*init_cur_group(t_node *lists, int *hd)
@@ -50,6 +51,7 @@ t_cmds	*init_cur_group(t_node *lists, int *hd)
  * 1 = WRITE >
  * 2 = APPEND >>
  * @param cur current command group
+ * 
  * @return int 
  * -1 if fail
  * 0 if success
@@ -124,13 +126,13 @@ int	grouping_ext(t_node **list, t_cmds **cur_group, int *i, int *hd)
 /**
  * @brief Create command group link list \
  * @brief set each groups input, output and arguments
+ * @brief ALL COMMAND GROUP SHARES THE SAME ENVP SO FREE CAREFULLY
  * 
  * @param m_var main variable for ac, av & envp
  * @param lists tokenize lists
  * @param direct contains info about heredoc and pipes 
- * 
  */
-t_cmds	*grouping(t_node *lists)
+t_cmds	*grouping(t_main *m_var, t_node *lists)
 {
 	t_cmds	*cmd_groups;
 	t_cmds	*cur_group;
@@ -154,5 +156,6 @@ t_cmds	*grouping(t_node *lists)
 			cur_group->args[++i] = ft_strdup(lists->val);
 		lists = lists->next;
 	}
+	add_envp(m_var, &cmd_groups);
 	return (cmd_groups);
 }
