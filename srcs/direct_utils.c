@@ -6,28 +6,11 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 13:18:39 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/19 11:27:21 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/20 15:46:26 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/**
- * @brief check if input str is a token,
- * like redirection, heredoc or pipe
- * 
- * @param str normal string
- * @return int 
- * 0 if string is token
- * 1 if string is not token
- */
-int	is_token(char	*str)
-{
-	if (!ft_strcmp(str, "<<") || !ft_strcmp(str, ">>") || !ft_strcmp(str, "<")
-		|| !ft_strcmp(str, ">") || !ft_strcmp(str, "|"))
-		return (0);
-	return (1);
-}
 
 /**
  * @brief malloc space for heredoc delimiter & heredoc,

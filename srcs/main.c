@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 10:35:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/19 21:39:14 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/21 11:21:20 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,9 @@ void	mini_main(t_main *m_var, t_node **lists)
 		cmds = grouping(m_var, *lists);
 		ft_see_group(&cmds);
 		free_cmds(&cmds);
-	// creates a function here that loop through command group and fork correctly and use the right pipes for it.
-	// needs to accepts 
+		// function(t_main *m_var, t_direct **direct, t_cmds **cmds);
+		// creates a function here that loop through command group and fork correctly and use the right pipes for it.
+		// needs to accepts 
 	}
 	free_lists(lists);
 	free_direct(&direct);

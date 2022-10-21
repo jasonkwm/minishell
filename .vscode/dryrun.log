@@ -1,5 +1,5 @@
 make --dry-run --always-make --keep-going --print-directory
-make: Entering directory `/Users/jakoh/Desktop/ms2'
+make: Entering directory `/Users/jakoh/Desktop/minishell'
 mkdir -p ./objs
 gcc -Wall -Werror -Wextra  -I includes -I libft -c srcs/main.c -o objs/main.o
  
@@ -13,7 +13,6 @@ mkdir -p ./objs
 gcc -Wall -Werror -Wextra  -I includes -I libft -c srcs/tokenize.c -o objs/tokenize.o
 mkdir -p ./objs
 gcc -Wall -Werror -Wextra  -I includes -I libft -c srcs/expand.c -o objs/expand.o
- 
 mkdir -p ./objs
 gcc -Wall -Werror -Wextra  -I includes -I libft -c srcs/expand_utils.c -o objs/expand_utils.o
 mkdir -p ./objs
@@ -30,13 +29,12 @@ mkdir -p ./objs
 gcc -Wall -Werror -Wextra  -I includes -I libft -c srcs/parse.c -o objs/parse.o
  
 mkdir -p ./objs
-gcc -Wall -Werror -Wextra  -I includes -I libft -c srcs/parse_utils.c -o objs/parse_utils.o
+gcc -Wall -Werror -Wextra  -I includes -I libft -c srcs/execution.c -o objs/execution.o
 mkdir -p ./objs
 gcc -Wall -Werror -Wextra  -I includes -I libft -c srcs/free.c -o objs/free.o
 mkdir -p ./objs
 gcc -Wall -Werror -Wextra  -I includes -I libft -c srcs/see.c -o objs/see.o
-make -C ./libft
-gcc -Wall -Werror -Wextra  -I includes -I libft -L./libft -lft -lreadline ./objs/main.o ./objs/inits.o ./objs/node_utils.o ./objs/checker.o ./objs/tokenize.o ./objs/expand.o ./objs/expand_utils.o ./objs/here_doc.o ./objs/env.o ./objs/error.o ./objs/direct.o ./objs/direct_utils.o ./objs/parse.o ./objs/parse_utils.o ./objs/free.o ./objs/see.o -o minishell
-echo "\033[0;32mMinishell Compiled Successful.\033[0m"
-make: Leaving directory `/Users/jakoh/Desktop/ms2'
+make: Leaving directory `/Users/jakoh/Desktop/minishell'
  
+make: *** No rule to make target `objs/parse_utils.o', needed by `minishell'.
+
