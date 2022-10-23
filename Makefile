@@ -7,8 +7,11 @@ SRCS := main.c inits.c node_utils.c \
 		checker.c tokenize.c \
 		expand.c expand_utils.c \
 		here_doc.c env.c error.c \
-		parse.c parse_utils.c \
-		free.c see.c cdpwd.c
+		direct.c direct_utils.c \
+		parse.c \
+		free.c see.c cdpwd.c \
+		execution.c \
+		free.c see.c
 OBJS := $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
 CC := gcc -Wall -Werror -Wextra 

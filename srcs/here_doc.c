@@ -6,13 +6,23 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 15:28:26 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/04 11:54:15 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/19 21:12:35 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// Readline and string join '\n' if quote not found.
+/**
+ * @brief Readline and string join '\n' if quote not found. \
+ * @brief this function handles missing quote not needed to pass \
+ * @brief but already handle so ._.
+ * 
+ * @param str user input string
+ * @param quote the quote to look for ' or "
+ * @param cur_node current node in tokenization process
+ * 
+ * @return type: t_node *, a new token node with string. 
+ */
 t_node	*here_quote(char *str, char quote, t_node **cur_node)
 {
 	char	*rl;
@@ -40,12 +50,14 @@ t_node	*here_quote(char *str, char quote, t_node **cur_node)
 }
 
 /**
+ * @brief here_doc function \
  * @brief keeps reading input, if input == delimiter then loop ends
+ * @brief here_doc is stored in string format for now.
  * 
- * @param delim
- * delimiter to stop readling line
- * @return char*
- * heredoc stored as string format.
+ * @param delim delimiter to stop readling line
+ * 
+ * @return type: char *,
+ * here_doc is stored in string format for now.
  */
 char	*here_doc(char *delim)
 {
@@ -53,7 +65,6 @@ char	*here_doc(char *delim)
 	char	*store;
 
 	store = NULL;
-	// printf("delim: %s\n", delim);
 	while (1)
 	{
 		rl = readline("heredoc> ");
@@ -71,30 +82,30 @@ char	*here_doc(char *delim)
 /**
  * @brief 
  * get delimiter for each heredoc 
- * and store in malloc (*total)->delim 2d array
+ * and store in malloc (*direct)->delim 2d array
  * 
  * @param lists 
  * link list of tokenized input string.
- * @param total 
- * total contains info for pipes and here_doc
+ * @param direct 
+ * direct contains info for pipes and here_doc
  */
-void	get_delim(t_node **lists, t_total **total)
+void	get_delim(t_node **lists, t_direct **direct)
 {
-	t_node	*cur_node;
-	t_total	*cur_tol;
-	int		i;
+	t_node		*cur_node;
+	t_direct	*cur_tol;
+	int			i;
 
 	i = 0;
 	cur_node = *lists;
-	cur_tol = *total;
-	
+	cur_tol = *direct;
 	while (cur_node != NULL && i < cur_tol->tol_heredoc)
 	{
 		if (ft_strcmp(cur_node->val, "<<") == 0)
 		{
 			if (cur_node->next == NULL)
 				break ;
-			else if (cur_node->next->type == PIPE || cur_node->next->type == REDIRECT)
+			else if (cur_node->next->type == PIPE
+				|| cur_node->next->type == REDIRECT)
 				break ;
 			cur_node = cur_node->next;
 			cur_tol->delim[i] = ft_strdup(cur_node->val);
@@ -105,18 +116,18 @@ void	get_delim(t_node **lists, t_total **total)
 }
 
 /**
- * @brief write/store heredoc 2d array in total
+ * @brief write/store heredoc 2d array in direct
  * 
- * @param total 
+ * @param direct 
  * contains info for pipes and here_doc
  */
-void    write_to_heredoc(t_total **total)
+void	write_to_heredoc(t_direct **direct)
 {
-	t_total	*temp;
-	int		i;
+	t_direct	*temp;
+	int			i;
 
 	i = -1;
-	temp = *total;
+	temp = *direct;
 	while (++i < temp->tol_heredoc)
 		temp->heredoc[i] = here_doc(temp->delim[i]);
 }

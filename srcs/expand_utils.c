@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 15:59:27 by jakoh             #+#    #+#             */
-/*   Updated: 2022/09/24 17:13:32 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/19 11:29:27 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*dollar_join(t_main *m_var, char *s1, char *s2)
 {
 	char	*str;
 	char	*temp;
-	
+
 	if (ft_strcmp(s2, "?") == 0)
 		str = ft_itoa(errno);
 	else if (ft_strcmp(s2, "$") == 0)
@@ -90,11 +90,11 @@ void	found_cash(t_main *m_var, t_node **cur_node, t_toke_var	*s)
 	cut_and_paste(s, cur_node, 1);
 	s->left = s->right;
 	++(s->right);
-    if (is_op(node->val[s->right]) == 9
-            || is_op(node->val[s->right]) == 1)
-        return ;
+	if (is_op(node->val[s->right]) == 9
+		|| is_op(node->val[s->right]) == 1)
+		return ;
 	while (is_op(node->val[s->right]) != 9 && is_op(node->val[s->right]) != 1
-			&& node->val[s->right - 1] != '?' && node->val[s->right] != '$')
+		&& node->val[s->right - 1] != '?' && node->val[s->right] != '$')
 		++(s->right);
 	if (node->val[s->right] == '$' && node->val[s->right - 1] == '$')
 		temp = ft_substr(node->val, s->left, s->right - s->left);

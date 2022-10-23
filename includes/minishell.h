@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: edlim <edlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:04:18 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/10 17:23:20 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/23 11:57:18 by edlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ typedef struct s_toke_var
  * heredocs as string in 2d  char *
  * fd for pipes in 2d int array,
  */
-typedef struct s_total
+typedef struct s_direct
 {
 	int	error;
 	int	tol_heredoc;
@@ -92,7 +92,7 @@ typedef struct s_total
 	char	**delim;
 	int		**fd_pipes;
 	char	**heredoc;
-}	t_total;
+}	t_direct;
 
 /**
  * @brief this is execution group
@@ -127,28 +127,33 @@ typedef struct s_cmds
 }	t_cmds;
 
 // checker.c
-int		ft_strcmp(char *a, char *b);
-int		is_built_in(char *str);
 int		is_op(char c);
 int		is_token(char	*str);
+int		is_built_in(char *str);
+int		ft_strcmp(char *a, char *b);
+void	to_lower(char *src, char **dest);
 
 // inits.c
-void	ft_init_main_var(t_main *main, int ac, char **av, char **envp);
-void	init_toke_var(t_toke_var *s, int len, char *temp);
-void	init_total(t_total **total);
-// void	init_groups(t_cmds **groups);
+t_direct	*init_direct(void);
+void		init_toke_var(t_toke_var *s, int len, char *temp);
+t_cmds		*cmd_groups_init(int ipt, int opt, int num_args, int hd);
+void		ft_init_main_var(t_main *main, int ac, char **av, char **envp);
 
 // env.c
+char	**envp_converter(t_main *m_var);
 char	*get_ev(t_main *m_var, char *var);
 void	add_env(t_main *m_var, char *str);
+void	add_envp(t_main *m_var, t_cmds **cmd_groups);
 
 // node_utils.c
 t_node	*ft_node(int  id, char *val, int type,  t_node **prev);
 t_node	*assign_node(t_node **cur_node, char *val, int type);
 
 // tokenize.c
+void	token_quote(t_main *m_var, char *str, t_toke_var *s, t_node **cur_node);
+void	token_arg(t_main *m_var, char *str, t_toke_var *s, t_node **cur_node);
+void	token_symbol(char *str, t_toke_var *s, t_node **cur_node);
 void	tokenize(t_main *m_var, char *str, t_node	**tree);
-void	to_lower(char *src, char **dest);
 
 // expand.c
 void	expand_env(t_main *m_var, t_node **cur_node);
@@ -161,34 +166,45 @@ char	*dollar_join(t_main *m_var, char *s1, char *s2);
 void	cut_and_paste(t_toke_var *s, t_node **cur_node, int i);
 void	found_cash(t_main *m_var, t_node **cur_node, t_toke_var	*s);
 
+// direct.c
+t_direct	*director(t_node **lists);
+void	get_total(t_node **lists, t_direct **direct);
+void	get_tol_condition(t_direct **direct, t_node *cur_node);
+
+// direct_utils.c
+void	malloc_pipes(t_direct **direct);
+void	malloc_heredoc(t_direct **direct);
+
+// here_doc.c
+char	*here_doc(char *delim);
+void    write_to_heredoc(t_direct **direct);
+void	get_delim(t_node **lists, t_direct **direct);
+t_node	*here_quote(char *str, char quote, t_node **list);
+
+//parse.c
+t_cmds	*init_cur_group(t_node *lists, int *hd);
+int	check_access(char *path, int type, t_cmds **cur);
+int	grouping_ext(t_node **list, t_cmds **cur_group, int *i, int *hd);
+t_cmds	*grouping(t_main *m_var, t_node *lists);
+
 // error.c
 int	ft_err_handle(char *path, int perm, int type);
 int	syntax_error(char *msg);
 
-//parse.c
-void	malloc_size(t_total **total);
-void    write_to_heredoc(t_total **total);
-void	get_total(t_node **lists, t_total **total);
-void	get_delim(t_node **lists, t_total **total);
-void	get_tol_condition(t_total **total, t_node *cur_node);
-
-// parse_utils.c
-void	malloc_pipes(t_total **total);
-void	malloc_heredoc(t_total **total);
-
-// here_doc.c
-t_node	*here_quote(char *str, char quote, t_node **list);
-char	*here_doc(char *delim);
-
 // free.c
 void	free_lists(t_node **lists);
-void	free_total(t_total **total);
+void	free_direct(t_direct **direct);
 void	free_envp(t_envp **envp);
+void	free_cmds(t_cmds **cmds);
 
 // see.c
 void	ft_see_group(t_cmds **groups);
 void	ft_see(t_node **lists);
 
 void	cdpwd(t_main *m_var, t_cmds **cmd_groups);
+// main.c
+t_node	*token_reader(t_main *m_var);
+void	mini_main(t_main *m_var, t_node **lists);
+
 
 #endif

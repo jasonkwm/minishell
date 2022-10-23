@@ -6,11 +6,13 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
+ 
 
-# Make data base, printed on Mon Oct 10 14:34:38 2022
+# Make data base, printed on Fri Oct 21 11:07:20 2022
 
 # Variables
 
+ 
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
@@ -22,46 +24,44 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # automatic
 @F = $(notdir $@)
 # makefile
-CURDIR := /Users/jakoh/Desktop/ms2
+CURDIR := /Users/jakoh/Desktop/minishell
 # makefile
 SHELL = /bin/sh
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-gb","availableLanguages":{},"_languagePackSupport":true}
 # environment
 _ = /usr/bin/make
-# makefile (from `Makefile', line 24)
+# makefile (from `Makefile', line 26)
 BLUE := \033[0;34m
 # makefile (from `Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
-# makefile (from `Makefile', line 12)
-OBJS := ./objs/main.o ./objs/inits.o ./objs/node_utils.o ./objs/checker.o ./objs/tokenize.o ./objs/expand.o ./objs/expand_utils.o ./objs/here_doc.o ./objs/env.o ./objs/error.o ./objs/parse.o ./objs/parse_utils.o ./objs/free.o
+# makefile (from `Makefile', line 14)
+OBJS := ./objs/main.o ./objs/inits.o ./objs/node_utils.o ./objs/checker.o ./objs/tokenize.o ./objs/expand.o ./objs/expand_utils.o ./objs/here_doc.o ./objs/env.o ./objs/error.o ./objs/direct.o ./objs/direct_utils.o ./objs/parse.o ./objs/parse_utils.o ./objs/execution.o ./objs/free.o ./objs/see.o
 # environment
 VSCODE_CWD = /
 # environment
-PATH = /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Applications/Visual Studio Code.app/Contents/Resources/app/bin
+PATH = /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki
 # environment
 LSCOLORS = Gxfxcxdxbxegedabagacad
-# environment
-LaunchInstanceID = CC877FFA-BA5F-468E-B54D-A51AC9AFA6C9
 # makefile (from `Makefile', line 3)
 SRCS_DIR := ./srcs
 # environment
 ELECTRON_RUN_AS_NODE = 1
-# makefile (from `Makefile', line 20)
+# makefile (from `Makefile', line 22)
 LIB := -L./libft -lft -lreadline
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
-# makefile (from `Makefile', line 25)
+# makefile (from `Makefile', line 27)
 PURPLE := \033[0;35m
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.Toca7F5tDu/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.O76zwB7y0I/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
-PWD = /Users/jakoh/Desktop/ms2
+PWD = /Users/jakoh/Desktop/minishell
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = undefined
-# makefile (from `Makefile', line 23)
+# makefile (from `Makefile', line 25)
 GREEN := \033[0;32m
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
@@ -70,7 +70,7 @@ HOME = /Users/jakoh
 # default
 MAKEFILEPATH := /Applications/Xcode.app/Contents/Developer/Makefiles
 # environment
-VSCODE_CODE_CACHE_PATH = /Users/jakoh/Library/Application Support/Code/CachedData/74b1f979648cc44d385a2286793c226e611f59e7
+VSCODE_CODE_CACHE_PATH = /Users/jakoh/Library/Application Support/Code/CachedData/d045a5eda657f4d7b676dedbfa7aab8207f8a075
 # environment
 LOGNAME = jakoh
 # environment
@@ -88,10 +88,10 @@ MAKE = $(MAKE_COMMAND)
 # default
 MAKECMDGOALS := all
 # makefile (from `Makefile', line 6)
-SRCS := main.c inits.c node_utils.c checker.c tokenize.c expand.c expand_utils.c here_doc.c env.c error.c parse.c parse_utils.c free.c
+SRCS := main.c inits.c node_utils.c checker.c tokenize.c expand.c expand_utils.c here_doc.c env.c error.c direct.c direct_utils.c parse.c parse_utils.c execution.c free.c see.c
 # environment
 SHLVL = 1
-# makefile (from `Makefile', line 14)
+# makefile (from `Makefile', line 16)
 CC := gcc -Wall -Werror -Wextra 
 # default
 MAKE_VERSION := 3.81
@@ -107,7 +107,7 @@ LESS = -R
 %D = $(patsubst %/,%,$(dir $%))
 # default
 MAKE_COMMAND := /Applications/Xcode.app/Contents/Developer/usr/bin/make
-# makefile (from `Makefile', line 28)
+# makefile (from `Makefile', line 30)
 NC := \033[0m
 # default
 .VARIABLES := 
@@ -116,10 +116,10 @@ TMPDIR = /var/folders/zz/zyxvpxvq6csfxvn_n000cc1r00330f/T/
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /Users/jakoh/Library/Application Support/Code/1.71.2-main.sock
+VSCODE_IPC_HOOK = /Users/jakoh/Library/Application Support/Code/1.72.2-main.sock
 # environment
 MallocNanoZone = 0
-# makefile (from `Makefile', line 22)
+# makefile (from `Makefile', line 24)
 RED := \033[0;31m
 # makefile
 MAKEFLAGS = Rrqp
@@ -128,21 +128,20 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x10000046.Electron
+XPC_SERVICE_NAME = com.microsoft.VSCode.8652
 # makefile (from `Makefile', line 4)
 OBJS_DIR := ./objs
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
-# makefile (from `Makefile', line 26)
+# makefile (from `Makefile', line 28)
 YELLOW := \033[0;33m
-# makefile (from `Makefile', line 27)
+# makefile (from `Makefile', line 29)
 CYAN := \033[0;36m
 # automatic
 +F = $(notdir $+)
 # environment
-__CF_USER_TEXT_ENCODING = 0x18C0E:0x0:0x2
-# environment
-COMMAND_MODE = unix2003
+__CF_USER_TEXT_ENCODING = 0x18C0E:0:0
+ 
 # default
 MAKEFILES := 
 # automatic
@@ -151,13 +150,11 @@ MAKEFILES :=
 PAGER = less
 # environment
 LC_ALL = C
-# environment
-SECURITYSESSIONID = 18752
 # automatic
 ^F = $(notdir $^)
 # default
 SUFFIXES := 
-# makefile (from `Makefile', line 16)
+# makefile (from `Makefile', line 18)
 FLAGS := -g -fsanitize=address 
 # default
 .INCLUDE_DIRS = /usr/local/include
@@ -166,9 +163,9 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 30980
+VSCODE_PID = 53212
 # variable set hash-table stats:
-# Load=78/1024=8%, Rehash=0, Collisions=4/113=4%
+# Load=75/1024=7%, Rehash=0, Collisions=4/110=4%
 
 # Pattern-specific Variable Values
 
@@ -176,16 +173,16 @@ VSCODE_PID = 30980
 
 # Directories
 
-# . (device 16777228, inode 3330042): 15 files, no impossibilities.
-# ./srcs (device 16777228, inode 3330177): 11 files, no impossibilities so far.
-# srcs (device 16777228, inode 3330177): 11 files, no impossibilities so far.
+# . (device 16777228, inode 19040): 12 files, no impossibilities.
+# ./srcs (device 16777228, inode 19165): 14 files, no impossibilities so far.
+# srcs (device 16777228, inode 19165): 14 files, no impossibilities so far.
 
-# 37 files, no impossibilities in 3 directories.
+# 40 files, no impossibilities in 3 directories.
 
 # Implicit Rules
 
 objs/%.o: ./srcs/%.c
-#  commands to execute (from `Makefile', line 47):
+#  commands to execute (from `Makefile', line 49):
 	@mkdir -p $(OBJS_DIR)
 	@$(CC) -I includes -I libft -c $< -o $@
 	
@@ -194,10 +191,16 @@ objs/%.o: ./srcs/%.c
 
 # Files
 
+# Not a target:
+objs/direct_utils.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
 objs/main.o: srcs/main.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `main'
-#  Last modified 2022-10-07 15:40:59
+#  File does not exist.
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # automatic
@@ -218,7 +221,7 @@ objs/main.o: srcs/main.c
 # ? := srcs/main.c
 # variable set hash-table stats:
 # Load=8/32=25%, Rehash=0, Collisions=1/14=7%
-#  commands to execute (from `Makefile', line 47):
+#  commands to execute (from `Makefile', line 49):
 	@mkdir -p $(OBJS_DIR)
 	@$(CC) -I includes -I libft -c $< -o $@
 	
@@ -271,7 +274,7 @@ objs/checker.o:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-10-07 14:29:21
+#  Last modified 2022-10-20 15:43:12
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -280,11 +283,17 @@ Makefile:
 # Not a target:
 srcs/main.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-10-07 15:41:23
+#  Last modified 2022-10-20 15:59:31
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+objs/direct.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
 objs/inits.o:
@@ -298,16 +307,15 @@ objs/free.o:
 #  Modification time never checked.
 #  File has not been updated.
 
-minishell: objs/main.o objs/inits.o objs/node_utils.o objs/checker.o objs/tokenize.o objs/expand.o objs/expand_utils.o objs/here_doc.o objs/env.o objs/error.o objs/parse.o objs/parse_utils.o objs/free.o
+minishell: objs/main.o objs/inits.o objs/node_utils.o objs/checker.o objs/tokenize.o objs/expand.o objs/expand_utils.o objs/here_doc.o objs/env.o objs/error.o objs/direct.o objs/direct_utils.o objs/parse.o objs/parse_utils.o objs/execution.o objs/free.o objs/see.o
 #  Implicit rule search has not been done.
-#  Last modified 2022-10-07 15:41:00
+#  File does not exist.
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/4=0%
-#  commands to execute (from `Makefile', line 39):
+#  commands to execute (from `Makefile', line 41):
 	make -C ./libft
- 
 	$(CC) -I includes -I libft $(LIB) $(OBJS) -o $@
 	@echo "$(GREEN)Minishell Compiled Successful.$(NC)"
 	
@@ -317,14 +325,26 @@ fclean: clean
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 57):
+#  commands to execute (from `Makefile', line 59):
 	@rm -rf $(NAME)
 	@make fclean -C ./libft
 	@echo "$(RED)Full Cleaned.$(NC)"
 	
 
 # Not a target:
+objs/see.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
 objs/parse.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+objs/execution.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -358,7 +378,7 @@ clean:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 52):
+#  commands to execute (from `Makefile', line 54):
 	@rm -rf $(OBJS_DIR)
 	@make clean -C ./libft
 	@echo "$(YELLOW)Cleaned.$(NC)"
@@ -383,7 +403,7 @@ objs/node_utils.o:
 #  File has not been updated.
 
 # files hash-table stats:
-# Load=23/1024=2%, Rehash=0, Collisions=3/60=5%
+# Load=27/1024=3%, Rehash=0, Collisions=3/68=4%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -395,6 +415,6 @@ objs/node_utils.o:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Mon Oct 10 14:34:38 2022
+# Finished Make data base on Fri Oct 21 11:07:20 2022
 
  

@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 12:00:13 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/04 12:49:00 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/19 21:32:53 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 void	free_envp(t_envp **envp)
 {
-	t_envp *temp;
-	t_envp *temp2;
+	t_envp	*temp;
+	t_envp	*temp2;
+
 	temp = *envp;
 	temp2 = temp->next;
 	while (temp != NULL)
@@ -28,13 +29,13 @@ void	free_envp(t_envp **envp)
 	}
 }
 
-void	free_total(t_total **total)
+void	free_direct(t_direct **direct)
 {
-	t_total	*temp;
-	int		i;
+	t_direct	*temp;
+	int			i;
 
 	i = -1;
-	temp = *total;
+	temp = *direct;
 	if (temp->delim != NULL)
 	{
 		while (temp->delim[++i] != NULL)
@@ -52,15 +53,15 @@ void	free_total(t_total **total)
 			free(temp->fd_pipes[i]);
 		free(temp->fd_pipes);
 	}
-    if (temp != NULL)
-        free(temp);
+	if (temp != NULL)
+		free(temp);
 }
 
 void	free_lists(t_node **lists)
 {
 	t_node	*temp;
 	t_node	*temp2;
-	
+
 	temp = *lists;
 	temp2 = temp->next;
 	while (temp != NULL)
@@ -70,5 +71,31 @@ void	free_lists(t_node **lists)
 		temp = temp2;
 		if (temp != NULL)
 			temp2 = temp2->next;
+	}
+}
+
+void	free_cmds(t_cmds **cmds)
+{
+	t_cmds	*temp;
+	int		i;
+
+	temp = *cmds;
+	if (temp != NULL && temp->envp != NULL)
+	{
+		i = -1;
+		while (temp->envp[++i] != NULL)
+			free(temp->envp[i]);
+		free(temp->envp);
+	}
+	while (temp != NULL)
+	{
+		i = -1;
+		while (temp->args[++i] != NULL)
+			free(temp->args[i]);
+		free(temp->args);
+		
+		*cmds = (*cmds)->next;
+		free(temp);
+		temp = *cmds;
 	}
 }

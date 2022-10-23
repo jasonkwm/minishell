@@ -6,65 +6,156 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 21:01:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/06 13:36:50 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/20 14:00:11 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /**
- * @brief
- * Gets total number of pipes,
- * number of heredoc,
- * check if theres token error,
- * if error found then output error message.
+ * @brief Get the num arguments for each command group
  * 
- * @param lists 
- * link list of tokenized input string.
- * @param total 
- * total contains info for pipes and here_doc
+ * @param lists tokenize list
+ * @param hd destination for here doc
+ * 
+ * @return type: t_node *, returns a empty command group hd is set.
  */
-void	get_total(t_node **lists, t_total **total)
+t_cmds	*init_cur_group(t_node *lists, int *hd)
 {
-	t_node	*temp;
+	int		num_args;
 
-	temp = *lists;
-	while (temp != NULL && temp->val != NULL)
+	num_args = 0;
+	while (lists != NULL)
 	{
-		get_tol_condition(total, temp);
-		if ((*total)->error == 1)
-			return ;
-		temp = temp->next;
+		if (lists->type == PIPE)
+			break ;
+		else if (lists->type == REDIRECT)
+		{
+			if (ft_strcmp(lists->val, "<<") == 0)
+				++(*hd);
+			lists = lists->next;
+		}
+		else
+			++num_args;
+		lists = lists->next;
 	}
+	return (cmd_groups_init(0, 1, num_args, *hd));
 }
 
 /**
- * @brief extention of get_total function,
- * checks and print token error. And count number of 
- * pipes '|' and redirection '< > >> <<'
- * @param total 
- * total contains info for pipes and here_doc
- * @param cur_node 
- * current node in loop
+ * @brief check permission and open fd if able
+ * 
+ * @param path file path
+ * @param type 
+ * 0 = READ <
+ * 1 = WRITE >
+ * 2 = APPEND >>
+ * @param cur current command group
+ * 
+ * @return int 
+ * -1 if fail
+ * 0 if success
  */
-void	get_tol_condition(t_total **total, t_node *cur_node)
+int	check_access(char *path, int type, t_cmds **cur)
 {
-	if (cur_node->type == PIPE)
+	if (type == 0)
 	{
-		if (cur_node->next == NULL || cur_node->next->type == PIPE)
-			(*total)->error = syntax_error(cur_node->val);
+		if (access(path, R_OK) == -1)
+		{
+			printf("%s: %d, str: %s\n", path, errno, strerror(errno));
+			return (-1);
+		}
+		(*cur)->input = open(path, O_RDONLY);
 	}
-	else if (cur_node->type == REDIRECT)
+	else if (type == 1 || type == 2)
 	{
-		if (cur_node->next == NULL)
-			(*total)->error = syntax_error("newline");
-		else if (is_token(cur_node->next->val) == 0)
-			(*total)->error = syntax_error(cur_node->next->val);
+		if (type == 1)
+			(*cur)->output = open(path, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		else
+			(*cur)->output = open(path, O_CREAT | O_RDWR | O_APPEND, 0644);
+		if ((*cur)->output == -1 && access(path, W_OK) == -1)
+		{
+			printf("%s: %d, str: %s\n", path, errno, strerror(errno));
+			return (-1);
+		}
 	}
-	if ((*total)->error == 1)
-		return ;
-	if (ft_strcmp(cur_node->val, "<<") == 0)
-		++((*total)->tol_heredoc);
-	else if (cur_node->type == PIPE)
-		++((*total)->tol_pipes);
+	return (2);
+}
+
+/**
+ * @brief extention for grouping function \
+ * @brief this function runs checks for pipe and redirection \
+ * @brief and open fd for input and output if necessary
+ * 
+ * @param list tokenize linked list
+ * @param cur_group current_group linked list
+ * @param i tracks arguments resets if current token is a pipe
+ * @param hd represents current here_doc
+ * 
+ * @return type: int, -1 if fail to redirect
+ * 2 if redirection successful (useless for now)
+ * 1 if pipe encountered (useless for now)
+ */
+int	grouping_ext(t_node **list, t_cmds **cur_group, int *i, int *hd)
+{
+	int	check;
+
+	check = 0;
+	if ((*list)->type == PIPE)
+	{
+		*i = -1;
+		(*cur_group)->next = init_cur_group((*list)->next, hd);
+		(*cur_group) = (*cur_group)->next;
+		check = 1;
+	}
+	else if ((*list)->type == REDIRECT)
+	{
+		if (ft_strcmp((*list)->val, "<") == 0)
+			check = check_access((*list)->next->val, 0, cur_group);
+		else if (ft_strcmp((*list)->val, "<<") == 0)
+				(*cur_group)->input = -2;
+		else if (ft_strcmp((*list)->val, ">") == 0)
+			check = check_access((*list)->next->val, 1, cur_group);
+		else if (ft_strcmp((*list)->val, ">>") == 0)
+			check = check_access((*list)->next->val, 1, cur_group);
+		*list = (*list)->next;
+	}
+	return (check);
+}
+
+/**
+ * @brief Create command group link list \
+ * @brief set each groups input, output and arguments
+ * @brief ALL COMMAND GROUP SHARES THE SAME ENVP SO FREE CAREFULLY
+ * 
+ * @param m_var main variable for ac, av & envp
+ * @param lists tokenize lists
+ * @param direct contains info about heredoc and pipes 
+ */
+t_cmds	*grouping(t_main *m_var, t_node *lists)
+{
+	t_cmds	*cmd_groups;
+	t_cmds	*cur_group;
+	int		hd;
+	int		i;
+	int		check;
+
+	hd = -1;
+	i = -1;
+	cmd_groups = init_cur_group(lists, &hd);
+	cur_group = cmd_groups;
+	while (lists != NULL && lists->val != NULL)
+	{
+		if (lists->type == PIPE || lists->type == REDIRECT)
+		{
+			check = grouping_ext(&lists, &cur_group, &i, &hd);
+			if (check == -1)
+				break ;
+		}
+		else
+			cur_group->args[++i] = ft_strdup(lists->val);
+		lists = lists->next;
+	}
+	add_envp(m_var, &cmd_groups);
+	return (cmd_groups);
 }
