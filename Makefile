@@ -8,7 +8,7 @@ SRCS := main.c inits.c node_utils.c \
 		expand.c expand_utils.c \
 		here_doc.c env.c error.c \
 		direct.c direct_utils.c \
-		parse.c parse_utils.c \
+		parse.c \
 		execution.c \
 		free.c see.c
 OBJS := $(SRCS:%.c=$(OBJS_DIR)/%.o)
