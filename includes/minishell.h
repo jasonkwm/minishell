@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:04:18 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/20 15:55:07 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/24 16:32:54 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ typedef struct s_direct
 	char	**delim;
 	int		**fd_pipes;
 	char	**heredoc;
+	int		**fd_heredoc;
 }	t_direct;
 
 /**
@@ -185,6 +186,18 @@ t_cmds	*init_cur_group(t_node *lists, int *hd);
 int	check_access(char *path, int type, t_cmds **cur);
 int	grouping_ext(t_node **list, t_cmds **cur_group, int *i, int *hd);
 t_cmds	*grouping(t_main *m_var, t_node *lists);
+void	set_heredoc(t_direct **direct, t_cmds **cmds);
+
+// parse_utils.c
+void	set_direction(t_direct **direct, t_cmds **cmds);
+void    set_pipes(t_direct **direct, t_cmds **cmds);
+void    set_heredoc(t_direct **direct, t_cmds **cmds);
+void    fd_heredoc_helper(t_direct **direct, t_cmds **cmds);
+// execution.c
+
+// execution_utils.c
+void	set_direction(t_direct **direct, t_cmds **cmds);
+void    ft_close_pipes(t_direct **direct);
 
 // error.c
 int	ft_err_handle(char *path, int perm, int type);
