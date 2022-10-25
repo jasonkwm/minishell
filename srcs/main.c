@@ -6,7 +6,7 @@
 /*   By: edlim <edlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 10:35:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/25 15:15:14 by edlim            ###   ########.fr       */
+/*   Updated: 2022/10/25 15:50:39 by edlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	mini_main(t_main *m_var, t_node **lists)
 		set_direction(&direct, &cmds);
 		ft_see_group(&cmds);
 		// function(m_var, &direct, &cmds);
-		cdpwd(m_var, &cmds);
+		builtins(m_var, &cmds);
 		free_cmds(&cmds);
 		// creates a function here that loop through command group and fork correctly and use the right pipes for it.
 		// needs to accepts 
