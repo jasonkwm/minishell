@@ -6,20 +6,51 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 15:12:21 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/21 12:57:17 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/25 14:40:31 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "minishell.h"
+#include "minishell.h"
 
-// ft_close_pipes(t_direct **direct);
+void	find_path(t_cmds **cmds)
+{
+	char	**temp;
+	int		i;
 
-// void    function(t_main *m_var, t_direct **direct, t_cmds **cmds)
+	i = -1;
+	temp = NULL;
+	while ((*cmds)->envp[++i] != NULL)
+	{
+		if (ft_strnstr((*cmds)->envp[i], "PATH", 4) != 0)
+		{
+			temp = ft_split((*cmds)->envp[i] + 5, ':');
+			break ;
+		}
+	}
+	i = -1;
+	while (temp[++i] != NULL)
+		printf("temp: %s\n", temp[i]);
+}
+
+// char	**get_path(t_cmds **cmds)
 // {
-// 	t_cmds *temp;
-// 	int     id;
-	
+
+// }
+
+// void	excevator(t_cmds **cmds)
+// {
+// 	char    **path;
+
+// }
+
+// void	function(t_main *m_var, t_direct **direct, t_cmds **cmds)
+// {
+// 	t_cmds	*temp;
+// 	int		id;
+// 	int		i;
+
 // 	temp = *cmds;
+// 	i = 0;
 // 	while (temp != NULL)
 // 	{
 // 		id = fork();
@@ -27,26 +58,22 @@
 // 			return ;
 // 		if (id == 0)
 // 		{
-// 			// 
-// 			// dup2 input and output
+// 			handle_io(direct, temp);
+// 			ft_close_pipes(direct);
+// 			excevator(cmds);
 // 			// run executor
 // 			// do child thing
 // 		}
+// 		++i;
+// 		temp = temp->next;
 // 	}
+// 	ft_close_pipes(direct);
 // }
 
-// ft_close_pipes(t_direct **direct)
+// void	handle_io(t_direct **direct, t_cmds **cur)
 // {
-// 	t_direct	*temp;
-// 	int			i;
-
-// 	i = -1;
-// 	temp = *direct;
-// 	while (++i < temp->tol_pipes)
-// 	{
-// 		close(temp->fd_pipes[i][0]);
-// 		close(temp->fd_pipes[i][1]);
-// 		free(temp->fd_pipes[i]);
-// 	}
-// 	free(temp->fd_pipes);
+// 	if ((*cur)->input != STDIN_FILENO)
+// 		dup2((*cur)->input, STDIN_FILENO);
+// 	if ((*cur)->output != STDOUT_FILENO)
+// 		dup2((*cur)->output, STDOUT_FILENO);
 // }

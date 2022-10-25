@@ -8,15 +8,15 @@ SRCS := main.c inits.c node_utils.c \
 		expand.c expand_utils.c \
 		here_doc.c env.c error.c \
 		direct.c direct_utils.c \
-		parse.c \
-		free.c see.c cdpwd.c \
-		execution.c \
-		free.c see.c
+		parse.c parse_utils.c \
+		execution.c execution_utils.c \
+		free1.c free2.c \
+		see.c  cdpwd.c
 OBJS := $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
-CC := gcc -Wall -Werror -Wextra 
+CC := gcc -Wall -Werror -Wextra
 
-FLAGS := -g -fsanitize=address 
+FLAGS := -g3 -fsanitize=address
 
 # -L "folder" to looks for library in the folder
 # -l(ft) to link library file. l replaces lib
@@ -40,7 +40,7 @@ all : $(NAME)
 # "$@" is to match target
 $(NAME) : $(OBJS)
 	make -C ./libft
-	$(CC) -I includes -I libft $(LIB) $(OBJS) -o $@
+	$(CC) $(FLAGS) -I includes -I libft $(LIB) $(OBJS) -o $@
 	@echo "$(GREEN)Minishell Compiled Successful.$(NC)"
 
 # "mkdir -p" creates dir if necessary, if dir exist, no error specified

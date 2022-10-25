@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 15:37:16 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/19 17:00:59 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/24 11:08:51 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ t_direct	*init_direct(void)
 	tol->delim = NULL;
 	tol->heredoc = NULL;
 	tol->fd_pipes = NULL;
+	tol->fd_heredoc = NULL;
 	return (tol);
 }
 

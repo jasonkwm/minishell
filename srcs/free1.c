@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   free1.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 12:00:13 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/19 21:32:53 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/24 14:43:22 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,34 +27,6 @@ void	free_envp(t_envp **envp)
 		if (temp != NULL)
 			temp2 = temp2->next;
 	}
-}
-
-void	free_direct(t_direct **direct)
-{
-	t_direct	*temp;
-	int			i;
-
-	i = -1;
-	temp = *direct;
-	if (temp->delim != NULL)
-	{
-		while (temp->delim[++i] != NULL)
-		{
-			free(temp->delim[i]);
-			free(temp->heredoc[i]);
-		}
-		free(temp->delim);
-		free(temp->heredoc);
-	}
-	i = -1;
-	if (temp->fd_pipes != NULL)
-	{
-		while (temp->fd_pipes[++i] != NULL)
-			free(temp->fd_pipes[i]);
-		free(temp->fd_pipes);
-	}
-	if (temp != NULL)
-		free(temp);
 }
 
 void	free_lists(t_node **lists)

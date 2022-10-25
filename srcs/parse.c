@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 21:01:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/20 14:00:11 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/24 14:58:54 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,6 @@ t_cmds	*grouping(t_main *m_var, t_node *lists)
 	t_cmds	*cur_group;
 	int		hd;
 	int		i;
-	int		check;
 
 	hd = -1;
 	i = -1;
@@ -148,8 +147,7 @@ t_cmds	*grouping(t_main *m_var, t_node *lists)
 	{
 		if (lists->type == PIPE || lists->type == REDIRECT)
 		{
-			check = grouping_ext(&lists, &cur_group, &i, &hd);
-			if (check == -1)
+			if (grouping_ext(&lists, &cur_group, &i, &hd) == -1)
 				break ;
 		}
 		else
