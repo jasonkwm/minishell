@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 15:48:36 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/25 13:04:56 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/25 14:55:43 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void    set_pipes(t_direct **direct, t_cmds **cmds)
             temp->output = (*direct)->fd_pipes[i][1];
         else if (i == (*direct)->tol_pipes && temp->input == 0)
                 temp->input = (*direct)->fd_pipes[i - 1][0];
-        else
+        else if (i != 0 && i != (*direct)->tol_pipes)
         {
             if (temp->input == 0)
                 temp->input = (*direct)->fd_pipes[i - 1][0];
