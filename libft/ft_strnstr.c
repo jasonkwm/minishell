@@ -3,17 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakoh <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 09:25:02 by jakoh             #+#    #+#             */
-/*   Updated: 2022/04/06 09:25:07 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/25 14:33:47 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// Implementation of strnstr
-// man strnstr for more info
+/**
+ * @brief Locates first occurance of string 'needle in 'haystack' \
+ * @brief more than 'len' character and returns a pointer to first character
+ * 
+ * @param haystack place to search for needle
+ * @param needle thing to look for
+ * @param len length of search
+ * @return type: char *, first occurance of  needle in haystack
+ */
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
 	size_t	i;

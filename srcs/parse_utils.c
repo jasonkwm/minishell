@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 15:48:36 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/24 16:45:34 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/25 13:04:56 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ void	set_direction(t_direct **direct, t_cmds **cmds)
         set_pipes(direct, cmds);
 }
 
+/**
+ * @brief command group input and output fd to pipe fd if needed
+ * 
+ * @param direct contains pipe fd
+ * @param cmds command group
+ */
 void    set_pipes(t_direct **direct, t_cmds **cmds)
 {
     int     i;

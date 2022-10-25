@@ -6,12 +6,11 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:59:14 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/24 15:52:00 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/25 13:03:49 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 void    ft_close_pipes(t_direct **direct)
 {
