@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 11:02:23 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/03 17:27:10 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/26 17:22:58 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,5 @@ int	syntax_error(char *msg)
 	ft_putstr_fd("ms: syntax error near unexpected token `", 2);
 	ft_putstr_fd(msg, 2);
 	ft_putstr_fd("'\n", 2);
-	return (1);
+	return (258);
 }

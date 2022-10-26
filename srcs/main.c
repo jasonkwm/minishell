@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 10:35:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/25 14:49:46 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/26 18:30:04 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,17 @@ void	mini_main(t_main *m_var, t_node **lists)
 	t_cmds		*cmds;
 
 	direct = director(lists);
-	if (direct->error != 1)
+	if (direct->error != 258)
 	{
 		cmds = grouping(m_var, *lists);
 		set_direction(&direct, &cmds);
-		ft_see_group(&cmds);
-		// function(m_var, &direct, &cmds);
+		function(m_var, &direct, &cmds);
 		free_cmds(&cmds);
 		// creates a function here that loop through command group and fork correctly and use the right pipes for it.
 		// needs to accepts 
 	}
+	if (direct->error == 258)
+		printf("direct errno: %i\n", errno);
 	free_lists(lists);
 	free_direct(&direct);
 	(void)m_var;
@@ -81,6 +82,7 @@ int	main(int ac, char **av, char **envp)
 	{
 		lists = token_reader(&m_var);
 		mini_main(&m_var, &lists);
+		printf("exit status: %i\n", m_var.exit_code);
 	}
 	return (0);
 }

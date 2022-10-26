@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:04:18 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/25 14:38:28 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/26 18:25:44 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_main
 	int		ac;
 	char	**av;
 	t_envp	*envp;
+	int		exit_code;
 }	t_main;
 
 // tokenizing/parsing struct
@@ -195,9 +196,9 @@ void    set_heredoc(t_direct **direct, t_cmds **cmds);
 void    fd_heredoc_helper(t_direct **direct, t_cmds **cmds);
 
 // execution.c
-void	handle_io(t_direct **direct, t_cmds **cur);
+void	handle_io(t_cmds **cur);
 void    function(t_main *m_var, t_direct **direct, t_cmds **cmds);
-void	find_path(t_cmds **cmds);
+char	**find_path(t_cmds **cmds);
 
 // execution_utils.c
 void	set_direction(t_direct **direct, t_cmds **cmds);

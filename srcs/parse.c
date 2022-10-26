@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 21:01:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/24 14:58:54 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/26 17:35:42 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	check_access(char *path, int type, t_cmds **cur)
 	{
 		if (access(path, R_OK) == -1)
 		{
-			printf("%s: %d, str: %s\n", path, errno, strerror(errno));
+			printf("%s: %s\n", path, strerror(errno));
 			return (-1);
 		}
 		(*cur)->input = open(path, O_RDONLY);
@@ -75,7 +75,7 @@ int	check_access(char *path, int type, t_cmds **cur)
 			(*cur)->output = open(path, O_CREAT | O_RDWR | O_APPEND, 0644);
 		if ((*cur)->output == -1 && access(path, W_OK) == -1)
 		{
-			printf("%s: %d, str: %s\n", path, errno, strerror(errno));
+			printf("%s: %s\n", path, strerror(errno));
 			return (-1);
 		}
 	}
@@ -120,6 +120,7 @@ int	grouping_ext(t_node **list, t_cmds **cur_group, int *i, int *hd)
 			check = check_access((*list)->next->val, 1, cur_group);
 		*list = (*list)->next;
 	}
+	printf("check: %i\n", check);
 	return (check);
 }
 
