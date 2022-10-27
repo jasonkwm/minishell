@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:04:18 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/26 18:25:44 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/27 11:36:10 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,7 +197,7 @@ void    fd_heredoc_helper(t_direct **direct, t_cmds **cmds);
 
 // execution.c
 void	handle_io(t_cmds **cur);
-void    function(t_main *m_var, t_direct **direct, t_cmds **cmds);
+int    function(t_main *m_var, t_direct **direct, t_cmds **cmds);
 char	**find_path(t_cmds **cmds);
 
 // execution_utils.c
@@ -220,7 +220,7 @@ void	ft_see(t_node **lists);
 
 // main.c
 t_node	*token_reader(t_main *m_var);
-void	mini_main(t_main *m_var, t_node **lists);
+int	mini_main(t_main *m_var, t_node **lists);
 
 
 #endif

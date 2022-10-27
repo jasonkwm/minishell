@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 10:35:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/26 18:30:04 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/27 14:31:07 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,26 +50,27 @@ t_node	*token_reader(t_main *m_var)
  * @param m_var contains main variable "ac, av, envp"
  * @param lists tokenize linked list of 
  */
-void	mini_main(t_main *m_var, t_node **lists)
+int	mini_main(t_main *m_var, t_node **lists)
 {
 	t_direct	*direct;
 	t_cmds		*cmds;
 
 	direct = director(lists);
+	if (direct->error == 258)
+		m_var->exit_code = direct->error;
 	if (direct->error != 258)
 	{
 		cmds = grouping(m_var, *lists);
 		set_direction(&direct, &cmds);
-		function(m_var, &direct, &cmds);
+		if (function(m_var, &direct, &cmds) == 1)
+		{
+			printf("here\n");
+			return (1);
+		}
 		free_cmds(&cmds);
-		// creates a function here that loop through command group and fork correctly and use the right pipes for it.
-		// needs to accepts 
 	}
-	if (direct->error == 258)
-		printf("direct errno: %i\n", errno);
-	free_lists(lists);
 	free_direct(&direct);
-	(void)m_var;
+	return (0);
 }
 
 int	main(int ac, char **av, char **envp)
@@ -81,8 +82,11 @@ int	main(int ac, char **av, char **envp)
 	while (1)
 	{
 		lists = token_reader(&m_var);
-		mini_main(&m_var, &lists);
-		printf("exit status: %i\n", m_var.exit_code);
+		if (lists->val != NULL)
+			if (mini_main(&m_var, &lists) == 1)
+				return (1);
+		free_lists(&lists);
+		// printf("exit status: %i\n", m_var.exit_code);
 	}
 	return (0);
 }

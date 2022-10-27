@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 15:59:27 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/19 11:29:27 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/27 09:43:37 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*dollar_join(t_main *m_var, char *s1, char *s2)
 	char	*temp;
 
 	if (ft_strcmp(s2, "?") == 0)
-		str = ft_itoa(errno);
+		str = ft_itoa(m_var->exit_code);
 	else if (ft_strcmp(s2, "$") == 0)
 		str = ft_strdup("$");
 	else

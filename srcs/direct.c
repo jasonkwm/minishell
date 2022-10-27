@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 12:44:22 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/19 11:25:51 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/27 10:30:18 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	get_total(t_node **lists, t_direct **direct)
 	while (temp != NULL && temp->val != NULL)
 	{
 		get_tol_condition(direct, temp);
-		if ((*direct)->error == 1)
+		if ((*direct)->error == 258)
 			return ;
 		temp = temp->next;
 	}
@@ -83,8 +83,6 @@ void	get_tol_condition(t_direct **direct, t_node *cur_node)
 		else if (is_token(cur_node->next->val) == 0)
 			(*direct)->error = syntax_error(cur_node->next->val);
 	}
-	if ((*direct)->error == 1)
-		return ;
 	if (ft_strcmp(cur_node->val, "<<") == 0)
 		++((*direct)->tol_heredoc);
 	else if (cur_node->type == PIPE)

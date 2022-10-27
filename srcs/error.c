@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 11:02:23 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/26 17:22:58 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/27 09:56:57 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,11 @@ int	syntax_error(char *msg)
 	ft_putstr_fd(msg, 2);
 	ft_putstr_fd("'\n", 2);
 	return (258);
+}
+
+int	exit_error(char *thing, int code)
+{
+	if (code == 127)
+		printf("minishell: %s: command not found", thing);
+	exit(code);
 }

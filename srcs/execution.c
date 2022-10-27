@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 15:12:21 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/26 18:36:38 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/27 14:36:30 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,72 +59,68 @@ char	*get_path(t_cmds **cmds)
 			temp = ft_strdup(paths[i]);
 			break;
 		}
-		if (access(paths[i], X_OK) == -1)
-			printf("errno in loop: %i\n", errno);
 		free(paths[i]);
 	}
 	free(paths);
-	if (temp == NULL)
+	if (temp == NULL && (*cmds)->args[0] != NULL)
 	{
-		printf("errno: %i\n", errno);
-		exit(errno);
+		printf("minishell: %s: command not found\n", (*cmds)->args[0]);
+		exit(127);
 	}
 	return (temp);
 }
 
 void	excevator(t_cmds **cmds)
 {
-	char    **path;
+	char    *path;
 	int		i;
 
 	i = -1;
 	if ((*cmds)->args[0] == NULL)
-		exit(errno);
-	path = find_path(cmds);
-	while (path[++i] != NULL)
-		execve(path[i], (*cmds)->args, (*cmds)->envp);
-	exit(127);
+		return ;
+	path = get_path(cmds);
+	execve(path, (*cmds)->args, (*cmds)->envp);
 }
 
 void	handle_io(t_cmds **cur)
 {
-	if ((*cur)->input != STDIN_FILENO)
-		dup2((*cur)->input, STDIN_FILENO);
-	if ((*cur)->output != STDOUT_FILENO)
-		dup2((*cur)->output, STDOUT_FILENO);
+	if ((*cur)->input != 0)
+	{
+		dup2((*cur)->input, 0);
+		close((*cur)->input);
+	}
+	if ((*cur)->output != 1)
+	{
+		dup2((*cur)->output, 1);
+		close((*cur)->input);
+	}
 }
 
-void	function(t_main *m_var, t_direct **direct, t_cmds **cmds)
+int	function(t_main *m_var, t_direct **direct, t_cmds **cmds)
 {
 	t_cmds	*temp;
 	pid_t	id;
-	int		i;
 	int		status;
 
 	(void)m_var;
 	temp = *cmds;
-	i = 0;
 	while (temp != NULL)
 	{
 		id = fork();
 		if (id < 0)
-			return ;
+			return (-1);
 		if (id == 0)
 		{
 			handle_io(&temp);
 			ft_close_pipes(direct);
 			excevator(&temp);
-			return ;
+			exit(127);
 		}
-		else
-		{
-			if (waitpid(id, &status, WCONTINUED) == -1)
-				perror("waitpid failed");
-			if (WIFEXITED(status))
-				m_var->exit_code = WEXITSTATUS(status);
-		}
-		++i;
-		temp = temp->next;
+		temp = temp->next;	
 	}
+	waitpid(-1, &status, 0);
+	if (WIFEXITED(status))
+		m_var->exit_code = WEXITSTATUS(status);
 	ft_close_pipes(direct);
+	return (0);
 }

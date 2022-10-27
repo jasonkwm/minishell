@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 21:01:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/26 17:35:42 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/27 11:57:51 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_cmds	*init_cur_group(t_node *lists, int *hd)
  * @param cur current command group
  * 
  * @return int 
- * -1 if fail
+ * 1 if fail
  * 0 if success
  */
 int	check_access(char *path, int type, t_cmds **cur)
@@ -79,7 +79,7 @@ int	check_access(char *path, int type, t_cmds **cur)
 			return (-1);
 		}
 	}
-	return (2);
+	return (0);
 }
 
 /**
@@ -120,7 +120,6 @@ int	grouping_ext(t_node **list, t_cmds **cur_group, int *i, int *hd)
 			check = check_access((*list)->next->val, 1, cur_group);
 		*list = (*list)->next;
 	}
-	printf("check: %i\n", check);
 	return (check);
 }
 
@@ -149,7 +148,10 @@ t_cmds	*grouping(t_main *m_var, t_node *lists)
 		if (lists->type == PIPE || lists->type == REDIRECT)
 		{
 			if (grouping_ext(&lists, &cur_group, &i, &hd) == -1)
+			{
+				m_var->exit_code = 1;
 				break ;
+			}
 		}
 		else
 			cur_group->args[++i] = ft_strdup(lists->val);
