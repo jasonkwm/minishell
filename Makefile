@@ -16,7 +16,7 @@ OBJS := $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
 CC := gcc -Wall -Werror -Wextra
 
-FLAGS := -g3 -fsanitize=address
+FLAGS := #-g3 -fsanitize=address
 
 # -L "folder" to looks for library in the folder
 # -l(ft) to link library file. l replaces lib

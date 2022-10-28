@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 21:01:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/24 14:58:54 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/28 14:31:43 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_cmds	*init_cur_group(t_node *lists, int *hd)
  * @param cur current command group
  * 
  * @return int 
- * -1 if fail
+ * 1 if fail
  * 0 if success
  */
 int	check_access(char *path, int type, t_cmds **cur)
@@ -62,7 +62,7 @@ int	check_access(char *path, int type, t_cmds **cur)
 	{
 		if (access(path, R_OK) == -1)
 		{
-			printf("%s: %d, str: %s\n", path, errno, strerror(errno));
+			printf("%s: %s\n", path, strerror(errno));
 			return (-1);
 		}
 		(*cur)->input = open(path, O_RDONLY);
@@ -75,11 +75,12 @@ int	check_access(char *path, int type, t_cmds **cur)
 			(*cur)->output = open(path, O_CREAT | O_RDWR | O_APPEND, 0644);
 		if ((*cur)->output == -1 && access(path, W_OK) == -1)
 		{
-			printf("%s: %d, str: %s\n", path, errno, strerror(errno));
+			printf("%s: %s\n", path, strerror(errno));
+			close((*cur)->output);
 			return (-1);
 		}
 	}
-	return (2);
+	return (0);
 }
 
 /**
@@ -132,7 +133,7 @@ int	grouping_ext(t_node **list, t_cmds **cur_group, int *i, int *hd)
  * @param lists tokenize lists
  * @param direct contains info about heredoc and pipes 
  */
-t_cmds	*grouping(t_main *m_var, t_node *lists)
+t_cmds	*grouping(t_main *m_var, t_node *lists, t_direct **direct)
 {
 	t_cmds	*cmd_groups;
 	t_cmds	*cur_group;
@@ -148,7 +149,10 @@ t_cmds	*grouping(t_main *m_var, t_node *lists)
 		if (lists->type == PIPE || lists->type == REDIRECT)
 		{
 			if (grouping_ext(&lists, &cur_group, &i, &hd) == -1)
+			{
+				(*direct)->error = 1;
 				break ;
+			}
 		}
 		else
 			cur_group->args[++i] = ft_strdup(lists->val);

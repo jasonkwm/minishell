@@ -6,12 +6,17 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 12:00:13 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/24 14:43:22 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/28 16:15:05 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * @brief free envp linked list
+ * 
+ * @param envp envp in linked list
+ */
 void	free_envp(t_envp **envp)
 {
 	t_envp	*temp;
@@ -29,6 +34,11 @@ void	free_envp(t_envp **envp)
 	}
 }
 
+/**
+ * @brief free tokenize linked list
+ * 
+ * @param lists tokenize linked list of input
+ */
 void	free_lists(t_node **lists)
 {
 	t_node	*temp;
@@ -46,6 +56,11 @@ void	free_lists(t_node **lists)
 	}
 }
 
+/**
+ * @brief free command groups
+ * 
+ * @param cmds command groups linked list
+ */
 void	free_cmds(t_cmds **cmds)
 {
 	t_cmds	*temp;
@@ -65,7 +80,6 @@ void	free_cmds(t_cmds **cmds)
 		while (temp->args[++i] != NULL)
 			free(temp->args[i]);
 		free(temp->args);
-		
 		*cmds = (*cmds)->next;
 		free(temp);
 		temp = *cmds;

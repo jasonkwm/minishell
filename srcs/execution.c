@@ -6,74 +6,77 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 15:12:21 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/25 14:40:31 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/28 16:17:16 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	find_path(t_cmds **cmds)
+/**
+ * @brief execute non builtin functions
+ * 
+ * @param cmds current command group
+ */
+void	executor(t_cmds **cmds)
 {
-	char	**temp;
+	char	*path;
 	int		i;
 
 	i = -1;
-	temp = NULL;
-	while ((*cmds)->envp[++i] != NULL)
-	{
-		if (ft_strnstr((*cmds)->envp[i], "PATH", 4) != 0)
-		{
-			temp = ft_split((*cmds)->envp[i] + 5, ':');
-			break ;
-		}
-	}
-	i = -1;
-	while (temp[++i] != NULL)
-		printf("temp: %s\n", temp[i]);
+	if ((*cmds)->args[0] == NULL)
+		return ;
+	path = get_path(cmds);
+	execve(path, (*cmds)->args, (*cmds)->envp);
+	exit(127);
 }
 
-// char	**get_path(t_cmds **cmds)
-// {
+/**
+ * @brief function to execute command group\
+ * @brief this is where we fork processes to execute commands
+ * 
+ * @param m_var main variable contains envp and error code
+ * @param direct contains all fd needed to handle input and output
+ * @param cmds commands groups in linked list
+ */
+void	function(t_main *m_var, t_direct **direct, t_cmds **cmds)
+{
+	t_cmds	*temp;
+	int		status;
 
-// }
+	temp = *cmds;
+	while (temp != NULL)
+	{
+		forker(&temp, direct);
+		handle_io(&temp, 0);
+		temp = temp->next;
+	}
+	ft_close_pipes(direct);
+	while (waitpid(-1, &status, WUNTRACED) > 0)
+		;
+	m_var->exit_code = WEXITSTATUS(status);
+	return ;
+}
 
-// void	excevator(t_cmds **cmds)
-// {
-// 	char    **path;
+/**
+ * @brief forking is done here
+ * 
+ * @param cur_cmd current command group
+ * @param direct contains fd to close after dupping
+ * @return pid_t 
+ */
+pid_t	forker(t_cmds **cur_cmd, t_direct **direct)
+{
+	pid_t	id;
 
-// }
-
-// void	function(t_main *m_var, t_direct **direct, t_cmds **cmds)
-// {
-// 	t_cmds	*temp;
-// 	int		id;
-// 	int		i;
-
-// 	temp = *cmds;
-// 	i = 0;
-// 	while (temp != NULL)
-// 	{
-// 		id = fork();
-// 		if (id < 0)
-// 			return ;
-// 		if (id == 0)
-// 		{
-// 			handle_io(direct, temp);
-// 			ft_close_pipes(direct);
-// 			excevator(cmds);
-// 			// run executor
-// 			// do child thing
-// 		}
-// 		++i;
-// 		temp = temp->next;
-// 	}
-// 	ft_close_pipes(direct);
-// }
-
-// void	handle_io(t_direct **direct, t_cmds **cur)
-// {
-// 	if ((*cur)->input != STDIN_FILENO)
-// 		dup2((*cur)->input, STDIN_FILENO);
-// 	if ((*cur)->output != STDOUT_FILENO)
-// 		dup2((*cur)->output, STDOUT_FILENO);
-// }
+	id = fork();
+	if (id < 0)
+		return (-1);
+	if (id == 0)
+	{
+		handle_io(cur_cmd, 1);
+		ft_close_pipes(direct);
+		executor(cur_cmd);
+		return (id);
+	}
+	return (id);
+}

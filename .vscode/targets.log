@@ -6,9 +6,8 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
- 
 
-# Make data base, printed on Tue Oct 25 14:38:28 2022
+# Make data base, printed on Fri Oct 28 16:23:48 2022
 
 # Variables
 
@@ -53,13 +52,12 @@ LIB := -L./libft -lft -lreadline
 # makefile (from `Makefile', line 28)
 PURPLE := \033[0;35m
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.hHW6VhI8cI/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.Bh5bbsAUX7/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
 PWD = /Users/jakoh/Desktop/minishell
 # environment
- 
 ORIGINAL_XDG_CURRENT_DESKTOP = undefined
 # makefile (from `Makefile', line 26)
 GREEN := \033[0;32m
@@ -128,7 +126,7 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = com.microsoft.VSCode.8748
+XPC_SERVICE_NAME = com.microsoft.VSCode.8876
 # makefile (from `Makefile', line 4)
 OBJS_DIR := ./objs
 # automatic
@@ -154,7 +152,7 @@ LC_ALL = C
 # default
 SUFFIXES := 
 # makefile (from `Makefile', line 19)
-FLAGS := -g3 -fsanitize=address
+FLAGS := 
 # default
 .INCLUDE_DIRS = /usr/local/include
 # environment
@@ -162,7 +160,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 64526
+VSCODE_PID = 93744
 # variable set hash-table stats:
 # Load=75/1024=7%, Rehash=0, Collisions=4/110=4%
 
@@ -172,18 +170,17 @@ VSCODE_PID = 64526
 
 # Directories
 
-# . (device 16777228, inode 19040): 13 files, no impossibilities.
+# . (device 16777228, inode 19040): 14 files, no impossibilities.
 # ./srcs (device 16777228, inode 19165): 16 files, no impossibilities so far.
 # srcs (device 16777228, inode 19165): 16 files, no impossibilities so far.
 
-# 45 files, no impossibilities in 3 directories.
+# 46 files, no impossibilities in 3 directories.
 
 # Implicit Rules
 
 objs/%.o: ./srcs/%.c
 #  commands to execute (from `Makefile', line 50):
 	@mkdir -p $(OBJS_DIR)
- 
 	@$(CC) -I includes -I libft -c $< -o $@
 	
 
@@ -200,7 +197,7 @@ objs/direct_utils.o:
 objs/main.o: srcs/main.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `main'
-#  File does not exist.
+#  Last modified 2022-10-28 15:32:53
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # automatic
@@ -280,7 +277,7 @@ objs/checker.o:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-10-25 14:38:25
+#  Last modified 2022-10-28 15:32:33
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -289,7 +286,7 @@ Makefile:
 # Not a target:
 srcs/main.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-10-25 14:37:41
+#  Last modified 2022-10-28 15:42:30
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -307,9 +304,10 @@ objs/inits.o:
 #  Modification time never checked.
 #  File has not been updated.
 
+ 
 minishell: objs/main.o objs/inits.o objs/node_utils.o objs/checker.o objs/tokenize.o objs/expand.o objs/expand_utils.o objs/here_doc.o objs/env.o objs/error.o objs/direct.o objs/direct_utils.o objs/parse.o objs/parse_utils.o objs/execution.o objs/execution_utils.o objs/free1.o objs/free2.o objs/see.o
 #  Implicit rule search has not been done.
-#  File does not exist.
+#  Last modified 2022-10-28 15:32:56
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # variable set hash-table stats:
@@ -427,6 +425,6 @@ objs/node_utils.o:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Tue Oct 25 14:38:28 2022
+# Finished Make data base on Fri Oct 28 16:23:48 2022
 
  

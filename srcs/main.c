@@ -6,7 +6,7 @@
 /*   By: edlim <edlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 10:35:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/25 15:50:39 by edlim            ###   ########.fr       */
+/*   Updated: 2022/10/28 21:54:00 by edlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,20 +56,22 @@ void	mini_main(t_main *m_var, t_node **lists)
 	t_cmds		*cmds;
 
 	direct = director(lists);
-	if (direct->error != 1)
+	if (direct->error == 258)
+		m_var->exit_code = direct->error;
+	if (direct->error != 258)
 	{
-		cmds = grouping(m_var, *lists);
-		set_direction(&direct, &cmds);
-		ft_see_group(&cmds);
-		// function(m_var, &direct, &cmds);
-		builtins(m_var, &cmds);
+		cmds = grouping(m_var, *lists, &direct);
+		if (direct->error == 1)
+			m_var->exit_code = direct->error;
+		if (direct->error != 1)
+		{
+			set_direction(&direct, &cmds);
+			function(m_var, &direct, &cmds);
+		}
 		free_cmds(&cmds);
-		// creates a function here that loop through command group and fork correctly and use the right pipes for it.
-		// needs to accepts 
 	}
-	free_lists(lists);
 	free_direct(&direct);
-	(void)m_var;
+	return ;
 }
 
 int	main(int ac, char **av, char **envp)
@@ -81,7 +83,9 @@ int	main(int ac, char **av, char **envp)
 	while (1)
 	{
 		lists = token_reader(&m_var);
-		mini_main(&m_var, &lists);
+		if (lists->val != NULL)
+			mini_main(&m_var, &lists);
+		free_lists(&lists);
 	}
 	return (0);
 }

@@ -6,7 +6,11 @@
 /*   By: edlim <edlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:04:18 by jakoh             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/10/28 15:54:01 by edlim            ###   ########.fr       */
+=======
+/*   Updated: 2022/10/28 16:28:10 by jakoh            ###   ########.fr       */
+>>>>>>> origin/master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +27,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-enum type
+enum e_type
 {
 	NO_TYPE,
 	CMD,
@@ -58,6 +62,7 @@ typedef struct s_main
 	int		ac;
 	char	**av;
 	t_envp	*envp;
+	int		exit_code;
 }	t_main;
 
 // tokenizing/parsing struct
@@ -86,9 +91,9 @@ typedef struct s_toke_var
  */
 typedef struct s_direct
 {
-	int	error;
-	int	tol_heredoc;
-	int	tol_pipes;
+	int		error;
+	int		tol_heredoc;
+	int		tol_pipes;
 	char	**delim;
 	int		**fd_pipes;
 	char	**heredoc;
@@ -119,20 +124,20 @@ typedef struct s_direct
  */
 typedef struct s_cmds
 {
-	int		input;
-	int		output;
-	int		heredoc_no;
-	char	**args;
-	char	**envp;
+	int				input;
+	int				output;
+	int				heredoc_no;
+	char			**args;
+	char			**envp;
 	struct s_cmds	*next;
 }	t_cmds;
 
 // checker.c
-int		is_op(char c);
-int		is_token(char	*str);
-int		is_built_in(char *str);
-int		ft_strcmp(char *a, char *b);
-void	to_lower(char *src, char **dest);
+int			is_op(char c);
+int			is_token(char	*str);
+int			is_built_in(char *str);
+int			ft_strcmp(char *a, char *b);
+void		to_lower(char *src, char **dest);
 
 // inits.c
 t_direct	*init_direct(void);
@@ -141,89 +146,93 @@ t_cmds		*cmd_groups_init(int ipt, int opt, int num_args, int hd);
 void		ft_init_main_var(t_main *main, int ac, char **av, char **envp);
 
 // env.c
-char	**envp_converter(t_main *m_var);
-char	*get_ev(t_main *m_var, char *var);
-void	add_env(t_main *m_var, char *str);
-void	add_envp(t_main *m_var, t_cmds **cmd_groups);
+char		**envp_converter(t_main *m_var);
+char		*get_ev(t_main *m_var, char *var);
+void		add_env(t_main *m_var, char *str);
+void		add_envp(t_main *m_var, t_cmds **cmd_groups);
 
 // node_utils.c
-t_node	*ft_node(int  id, char *val, int type,  t_node **prev);
-t_node	*assign_node(t_node **cur_node, char *val, int type);
+t_node		*ft_node(int id, char *val, int type, t_node **prev);
+t_node		*assign_node(t_node **cur_node, char *val, int type);
 
 // tokenize.c
-void	token_quote(t_main *m_var, char *str, t_toke_var *s, t_node **cur_node);
-void	token_arg(t_main *m_var, char *str, t_toke_var *s, t_node **cur_node);
-void	token_symbol(char *str, t_toke_var *s, t_node **cur_node);
-void	tokenize(t_main *m_var, char *str, t_node	**tree);
+void		token_quote(t_main *m_var, char *str, t_toke_var *s,
+				t_node **cur_node);
+void		token_arg(t_main *m_var, char *str, t_toke_var *s,
+				t_node **cur_node);
+void		token_symbol(char *str, t_toke_var *s, t_node **cur_node);
+void		tokenize(t_main *m_var, char *str, t_node **tree);
 
 // expand.c
-void	expand_env(t_main *m_var, t_node **cur_node);
-void	expand_env_ext(t_main *m_var, t_node **cur_node, t_toke_var *s);
-void	expand_env_ext_quote(t_main *m_var, t_node **cur_node, t_toke_var *s);
+void		expand_env(t_main *m_var, t_node **cur_node);
+void		expand_env_ext(t_main *m_var, t_node **cur_node, t_toke_var *s);
+void		expand_env_ext_quote(t_main *m_var, t_node **cur_node,
+				t_toke_var *s);
 
 // expand_utils.c
-char	*sjoin_ext(char *s1, char *s2);
-char	*dollar_join(t_main *m_var, char *s1, char *s2);
-void	cut_and_paste(t_toke_var *s, t_node **cur_node, int i);
-void	found_cash(t_main *m_var, t_node **cur_node, t_toke_var	*s);
+char		*sjoin_ext(char *s1, char *s2);
+char		*dollar_join(t_main *m_var, char *s1, char *s2);
+void		cut_and_paste(t_toke_var *s, t_node **cur_node, int i);
+void		found_cash(t_main *m_var, t_node **cur_node, t_toke_var	*s);
 
 // direct.c
 t_direct	*director(t_node **lists);
-void	get_total(t_node **lists, t_direct **direct);
-void	get_tol_condition(t_direct **direct, t_node *cur_node);
+void		get_total(t_node **lists, t_direct **direct);
+void		get_tol_condition(t_direct **direct, t_node *cur_node);
 
 // direct_utils.c
-void	malloc_pipes(t_direct **direct);
-void	malloc_heredoc(t_direct **direct);
+void		malloc_pipes(t_direct **direct);
+void		malloc_heredoc(t_direct **direct);
 
 // here_doc.c
-char	*here_doc(char *delim);
-void    write_to_heredoc(t_direct **direct);
-void	get_delim(t_node **lists, t_direct **direct);
-t_node	*here_quote(char *str, char quote, t_node **list);
+char		*here_doc(char *delim);
+void		write_to_heredoc(t_direct **direct);
+void		get_delim(t_node **lists, t_direct **direct);
+t_node		*here_quote(char *str, char quote, t_node **list);
 
 //parse.c
-t_cmds	*init_cur_group(t_node *lists, int *hd);
-int	check_access(char *path, int type, t_cmds **cur);
-int	grouping_ext(t_node **list, t_cmds **cur_group, int *i, int *hd);
-t_cmds	*grouping(t_main *m_var, t_node *lists);
-void	set_heredoc(t_direct **direct, t_cmds **cmds);
+t_cmds		*init_cur_group(t_node *lists, int *hd);
+int			check_access(char *path, int type, t_cmds **cur);
+int			grouping_ext(t_node **list, t_cmds **cur_group, int *i, int *hd);
+t_cmds		*grouping(t_main *m_var, t_node *lists, t_direct **direct);
+void		set_heredoc(t_direct **direct, t_cmds **cmds);
 
 // parse_utils.c
-void	set_direction(t_direct **direct, t_cmds **cmds);
-void    set_pipes(t_direct **direct, t_cmds **cmds);
-void    set_heredoc(t_direct **direct, t_cmds **cmds);
-void    fd_heredoc_helper(t_direct **direct, t_cmds **cmds);
+void		set_pipes(t_direct **direct, t_cmds **cmds);
+void		set_heredoc(t_direct **direct, t_cmds **cmds);
+void		set_direction(t_direct **direct, t_cmds **cmds);
+void		fd_heredoc_helper(t_direct **direct, t_cmds **cmds);
 
 // execution.c
-void	handle_io(t_direct **direct, t_cmds **cur);
-void    function(t_main *m_var, t_direct **direct, t_cmds **cmds);
-void	find_path(t_cmds **cmds);
+void		executor(t_cmds **cmds);
+void		handle_io(t_cmds **cur, int check);
+pid_t		forker(t_cmds **cur_cmd, t_direct **direct);
+void		function(t_main *m_var, t_direct **direct, t_cmds **cmds);
 
 // execution_utils.c
-void	set_direction(t_direct **direct, t_cmds **cmds);
-void    ft_close_pipes(t_direct **direct);
-
+char		*get_path(t_cmds **cmds);
+char		**find_path(t_cmds **cmds);
+void		ft_close_pipes(t_direct **direct);
+void		handle_io(t_cmds **cur, int check);
 // error.c
-int	ft_err_handle(char *path, int perm, int type);
-int	syntax_error(char *msg);
+int			ft_err_handle(char *path, int perm, int type);
+int			syntax_error(char *msg);
 
 // free.c
-void	free_lists(t_node **lists);
-void	free_direct(t_direct **direct);
-void	free_envp(t_envp **envp);
-void	free_cmds(t_cmds **cmds);
+void		free_lists(t_node **lists);
+void		free_direct(t_direct **direct);
+void		free_envp(t_envp **envp);
+void		free_cmds(t_cmds **cmds);
 
 // see.c
-void	ft_see_group(t_cmds **groups);
-void	ft_see(t_node **lists);
+void		ft_see_group(t_cmds **groups);
+void		ft_see(t_node **lists);
 
 // All the builtins:
 void	builtins(t_main *m_var, t_cmds **cmd_groups);
 void	cdpwd(t_cmds **cmd_groups);
 // main.c
-t_node	*token_reader(t_main *m_var);
-void	mini_main(t_main *m_var, t_node **lists);
-
+t_node		*token_reader(t_main *m_var);
+void		mini_main(t_main *m_var, t_node **lists);
 
 #endif

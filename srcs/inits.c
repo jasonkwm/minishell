@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 15:37:16 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/24 11:08:51 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/28 16:11:16 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	ft_init_main_var(t_main *main, int ac, char **av, char **envp)
 	main->ac = ac;
 	main->av = av;
 	main->envp = NULL;
+	main->exit_code = 0;
 	temp = NULL;
 	i = -1;
 	while (envp[++i] != NULL)
@@ -39,6 +40,7 @@ void	ft_init_main_var(t_main *main, int ac, char **av, char **envp)
 			main->envp = temp;
 	}
 }
+
 /**
  * @brief 
  * init token variable
