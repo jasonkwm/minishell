@@ -6,12 +6,17 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 15:12:21 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/28 15:19:42 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/28 15:34:20 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * @brief execute non builtin functions
+ * 
+ * @param cmds current command group
+ */
 void	executor(t_cmds **cmds)
 {
 	char    *path;
@@ -51,6 +56,13 @@ void	function(t_main *m_var, t_direct **direct, t_cmds **cmds)
 	return ;
 }
 
+/**
+ * @brief forking is done here
+ * 
+ * @param cur_cmd current command group
+ * @param direct contains fd to close after dupping
+ * @return pid_t 
+ */
 pid_t	forker(t_cmds **cur_cmd, t_direct **direct)
 {
 	pid_t	id;
