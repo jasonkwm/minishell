@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:04:18 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/27 11:36:10 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/28 15:16:00 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,24 +186,26 @@ t_node	*here_quote(char *str, char quote, t_node **list);
 t_cmds	*init_cur_group(t_node *lists, int *hd);
 int	check_access(char *path, int type, t_cmds **cur);
 int	grouping_ext(t_node **list, t_cmds **cur_group, int *i, int *hd);
-t_cmds	*grouping(t_main *m_var, t_node *lists);
+t_cmds	*grouping(t_main *m_var, t_node *lists, t_direct **direct);
 void	set_heredoc(t_direct **direct, t_cmds **cmds);
 
 // parse_utils.c
-void	set_direction(t_direct **direct, t_cmds **cmds);
 void    set_pipes(t_direct **direct, t_cmds **cmds);
 void    set_heredoc(t_direct **direct, t_cmds **cmds);
+void	set_direction(t_direct **direct, t_cmds **cmds);
 void    fd_heredoc_helper(t_direct **direct, t_cmds **cmds);
 
 // execution.c
-void	handle_io(t_cmds **cur);
-int    function(t_main *m_var, t_direct **direct, t_cmds **cmds);
-char	**find_path(t_cmds **cmds);
+void	executor(t_cmds **cmds);
+void	handle_io(t_cmds **cur, int check);
+pid_t	forker(t_cmds **cur_cmd, t_direct **direct);
+void	function(t_main *m_var, t_direct **direct, t_cmds **cmds);
 
 // execution_utils.c
-void	set_direction(t_direct **direct, t_cmds **cmds);
+char	*get_path(t_cmds **cmds);
+char	**find_path(t_cmds **cmds);
 void    ft_close_pipes(t_direct **direct);
-
+void	handle_io(t_cmds **cur, int check);
 // error.c
 int	ft_err_handle(char *path, int perm, int type);
 int	syntax_error(char *msg);
@@ -220,7 +222,7 @@ void	ft_see(t_node **lists);
 
 // main.c
 t_node	*token_reader(t_main *m_var);
-int	mini_main(t_main *m_var, t_node **lists);
+void	mini_main(t_main *m_var, t_node **lists);
 
 
 #endif

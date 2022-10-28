@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:39:14 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/26 15:44:05 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/28 14:59:29 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void    free_direct_fd(t_direct **direct)
 void	free_direct(t_direct **direct)
 {
 	free_direct_str(direct);
-    // free_direct_fd(direct);
 	if ((*direct) != NULL)
 		free(*direct);
 }

@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 21:01:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/27 11:57:51 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/28 14:31:43 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int	check_access(char *path, int type, t_cmds **cur)
 		if ((*cur)->output == -1 && access(path, W_OK) == -1)
 		{
 			printf("%s: %s\n", path, strerror(errno));
+			close((*cur)->output);
 			return (-1);
 		}
 	}
@@ -132,7 +133,7 @@ int	grouping_ext(t_node **list, t_cmds **cur_group, int *i, int *hd)
  * @param lists tokenize lists
  * @param direct contains info about heredoc and pipes 
  */
-t_cmds	*grouping(t_main *m_var, t_node *lists)
+t_cmds	*grouping(t_main *m_var, t_node *lists, t_direct **direct)
 {
 	t_cmds	*cmd_groups;
 	t_cmds	*cur_group;
@@ -149,7 +150,7 @@ t_cmds	*grouping(t_main *m_var, t_node *lists)
 		{
 			if (grouping_ext(&lists, &cur_group, &i, &hd) == -1)
 			{
-				m_var->exit_code = 1;
+				(*direct)->error = 1;
 				break ;
 			}
 		}
