@@ -6,7 +6,7 @@
 /*   By: edlim <edlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:04:18 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/25 15:50:48 by edlim            ###   ########.fr       */
+/*   Updated: 2022/10/28 15:54:01 by edlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,7 +220,7 @@ void	ft_see(t_node **lists);
 
 // All the builtins:
 void	builtins(t_main *m_var, t_cmds **cmd_groups);
-void	cdpwd(t_main *m_var, t_cmds **cmd_groups);
+void	cdpwd(t_cmds **cmd_groups);
 // main.c
 t_node	*token_reader(t_main *m_var);
 void	mini_main(t_main *m_var, t_node **lists);
