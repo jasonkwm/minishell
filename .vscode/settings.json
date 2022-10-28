@@ -8,6 +8,7 @@
         "ios": "c",
         "sstream": "c",
         "__node_handle": "c",
-        "bitset": "c"
+        "bitset": "c",
+        "__locale": "c"
     }
 }

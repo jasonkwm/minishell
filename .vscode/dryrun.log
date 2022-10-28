@@ -30,7 +30,6 @@ mkdir -p ./objs
 gcc -Wall -Werror -Wextra -I includes -I libft -c srcs/parse_utils.c -o objs/parse_utils.o
 mkdir -p ./objs
 gcc -Wall -Werror -Wextra -I includes -I libft -c srcs/execution.c -o objs/execution.o
- 
 mkdir -p ./objs
 gcc -Wall -Werror -Wextra -I includes -I libft -c srcs/execution_utils.c -o objs/execution_utils.o
 mkdir -p ./objs
