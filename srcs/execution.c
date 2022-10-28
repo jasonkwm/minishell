@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 15:12:21 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/28 15:34:20 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/28 16:17:16 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  */
 void	executor(t_cmds **cmds)
 {
-	char    *path;
+	char	*path;
 	int		i;
 
 	i = -1;
@@ -48,10 +48,11 @@ void	function(t_main *m_var, t_direct **direct, t_cmds **cmds)
 	{
 		forker(&temp, direct);
 		handle_io(&temp, 0);
-		temp = temp->next;	
+		temp = temp->next;
 	}
 	ft_close_pipes(direct);
-	while (waitpid(-1, &status, WUNTRACED) > 0);
+	while (waitpid(-1, &status, WUNTRACED) > 0)
+		;
 	m_var->exit_code = WEXITSTATUS(status);
 	return ;
 }

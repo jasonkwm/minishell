@@ -6,15 +6,20 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:39:14 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/28 14:59:29 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/28 16:13:41 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    free_direct_str(t_direct **direct)
+/**
+ * @brief Free strings thats in direct, here_doc delimiter and here_doc as string
+ * 
+ * @param direct N/A
+ */
+void	free_direct_str(t_direct **direct)
 {
-    t_direct	*temp;
+	t_direct	*temp;
 	int			i;
 
 	i = -1;
@@ -31,12 +36,17 @@ void    free_direct_str(t_direct **direct)
 	}
 }
 
-void    free_direct_fd(t_direct **direct)
+/**
+ * @brief free fd in directm, fd of pipes and fd of here_doc
+ * 
+ * @param direct N/A
+ */
+void	free_direct_fd(t_direct **direct)
 {
-    t_direct    *temp;
-    int         i;
+	t_direct	*temp;
+	int			i;
 
-    temp = *direct;
+	temp = *direct;
 	i = -1;
 	if (temp->fd_pipes != NULL)
 	{
@@ -53,6 +63,12 @@ void    free_direct_fd(t_direct **direct)
 	}
 }
 
+/**
+ * @brief free strings that contains in direct \
+ * @brief here_doc delimiter and here_doc string
+ * 
+ * @param direct N/A
+ */
 void	free_direct(t_direct **direct)
 {
 	free_direct_str(direct);

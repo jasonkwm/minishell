@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 13:35:54 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/20 15:48:21 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/28 16:16:07 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ void	add_env(t_main *m_var, char *str)
 /**
  * @brief counts and converts envp in m_var into a 2d string
  * 
- * @param m_var main variable that contains ac av and (envp in linked list format)
+ * @param m_var main variable that contains ac av and (envp in linked list)
  * 
  * @return type:char **, envp in 2D String
  */
 char	**envp_converter(t_main *m_var)
 {
-	t_envp  *temp;
+	t_envp	*temp;
 	char	**env;
 	int		i;
 
@@ -75,9 +75,10 @@ char	**envp_converter(t_main *m_var)
 }
 
 /**
- * @brief converts envp linked list into 2d char * and store in cmd_groups->envp
+ * @brief converts envp linked list into 2d char * \
+ * @brief and store in cmd_groups->envp
  * 
- * @param m_var main variable that contains ac av and (envp in linked list format)
+ * @param m_var main variable that contains ac av and (envp in linked list)
  * @param cmd_groups cmd_groups to be executed.
  */
 void	add_envp(t_main *m_var, t_cmds **cmd_groups)

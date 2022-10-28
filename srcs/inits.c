@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 15:37:16 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/26 18:26:13 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/28 16:11:16 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	ft_init_main_var(t_main *main, int ac, char **av, char **envp)
 			main->envp = temp;
 	}
 }
+
 /**
  * @brief 
  * init token variable

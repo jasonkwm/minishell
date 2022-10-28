@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:59:14 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/28 15:14:22 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/28 16:24:12 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ void	handle_io(t_cmds **cur, int check)
 
 /**
  * @brief close all pipes in 'direct' this includes pipes fd and heredoc fd
- * 
+ *
  * @param direct N/A
  */
-void    ft_close_pipes(t_direct **direct)
+void	ft_close_pipes(t_direct **direct)
 {
 	t_direct	*temp;
 	int			i;
@@ -68,6 +68,19 @@ void    ft_close_pipes(t_direct **direct)
 	}
 }
 
+char	**search_path(t_cmds **cmds)
+{
+	int	i;
+
+	i = -1;
+	while ((*cmds)->envp[++i] != NULL)
+	{
+		if (ft_strnstr((*cmds)->envp[i], "PATH", 4) != 0)
+			return (ft_split((*cmds)->envp[i] + 5, ':'));
+	}
+	return (NULL);
+}
+
 /**
  * @brief returns a 2d array of all possible PATH for executable
  * 
@@ -80,18 +93,9 @@ char	**find_path(t_cmds **cmds)
 	char	*temp;
 	int		i;
 
-	i = -1;
-	all = NULL;
 	if ((*cmds)->args[0] == NULL)
 		return (NULL);
-	while ((*cmds)->envp[++i] != NULL)
-	{
-		if (ft_strnstr((*cmds)->envp[i], "PATH", 4) != 0)
-		{
-			all = ft_split((*cmds)->envp[i] + 5, ':');
-			break ;
-		}
-	}
+	all = search_path(cmds);
 	i = -1;
 	while (all[++i] != NULL)
 	{
