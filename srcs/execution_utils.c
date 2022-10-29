@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:59:14 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/28 16:24:12 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/29 11:19:27 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,25 @@
  * @brief for execution
  * 
  * @param cur current command group
- * @param check to dup or not to dup
- * if check == 1 dup current input and output
- * else just close fd in cur intput and output
+ * @param check
+ * if check == 1 dup input/output ONLY,
+ * if check == 2 close input/output ONLY if possible,
+ * if check == 3 dup and close input/output.
  */
-void	handle_io(t_cmds **cur, int check)
+void	handle_io(int input, int output, int check)
 {
-	if (check == 1)
+	if (check == 1 || check == 3)
 	{
-		dup2((*cur)->input, 0);
-		dup2((*cur)->output, 1);
+		dup2(input, STDIN_FILENO);
+		dup2(output, STDOUT_FILENO);
 	}
-	if ((*cur)->input != 0)
-		close((*cur)->input);
-	if ((*cur)->output != 1)
-		close((*cur)->output);
+	if (check == 2 || check == 3)
+	{
+		if (input != STDIN_FILENO)
+			close(input);
+		if (output != STDOUT_FILENO)
+			close(output);
+	}
 }
 
 /**
