@@ -6,7 +6,7 @@
 /*   By: edlim <edlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:04:18 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/30 13:25:27 by edlim            ###   ########.fr       */
+/*   Updated: 2022/10/30 14:06:03 by edlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,12 @@ typedef struct s_cmds
 	struct s_cmds	*next;
 }	t_cmds;
 
+typedef struct s_utils
+{
+	int	status;
+	int	input;
+	int	output;
+}	t_utils;
 // checker.c
 int			is_op(char c);
 int			is_token(char	*str);
@@ -201,7 +207,6 @@ void		fd_heredoc_helper(t_direct **direct, t_cmds **cmds);
 
 // execution.c
 void		executor(t_cmds **cmds);
-void		handle_io(t_cmds **cur, int check);
 pid_t		forker(t_cmds **cur_cmd, t_direct **direct);
 void		function(t_main *m_var, t_direct **direct, t_cmds **cmds);
 
@@ -209,7 +214,7 @@ void		function(t_main *m_var, t_direct **direct, t_cmds **cmds);
 char		*get_path(t_cmds **cmds);
 char		**find_path(t_cmds **cmds);
 void		ft_close_pipes(t_direct **direct);
-void		handle_io(t_cmds **cur, int check);
+void		handle_io(int input, int output, int check);
 // error.c
 int			ft_err_handle(char *path, int perm, int type);
 int			syntax_error(char *msg);
@@ -224,11 +229,12 @@ void		free_cmds(t_cmds **cmds);
 void		ft_see_group(t_cmds **groups);
 void		ft_see(t_node **lists);
 
-// All the builtins:
-void	builtins(t_main *m_var, t_cmds **cmd_groups);
-void	cdpwd(t_cmds **cmd_groups);
 // main.c
 t_node		*token_reader(t_main *m_var);
 void		mini_main(t_main *m_var, t_node **lists);
+
+//builtins
+void	builtins(t_main *m_var, t_cmds **cmd_groups);
+void	cdpwd(t_cmds **cmd_groups);
 
 #endif

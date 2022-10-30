@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: edlim <edlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 15:12:21 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/29 11:22:09 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/10/30 14:00:45 by edlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	function(t_main *m_var, t_direct **direct, t_cmds **cmds)
 		if (is_built_in(temp->args[0]) == 1)
 		{
 			handle_io(temp->input, temp->output, 3);
-			// builtin function goes here
+			builtins(m_var, &temp);
 			handle_io(utils.input, utils.output, 1);
 		}
 		else
