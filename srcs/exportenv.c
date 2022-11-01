@@ -21,6 +21,7 @@ void    export(t_main *m_var, t_cmds **cmd_groups)
 	t_envp	*temp;
 	int		i;
 
+	temp = m_var->envp;
 	if ((*cmd_groups)->args[1] == NULL)
 	{
 		while (temp != NULL)
