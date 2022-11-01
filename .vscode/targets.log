@@ -6,8 +6,9 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
+ 
 
-# Make data base, printed on Fri Oct 28 16:23:48 2022
+# Make data base, printed on Tue Nov  1 17:36:32 2022
 
 # Variables
 
@@ -34,7 +35,7 @@ BLUE := \033[0;34m
 # makefile (from `Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
 # makefile (from `Makefile', line 15)
-OBJS := ./objs/main.o ./objs/inits.o ./objs/node_utils.o ./objs/checker.o ./objs/tokenize.o ./objs/expand.o ./objs/expand_utils.o ./objs/here_doc.o ./objs/env.o ./objs/error.o ./objs/direct.o ./objs/direct_utils.o ./objs/parse.o ./objs/parse_utils.o ./objs/execution.o ./objs/execution_utils.o ./objs/free1.o ./objs/free2.o ./objs/see.o
+OBJS := ./objs/main.o ./objs/inits.o ./objs/init_utils.o ./objs/node_utils.o ./objs/checker.o ./objs/tokenize.o ./objs/expand.o ./objs/expand_utils.o ./objs/here_doc.o ./objs/env.o ./objs/error.o ./objs/direct.o ./objs/direct_utils.o ./objs/parse.o ./objs/parse_utils.o ./objs/execution.o ./objs/execution_utils.o ./objs/free1.o ./objs/free2.o ./objs/see.o ./objs/cdpwd.o ./objs/builtins.o
 # environment
 VSCODE_CWD = /
 # environment
@@ -52,7 +53,7 @@ LIB := -L./libft -lft -lreadline
 # makefile (from `Makefile', line 28)
 PURPLE := \033[0;35m
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.Bh5bbsAUX7/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.TXouDnWHo1/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -86,7 +87,7 @@ MAKE = $(MAKE_COMMAND)
 # default
 MAKECMDGOALS := all
 # makefile (from `Makefile', line 6)
-SRCS := main.c inits.c node_utils.c checker.c tokenize.c expand.c expand_utils.c here_doc.c env.c error.c direct.c direct_utils.c parse.c parse_utils.c execution.c execution_utils.c free1.c free2.c see.c
+SRCS := main.c inits.c init_utils.c node_utils.c checker.c tokenize.c expand.c expand_utils.c here_doc.c env.c error.c direct.c direct_utils.c parse.c parse_utils.c execution.c execution_utils.c free1.c free2.c see.c cdpwd.c builtins.c
 # environment
 SHLVL = 1
 # makefile (from `Makefile', line 17)
@@ -126,7 +127,7 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = com.microsoft.VSCode.8876
+XPC_SERVICE_NAME = com.microsoft.VSCode.8972
 # makefile (from `Makefile', line 4)
 OBJS_DIR := ./objs
 # automatic
@@ -152,7 +153,7 @@ LC_ALL = C
 # default
 SUFFIXES := 
 # makefile (from `Makefile', line 19)
-FLAGS := 
+FLAGS := -g3 -fsanitize=address
 # default
 .INCLUDE_DIRS = /usr/local/include
 # environment
@@ -160,7 +161,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 93744
+VSCODE_PID = 47734
 # variable set hash-table stats:
 # Load=75/1024=7%, Rehash=0, Collisions=4/110=4%
 
@@ -171,10 +172,10 @@ VSCODE_PID = 93744
 # Directories
 
 # . (device 16777228, inode 19040): 14 files, no impossibilities.
-# ./srcs (device 16777228, inode 19165): 16 files, no impossibilities so far.
-# srcs (device 16777228, inode 19165): 16 files, no impossibilities so far.
+# ./srcs (device 16777228, inode 19165): 19 files, no impossibilities so far.
+# srcs (device 16777228, inode 19165): 19 files, no impossibilities so far.
 
-# 46 files, no impossibilities in 3 directories.
+# 52 files, no impossibilities in 3 directories.
 
 # Implicit Rules
 
@@ -197,27 +198,11 @@ objs/direct_utils.o:
 objs/main.o: srcs/main.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `main'
-#  Last modified 2022-10-28 15:32:53
+#  Last modified 2022-11-01 17:23:34
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# automatic
-# @ := objs/main.o
-# automatic
-# % := 
-# automatic
-# * := main
-# automatic
-# + := srcs/main.c
-# automatic
-# | := 
-# automatic
-# < := srcs/main.c
-# automatic
-# ^ := srcs/main.c
-# automatic
-# ? := srcs/main.c
+#  Successfully updated.
 # variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=1/14=7%
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 #  commands to execute (from `Makefile', line 50):
 	@mkdir -p $(OBJS_DIR)
 	@$(CC) -I includes -I libft -c $< -o $@
@@ -257,7 +242,19 @@ objs/expand.o:
 #  File has not been updated.
 
 # Not a target:
+objs/init_utils.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
 objs/execution_utils.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+objs/cdpwd.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -277,16 +274,17 @@ objs/checker.o:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-10-28 15:32:33
+#  Last modified 2022-11-01 17:36:23
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
+ 
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 # Not a target:
 srcs/main.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-10-28 15:42:30
+#  Last modified 2022-10-30 15:27:07
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -298,16 +296,38 @@ objs/direct.o:
 #  Modification time never checked.
 #  File has not been updated.
 
-# Not a target:
-objs/inits.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+objs/inits.o: srcs/inits.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `inits'
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := objs/inits.o
+# automatic
+# % := 
+# automatic
+# * := inits
+# automatic
+# + := srcs/inits.c
+# automatic
+# | := 
+# automatic
+# < := srcs/inits.c
+# automatic
+# ^ := srcs/inits.c
+# automatic
+# ? := srcs/inits.c
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=1/14=7%
+#  commands to execute (from `Makefile', line 50):
+	@mkdir -p $(OBJS_DIR)
+	@$(CC) -I includes -I libft -c $< -o $@
+	
 
- 
-minishell: objs/main.o objs/inits.o objs/node_utils.o objs/checker.o objs/tokenize.o objs/expand.o objs/expand_utils.o objs/here_doc.o objs/env.o objs/error.o objs/direct.o objs/direct_utils.o objs/parse.o objs/parse_utils.o objs/execution.o objs/execution_utils.o objs/free1.o objs/free2.o objs/see.o
+minishell: objs/main.o objs/inits.o objs/init_utils.o objs/node_utils.o objs/checker.o objs/tokenize.o objs/expand.o objs/expand_utils.o objs/here_doc.o objs/env.o objs/error.o objs/direct.o objs/direct_utils.o objs/parse.o objs/parse_utils.o objs/execution.o objs/execution_utils.o objs/free1.o objs/free2.o objs/see.o objs/cdpwd.o objs/builtins.o
 #  Implicit rule search has not been done.
-#  Last modified 2022-10-28 15:32:56
+#  Last modified 2022-11-01 17:25:10
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # variable set hash-table stats:
@@ -354,6 +374,15 @@ objs/execution.o:
 #  File has not been updated.
 
 # Not a target:
+srcs/inits.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-11-01 17:25:55
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
 objs/free1.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
@@ -369,6 +398,12 @@ re: fclean all
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
+#  File has not been updated.
+
+# Not a target:
+objs/builtins.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
 #  File has not been updated.
 
 # Not a target:
@@ -413,7 +448,7 @@ objs/node_utils.o:
 #  File has not been updated.
 
 # files hash-table stats:
-# Load=29/1024=3%, Rehash=0, Collisions=3/72=4%
+# Load=33/1024=3%, Rehash=0, Collisions=3/82=4%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -425,6 +460,6 @@ objs/node_utils.o:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Fri Oct 28 16:23:48 2022
+# Finished Make data base on Tue Nov  1 17:36:32 2022
 
  

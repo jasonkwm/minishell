@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edlim <edlim@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:04:18 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/30 14:06:03 by edlim            ###   ########.fr       */
+/*   Updated: 2022/11/01 17:36:55 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_node
 // to store enviroment variable
 typedef struct s_envp
 {
+	char			*key;
 	char			*val;
 	struct s_envp	*next;
 }	t_envp;
@@ -147,10 +148,13 @@ void		init_toke_var(t_toke_var *s, int len, char *temp);
 t_cmds		*cmd_groups_init(int ipt, int opt, int num_args, int hd);
 void		ft_init_main_var(t_main *main, int ac, char **av, char **envp);
 
+// init_utils.c
+char	*get_key(char *envp);
+char	*get_val(char *envp);
+
 // env.c
 char		**envp_converter(t_main *m_var);
 char		*get_ev(t_main *m_var, char *var);
-void		add_env(t_main *m_var, char *str);
 void		add_envp(t_main *m_var, t_cmds **cmd_groups);
 
 // node_utils.c

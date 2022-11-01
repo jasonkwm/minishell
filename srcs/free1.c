@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 12:00:13 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/28 16:15:05 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/11/01 17:15:11 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	free_envp(t_envp **envp)
 	temp2 = temp->next;
 	while (temp != NULL)
 	{
+		free(temp->key);
 		free(temp->val);
 		free(temp);
 		temp = temp2;

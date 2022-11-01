@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 13:35:54 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/28 16:16:07 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/11/01 17:37:23 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,6 @@ char	*get_ev(t_main *m_var, char *var)
 	return (temp->val);
 }
 
-// add to end of envp linked list in m_var
-void	add_env(t_main *m_var, char *str)
-{
-	t_envp	*temp;
-
-	temp = m_var->envp;
-	while (temp->next != NULL)
-		temp = temp->next;
-	temp->next = ft_calloc(1, sizeof(t_envp));
-	temp->next->val = ft_strdup(str);
-	temp->next->next = NULL;
-}
-
 /**
  * @brief counts and converts envp in m_var into a 2d string
  * 
@@ -51,25 +38,28 @@ void	add_env(t_main *m_var, char *str)
  */
 char	**envp_converter(t_main *m_var)
 {
-	t_envp	*temp;
+	t_envp	*cur;
 	char	**env;
+	char	*temp;
 	int		i;
 
 	i = 0;
-	temp = m_var->envp;
-	while (temp != NULL)
+	cur = m_var->envp;
+	while (cur != NULL)
 	{
-		temp = temp->next;
+		cur = cur->next;
 		++i;
 	}
 	env = ft_calloc(i + 1, sizeof(char *));
 	env[i] = NULL;
-	temp = m_var->envp;
+	cur = m_var->envp;
 	i = -1;
-	while (temp != NULL)
+	while (cur != NULL)
 	{
-		env[++i] = ft_strdup(temp->val);
-		temp = temp->next;
+		temp = ft_strjoin(cur->key, "=");
+		env[++i] = ft_strjoin(temp, cur->val);
+		free(temp);
+		cur = cur->next;
 	}
 	return (env);
 }

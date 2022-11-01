@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 15:37:16 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/28 16:11:16 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/11/01 17:25:55 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void	ft_init_main_var(t_main *main, int ac, char **av, char **envp)
 			temp->next = ft_calloc(1, sizeof(t_envp));
 			temp = temp->next;
 		}
-		temp->val = envp[i];
+		temp->key = get_key(envp[i]);
+		temp->val = get_val(envp[i]);
 		temp->next = NULL;
 		if (main->envp == NULL)
 			main->envp = temp;
