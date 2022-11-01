@@ -1,15 +1,55 @@
 make --dry-run --keep-going --print-directory
 make: Entering directory `/Users/jakoh/Desktop/minishell'
 mkdir -p ./objs
+gcc -Wall -Werror -Wextra -I includes -I libft -c srcs/main.c -o objs/main.o
+mkdir -p ./objs
 gcc -Wall -Werror -Wextra -I includes -I libft -c srcs/inits.c -o objs/inits.o
 mkdir -p ./objs
 gcc -Wall -Werror -Wextra -I includes -I libft -c srcs/init_utils.c -o objs/init_utils.o
 mkdir -p ./objs
+gcc -Wall -Werror -Wextra -I includes -I libft -c srcs/node_utils.c -o objs/node_utils.o
+mkdir -p ./objs
+gcc -Wall -Werror -Wextra -I includes -I libft -c srcs/checker.c -o objs/checker.o
+mkdir -p ./objs
+gcc -Wall -Werror -Wextra -I includes -I libft -c srcs/tokenize.c -o objs/tokenize.o
+mkdir -p ./objs
+gcc -Wall -Werror -Wextra -I includes -I libft -c srcs/expand.c -o objs/expand.o
+mkdir -p ./objs
+gcc -Wall -Werror -Wextra -I includes -I libft -c srcs/expand_utils.c -o objs/expand_utils.o
+mkdir -p ./objs
+gcc -Wall -Werror -Wextra -I includes -I libft -c srcs/here_doc.c -o objs/here_doc.o
+mkdir -p ./objs
 gcc -Wall -Werror -Wextra -I includes -I libft -c srcs/env.c -o objs/env.o
+mkdir -p ./objs
+gcc -Wall -Werror -Wextra -I includes -I libft -c srcs/error.c -o objs/error.o
+mkdir -p ./objs
+gcc -Wall -Werror -Wextra -I includes -I libft -c srcs/direct.c -o objs/direct.o
  
+mkdir -p ./objs
+gcc -Wall -Werror -Wextra -I includes -I libft -c srcs/direct_utils.c -o objs/direct_utils.o
+mkdir -p ./objs
+gcc -Wall -Werror -Wextra -I includes -I libft -c srcs/parse.c -o objs/parse.o
+mkdir -p ./objs
+gcc -Wall -Werror -Wextra -I includes -I libft -c srcs/parse_utils.c -o objs/parse_utils.o
+ 
+mkdir -p ./objs
+gcc -Wall -Werror -Wextra -I includes -I libft -c srcs/execution.c -o objs/execution.o
+mkdir -p ./objs
+gcc -Wall -Werror -Wextra -I includes -I libft -c srcs/execution_utils.c -o objs/execution_utils.o
+mkdir -p ./objs
+gcc -Wall -Werror -Wextra -I includes -I libft -c srcs/free1.c -o objs/free1.o
+mkdir -p ./objs
+gcc -Wall -Werror -Wextra -I includes -I libft -c srcs/free2.c -o objs/free2.o
+mkdir -p ./objs
+gcc -Wall -Werror -Wextra -I includes -I libft -c srcs/see.c -o objs/see.o
+mkdir -p ./objs
+gcc -Wall -Werror -Wextra -I includes -I libft -c srcs/cdpwd.c -o objs/cdpwd.o
+mkdir -p ./objs
+gcc -Wall -Werror -Wextra -I includes -I libft -c srcs/builtins.c -o objs/builtins.o
+mkdir -p ./objs
+gcc -Wall -Werror -Wextra -I includes -I libft -c srcs/exportenv.c -o objs/exportenv.o
 make -C ./libft
-gcc -Wall -Werror -Wextra -g3 -fsanitize=address -I includes -I libft -L./libft -lft -lreadline ./objs/main.o ./objs/inits.o ./objs/init_utils.o ./objs/node_utils.o ./objs/checker.o ./objs/tokenize.o ./objs/expand.o ./objs/expand_utils.o ./objs/here_doc.o ./objs/env.o ./objs/error.o ./objs/direct.o ./objs/direct_utils.o ./objs/parse.o ./objs/parse_utils.o ./objs/execution.o ./objs/execution_utils.o ./objs/free1.o ./objs/free2.o ./objs/see.o ./objs/cdpwd.o ./objs/builtins.o -o minishell
- 
+gcc -Wall -Werror -Wextra -g3 -fsanitize=address -I includes -I libft -L./libft -lft -lreadline ./objs/main.o ./objs/inits.o ./objs/init_utils.o ./objs/node_utils.o ./objs/checker.o ./objs/tokenize.o ./objs/expand.o ./objs/expand_utils.o ./objs/here_doc.o ./objs/env.o ./objs/error.o ./objs/direct.o ./objs/direct_utils.o ./objs/parse.o ./objs/parse_utils.o ./objs/execution.o ./objs/execution_utils.o ./objs/free1.o ./objs/free2.o ./objs/see.o ./objs/cdpwd.o ./objs/builtins.o ./objs/exportenv.o -o minishell
 echo "\033[0;32mMinishell Compiled Successful.\033[0m"
 make: Leaving directory `/Users/jakoh/Desktop/minishell'
  

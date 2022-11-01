@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:04:18 by jakoh             #+#    #+#             */
-/*   Updated: 2022/11/01 17:36:55 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/11/01 17:38:45 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,5 +240,7 @@ void		mini_main(t_main *m_var, t_node **lists);
 //builtins
 void	builtins(t_main *m_var, t_cmds **cmd_groups);
 void	cdpwd(t_cmds **cmd_groups);
+void	export(t_main *m_var, t_cmds **cmd_groups);
+void	env(t_main *m_var);
 
 #endif
