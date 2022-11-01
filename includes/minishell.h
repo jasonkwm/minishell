@@ -6,7 +6,7 @@
 /*   By: edlim <edlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:04:18 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/30 14:06:03 by edlim            ###   ########.fr       */
+/*   Updated: 2022/11/01 16:20:25 by edlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,5 +236,7 @@ void		mini_main(t_main *m_var, t_node **lists);
 //builtins
 void	builtins(t_main *m_var, t_cmds **cmd_groups);
 void	cdpwd(t_cmds **cmd_groups);
+void	export(t_main *m_var, t_cmds **cmd_groups);
+void	env(t_main *m_var);
 
 #endif
