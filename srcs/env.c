@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: edlim <edlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 13:35:54 by jakoh             #+#    #+#             */
-/*   Updated: 2022/11/01 17:37:23 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/11/01 18:54:47 by edlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,21 @@ char	*get_ev(t_main *m_var, char *var)
 	return (temp->val);
 }
 
+int	get_env_len(t_envp *envp)
+{
+	t_envp	*temp;
+	int		i;
+
+	i = 0;
+	temp = envp;
+	while (temp != NULL)
+	{
+		++i;
+		temp = temp->next;
+	}
+	return (i);
+}
+
 /**
  * @brief counts and converts envp in m_var into a 2d string
  * 
@@ -43,22 +58,19 @@ char	**envp_converter(t_main *m_var)
 	char	*temp;
 	int		i;
 
-	i = 0;
 	cur = m_var->envp;
-	while (cur != NULL)
-	{
-		cur = cur->next;
-		++i;
-	}
+	i = get_env_len(cur);
 	env = ft_calloc(i + 1, sizeof(char *));
 	env[i] = NULL;
-	cur = m_var->envp;
 	i = -1;
 	while (cur != NULL)
 	{
-		temp = ft_strjoin(cur->key, "=");
-		env[++i] = ft_strjoin(temp, cur->val);
-		free(temp);
+		if (cur->val != NULL || cur->key != NULL)
+		{
+			temp = ft_strjoin(cur->key, "=");
+			env[++i] = ft_strjoin(temp, cur->val);
+			free(temp);
+		}
 		cur = cur->next;
 	}
 	return (env);

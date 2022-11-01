@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: edlim <edlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 17:28:11 by jakoh             #+#    #+#             */
-/*   Updated: 2022/11/01 17:28:18 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/11/01 18:54:29 by edlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*get_key(char *envp)
 {
-	char *temp;
+	char	*temp;
 
 	temp = ft_strchr(envp, '=');
 	return (ft_substr(envp, 0, temp - envp));

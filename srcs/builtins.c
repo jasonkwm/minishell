@@ -6,7 +6,7 @@
 /*   By: edlim <edlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 15:48:23 by edlim             #+#    #+#             */
-/*   Updated: 2022/11/01 16:19:53 by edlim            ###   ########.fr       */
+/*   Updated: 2022/11/01 17:42:03 by edlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,18 @@ void echo(t_cmds **cmd_groups)
 		printf("\n");
 }
 
+// void	unset(t_main *m_var, t_cmds **cmd_groups)
+// {
+// 	t_envp *temp;
+
+// 	temp = m_var->envp;
+// 	while (temp != NULL)
+// 	{
+// 		if (temp->val == )
+// 		temp = temp->next;
+// 	}
+// }
+
 void builtins(t_main *m_var, t_cmds **cmd_groups)
 {
 	if (ft_strcmp((*cmd_groups)->args[0], "cd") == 0 || ft_strcmp((*cmd_groups)->args[0], "pwd") == 0)
@@ -47,5 +59,7 @@ void builtins(t_main *m_var, t_cmds **cmd_groups)
 		export(m_var, cmd_groups);
 	else if (ft_strcmp((*cmd_groups)->args[0], "env") == 0)
 		env(m_var);
+	// else if (ft_strcmp((*cmd_groups)->args[0], "env") == 0)
+		// unset(m_var, cmd_groups);
 	(void)m_var;
 }

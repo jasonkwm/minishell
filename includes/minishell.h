@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: edlim <edlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:04:18 by jakoh             #+#    #+#             */
-/*   Updated: 2022/11/01 17:38:45 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/11/01 18:55:18 by edlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,7 @@ char	*get_val(char *envp);
 // env.c
 char		**envp_converter(t_main *m_var);
 char		*get_ev(t_main *m_var, char *var);
+int			get_env_len(t_envp *envp);
 void		add_envp(t_main *m_var, t_cmds **cmd_groups);
 
 // node_utils.c
