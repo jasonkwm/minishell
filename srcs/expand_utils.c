@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 15:59:27 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/27 09:43:37 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/11/02 12:19:30 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	*dollar_join(t_main *m_var, char *s1, char *s2)
 		if (temp == NULL)
 			str = ft_strdup("");
 		else
-			str = ft_strdup(temp + ft_strlen(s2) + 1);
+			str = ft_strdup(temp);
 	}
 	str = sjoin_ext(s1, str);
 	free(s2);

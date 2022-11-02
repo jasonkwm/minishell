@@ -9,6 +9,7 @@
         "sstream": "c",
         "__node_handle": "c",
         "bitset": "c",
-        "__locale": "c"
+        "__locale": "c",
+        "complex": "c"
     }
 }
