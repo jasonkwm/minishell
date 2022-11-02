@@ -6,22 +6,24 @@
 /*   By: edlim <edlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:04:18 by jakoh             #+#    #+#             */
-/*   Updated: 2022/11/01 18:55:18 by edlim            ###   ########.fr       */
+/*   Updated: 2022/11/02 19:50:06 by edlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "libft.h"
 # include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <errno.h>
 # include <string.h>
 # include <limits.h>
-# include "libft.h"
-# include <readline/readline.h>
-# include <readline/history.h>
+# include <signal.h>
+# include <termios.h>
 
 enum e_type
 {
@@ -31,6 +33,8 @@ enum e_type
 	REDIRECT,
 	PIPE,
 };
+
+typedef struct termios		t_term;
 
 // type 0 = no type, 1 = built in command,
 // 2 = arguments, 3 = redirections,

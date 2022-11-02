@@ -6,7 +6,7 @@
 /*   By: edlim <edlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 10:35:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/28 21:54:00 by edlim            ###   ########.fr       */
+/*   Updated: 2022/11/02 21:52:43 by edlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,33 @@ void	mini_main(t_main *m_var, t_node **lists)
 	return ;
 }
 
+static void	handle_signal(int num)
+{
+	if (num == SIGINT)
+	{
+		write(1, "\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
+	else if (num == SIGQUIT)
+		write(1, "minishell> ", ft_strlen("minishell> "));
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	t_node	*lists;
 	t_main	m_var;
+	t_term	new_term;
 
 	ft_init_main_var(&m_var, ac, av, envp);
+	tcgetattr(0, &new_term);
+	new_term.c_lflag &= ~ECHOCTL;
+	tcsetattr(0, 0, &new_term);
 	while (1)
 	{
+		signal(SIGINT, handle_signal);
+		signal(SIGQUIT, handle_signal);
 		lists = token_reader(&m_var);
 		if (lists->val != NULL)
 			mini_main(&m_var, &lists);

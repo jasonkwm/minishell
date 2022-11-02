@@ -14,13 +14,14 @@ SRCS := main.c inits.c init_utils.c \
 		see.c cdpwd.c builtins.c exportenv.c
 OBJS := $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
-CC := gcc -Wall -Werror -Wextra
+CC := gcc -Wall -Werror -Wextra 
 
 FLAGS := #-g3 -fsanitize=address
 
 # -L "folder" to looks for library in the folder
 # -l(ft) to link library file. l replaces lib
-LIB := -L./libft -lft -lreadline
+LIB := -L./libft -lft -lreadline -L/usr/local/opt/readline/lib
+INC_RL	:= -I/usr/local/opt/readline/include
 
 RED := \033[0;31m
 GREEN := \033[0;32m
@@ -48,7 +49,7 @@ $(NAME) : $(OBJS)
 # "gcc -o 'file' " use as a naming feature / place the output result to 'file'
 $(OBJS_DIR)/%.o : $(SRCS_DIR)/%.c
 	@mkdir -p $(OBJS_DIR)
-	@$(CC) -I includes -I libft -c $< -o $@
+	@$(CC) -I includes -I libft $(INC_RL) -c $< -o $@
 
 # "echo -e" to allow backslash escapes \ 
 clean :
