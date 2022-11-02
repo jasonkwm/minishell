@@ -6,7 +6,7 @@
 /*   By: edlim <edlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 15:48:23 by edlim             #+#    #+#             */
-/*   Updated: 2022/11/01 23:10:25 by edlim            ###   ########.fr       */
+/*   Updated: 2022/11/02 22:36:43 by edlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,30 @@ void	unset(t_main *m_var, t_cmds **cmd_groups)
 	}
 }
 
+void	exitbuiltin(t_cmds **cmd_groups)
+{
+	int	i;
+
+	i = 0;
+	printf("exit\n");
+	if ((*cmd_groups)->args[1] != NULL)
+	{
+		while ((*cmd_groups)->args[1][i] != '\0')
+		{
+			if ((*cmd_groups)->args[1][i] < '0'
+				|| (*cmd_groups)->args[1][i] > '9')
+			{
+				printf("minishell: exit: %s: numeric argument required\n",
+					(*cmd_groups)->args[1]);
+				exit(255);
+			}
+			i++;
+		}
+		exit(ft_atoi((*cmd_groups)->args[1]));
+	}
+	exit(0);
+}
+
 void	builtins(t_main *m_var, t_cmds **cmd_groups)
 {
 	if (ft_strcmp((*cmd_groups)->args[0], "cd") == 0
@@ -76,5 +100,7 @@ void	builtins(t_main *m_var, t_cmds **cmd_groups)
 		env(m_var);
 	else if (ft_strcmp((*cmd_groups)->args[0], "unset") == 0)
 		unset(m_var, cmd_groups);
+	else if (ft_strcmp((*cmd_groups)->args[0], "exit") == 0)
+		exitbuiltin(cmd_groups);
 	(void)m_var;
 }

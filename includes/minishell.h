@@ -6,7 +6,7 @@
 /*   By: edlim <edlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:04:18 by jakoh             #+#    #+#             */
-/*   Updated: 2022/11/02 19:50:06 by edlim            ###   ########.fr       */
+/*   Updated: 2022/11/02 22:34:35 by edlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,8 +153,8 @@ t_cmds		*cmd_groups_init(int ipt, int opt, int num_args, int hd);
 void		ft_init_main_var(t_main *main, int ac, char **av, char **envp);
 
 // init_utils.c
-char	*get_key(char *envp);
-char	*get_val(char *envp);
+char		*get_key(char *envp);
+char		*get_val(char *envp);
 
 // env.c
 char		**envp_converter(t_main *m_var);
@@ -243,9 +243,9 @@ t_node		*token_reader(t_main *m_var);
 void		mini_main(t_main *m_var, t_node **lists);
 
 //builtins
-void	builtins(t_main *m_var, t_cmds **cmd_groups);
-void	cdpwd(t_cmds **cmd_groups);
-void	export(t_main *m_var, t_cmds **cmd_groups);
-void	env(t_main *m_var);
+void		builtins(t_main *m_var, t_cmds **cmd_groups);
+void		cdpwd(t_cmds **cmd_groups);
+void		export(t_main *m_var, t_cmds **cmd_groups);
+void		env(t_main *m_var);
 
 #endif

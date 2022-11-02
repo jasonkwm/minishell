@@ -10,6 +10,18 @@
         "__node_handle": "c",
         "bitset": "c",
         "__locale": "c",
-        "complex": "c"
+        "complex": "c",
+        "__config": "c",
+        "__debug": "c",
+        "__functional_03": "c",
+        "__hash_table": "c",
+        "algorithm": "c",
+        "exception": "c",
+        "functional": "c",
+        "memory": "c",
+        "optional": "c",
+        "string": "c",
+        "tuple": "c",
+        "type_traits": "c"
     }
 }

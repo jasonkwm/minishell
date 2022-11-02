@@ -6,7 +6,7 @@
 /*   By: edlim <edlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 10:35:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/11/02 21:52:43 by edlim            ###   ########.fr       */
+/*   Updated: 2022/11/02 22:37:27 by edlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,9 @@ t_node	*token_reader(t_main *m_var)
 	str = readline("minishell> ");
 	if (str && *str)
 		add_history(str);
-	if (ft_strcmp(str, "exit") == 0)
-	{
-		free(str);
-		system("leaks minishell");
-		printf("Exit\n");
-		exit(0);
-	}
-	else
-	{
-		lists = ft_node(0, NULL, 0, NULL);
-		tokenize(m_var, str, &lists);
-		free(str);
-	}
+	lists = ft_node(0, NULL, 0, NULL);
+	tokenize(m_var, str, &lists);
+	free(str);
 	return (lists);
 }
 
