@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:59:14 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/29 11:19:27 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/11/03 11:48:37 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,8 @@ char	*get_path(t_cmds **cmds)
 	char	*temp;
 	int		i;
 
+	if (access((*cmds)->args[0], X_OK) == 0)
+		return ((*cmds)->args[0]);
 	i = -1;
 	temp = NULL;
 	paths = find_path(cmds);
