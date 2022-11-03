@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 16:42:02 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/19 11:20:58 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/11/03 09:56:48 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	tokenize(t_main *m_var, char *str, t_node **list)
 	cur_node = *list;
 	s.left = 0;
 	s.right = 0;
+	if (str == NULL)
+		call_exit() ;
 	s.len = ft_strlen(str) + 1;
 	while (s.right < s.len && s.left < s.len)
 	{

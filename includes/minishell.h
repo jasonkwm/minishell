@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edlim <edlim@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:04:18 by jakoh             #+#    #+#             */
-/*   Updated: 2022/11/02 22:34:35 by edlim            ###   ########.fr       */
+/*   Updated: 2022/11/03 09:56:40 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,9 +224,10 @@ char		*get_path(t_cmds **cmds);
 char		**find_path(t_cmds **cmds);
 void		ft_close_pipes(t_direct **direct);
 void		handle_io(int input, int output, int check);
+
 // error.c
-int			ft_err_handle(char *path, int perm, int type);
 int			syntax_error(char *msg);
+void		call_exit(void);
 
 // free.c
 void		free_lists(t_node **lists);
