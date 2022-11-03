@@ -11,12 +11,12 @@ SRCS := main.c inits.c init_utils.c \
 		parse.c parse_utils.c \
 		execution.c execution_utils.c \
 		free1.c free2.c \
-		see.c cdpwd.c builtins.c exportenv.c
+		cdpwd.c builtins.c exportenv.c exportutils.c
 OBJS := $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
 CC := gcc -Wall -Werror -Wextra 
 
-FLAGS := -g3 -fsanitize=address
+FLAGS := #-g3 -fsanitize=address
 
 # -L "folder" to looks for library in the folder
 # -l(ft) to link library file. l replaces lib

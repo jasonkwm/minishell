@@ -22,6 +22,7 @@ Simple Command & global
  
 Arguments & history
 -------------------
+HMMMMM
 - Execute a simple command with an absolute path like /bin/ls or any other
   command with arguments but without quotes and double quotes
 - Repeat multiple times with different commands and arguments

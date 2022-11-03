@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: edlim <edlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:04:18 by jakoh             #+#    #+#             */
-/*   Updated: 2022/11/03 09:56:40 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/11/03 14:10:26 by edlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_main
 	char	**av;
 	t_envp	*envp;
 	int		exit_code;
+	t_term	ogterm;
 }	t_main;
 
 // tokenizing/parsing struct
@@ -227,7 +228,7 @@ void		handle_io(int input, int output, int check);
 
 // error.c
 int			syntax_error(char *msg);
-void		call_exit(void);
+void		call_exit(t_main *m_var);
 
 // free.c
 void		free_lists(t_node **lists);
@@ -248,5 +249,6 @@ void		builtins(t_main *m_var, t_cmds **cmd_groups);
 void		cdpwd(t_cmds **cmd_groups);
 void		export(t_main *m_var, t_cmds **cmd_groups);
 void		env(t_main *m_var);
+void		exportutil(t_cmds **cmd_groups, t_envp *temp, char **split);
 
 #endif

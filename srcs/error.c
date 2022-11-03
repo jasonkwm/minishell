@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: edlim <edlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 11:02:23 by jakoh             #+#    #+#             */
-/*   Updated: 2022/11/03 09:59:05 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/11/03 14:12:21 by edlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,11 @@ int	syntax_error(char *msg)
 	return (258);
 }
 
-void	call_exit(void)
+void	call_exit(t_main *m_var)
 {
+	tcsetattr(0, 0, &m_var->ogterm);
 	printf("exit\n");
 	exit(0);
 }
+
+// system("leaks minishell");

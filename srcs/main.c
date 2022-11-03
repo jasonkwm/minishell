@@ -6,7 +6,7 @@
 /*   By: edlim <edlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 10:35:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/11/02 22:37:27 by edlim            ###   ########.fr       */
+/*   Updated: 2022/11/03 13:37:06 by edlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,16 @@ static void	handle_signal(int num)
 		rl_redisplay();
 	}
 	else if (num == SIGQUIT)
+	{
 		write(1, "minishell> ", ft_strlen("minishell> "));
+		write(1, rl_line_buffer, ft_strlen(rl_line_buffer));
+	}
+}
+
+static void	handle_signal2(int num)
+{
+	if (num == SIGINT)
+		write(1, "\n", 1);
 }
 
 int	main(int ac, char **av, char **envp)
@@ -84,14 +93,17 @@ int	main(int ac, char **av, char **envp)
 	t_term	new_term;
 
 	ft_init_main_var(&m_var, ac, av, envp);
+	tcgetattr(0, &m_var.ogterm);
 	tcgetattr(0, &new_term);
 	new_term.c_lflag &= ~ECHOCTL;
-	tcsetattr(0, 0, &new_term);
 	while (1)
 	{
+		tcsetattr(0, 0, &new_term);
 		signal(SIGINT, handle_signal);
 		signal(SIGQUIT, handle_signal);
 		lists = token_reader(&m_var);
+		tcsetattr(0, 0, &m_var.ogterm);
+		signal(SIGINT, handle_signal2);
 		if (lists->val != NULL)
 			mini_main(&m_var, &lists);
 		free_lists(&lists);

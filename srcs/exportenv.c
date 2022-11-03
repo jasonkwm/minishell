@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exportenv.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: edlim <edlim@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/03 13:47:03 by edlim             #+#    #+#             */
+/*   Updated: 2022/11/03 14:10:57 by edlim            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-int gotequal(char *val)
+int	gotequal(char *val)
 {
 	int	i;
 
@@ -14,12 +26,31 @@ int gotequal(char *val)
 	return (0);
 }
 
-void    export(t_main *m_var, t_cmds **cmd_groups)
+static int	export2(t_cmds **cmd_groups, t_envp *temp)
 {
-	char	**split;
-	char	*val;
+	if (gotequal((*cmd_groups)->args[1]) == 0)
+	{
+		while (temp != NULL)
+		{
+			if (strcmp(temp->key, (*cmd_groups)->args[1]) == 0)
+				return (1);
+			if (temp->next == NULL)
+				break ;
+			temp = temp->next;
+		}
+		temp->next = malloc(sizeof(t_envp));
+		temp->next->key = ft_strdup((*cmd_groups)->args[1]);
+		temp->next->val = NULL;
+		temp->next->next = NULL;
+		return (1);
+	}
+	return (0);
+}
+
+void	export(t_main *m_var, t_cmds **cmd_groups)
+{
 	t_envp	*temp;
-	int		i;
+	char	**split;
 
 	temp = m_var->envp;
 	if ((*cmd_groups)->args[1] == NULL)
@@ -38,59 +69,15 @@ void    export(t_main *m_var, t_cmds **cmd_groups)
 		}
 		return ;
 	}
-	temp = m_var->envp;
-	if (gotequal((*cmd_groups)->args[1]) == 0)
-	{
-		while (temp != NULL)
-		{
-			if (strcmp(temp->key, (*cmd_groups)->args[1]) == 0)
-				return ;
-			if (temp->next == NULL)
-				break ;
-			temp = temp->next;
-		}
-		temp->next = malloc(sizeof(t_envp));
-		temp->next->key = ft_strdup((*cmd_groups)->args[1]);
-		temp->next->val = NULL;
-		temp->next->next = NULL;
+	if (export2(cmd_groups, temp) == 1)
 		return ;
-	}
-	split = ft_split((*cmd_groups)->args[1],'=');
-	while (temp != NULL)
-	{
-		if (strcmp(temp->key, split[0]) == 0)
-		{
-			i = -1;
-			while (split[++i] != NULL)
-				free(split[i]);
-			free(split);
-			val = ft_strchr((*cmd_groups)->args[1], '=');
-			val++;
-			if (temp->val != NULL)
-				free(temp->val);
-			temp->val = ft_strdup(val);
-			return ;
-		}
-		if (temp->next == NULL)
-			break ;
-		temp = temp->next;
-	}
-	val = ft_strchr((*cmd_groups)->args[1], '=');
-	val++;
-	temp->next = malloc(sizeof(t_envp));
-	temp->next->key = ft_strdup(split[0]);
-	temp->next->val = ft_strdup(val);
-	temp->next->next = NULL;
-	
-	i = -1;
-	while (split[++i] != NULL)
-		free(split[i]);
-	free(split);
+	split = ft_split((*cmd_groups)->args[1], '=');
+	exportutil(cmd_groups, temp, split);
 }
 
-void    env(t_main *m_var)
+void	env(t_main *m_var)
 {
-	t_envp *temp;
+	t_envp	*temp;
 
 	temp = m_var->envp;
 	while (temp != NULL)

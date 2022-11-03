@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: edlim <edlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 16:42:02 by jakoh             #+#    #+#             */
-/*   Updated: 2022/11/03 09:56:48 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/11/03 13:38:44 by edlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	tokenize(t_main *m_var, char *str, t_node **list)
 	s.left = 0;
 	s.right = 0;
 	if (str == NULL)
-		call_exit() ;
+		call_exit(m_var);
 	s.len = ft_strlen(str) + 1;
 	while (s.right < s.len && s.left < s.len)
 	{

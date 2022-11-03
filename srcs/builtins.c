@@ -6,7 +6,7 @@
 /*   By: edlim <edlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 15:48:23 by edlim             #+#    #+#             */
-/*   Updated: 2022/11/02 22:36:43 by edlim            ###   ########.fr       */
+/*   Updated: 2022/11/03 13:40:39 by edlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,12 @@ void	unset(t_main *m_var, t_cmds **cmd_groups)
 	}
 }
 
-void	exitbuiltin(t_cmds **cmd_groups)
+void	exitbuiltin(t_main *m_var, t_cmds **cmd_groups)
 {
 	int	i;
 
 	i = 0;
+	tcsetattr(0, 0, &m_var->ogterm);
 	printf("exit\n");
 	if ((*cmd_groups)->args[1] != NULL)
 	{
@@ -101,6 +102,6 @@ void	builtins(t_main *m_var, t_cmds **cmd_groups)
 	else if (ft_strcmp((*cmd_groups)->args[0], "unset") == 0)
 		unset(m_var, cmd_groups);
 	else if (ft_strcmp((*cmd_groups)->args[0], "exit") == 0)
-		exitbuiltin(cmd_groups);
+		exitbuiltin(m_var, cmd_groups);
 	(void)m_var;
 }
