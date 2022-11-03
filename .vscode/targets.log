@@ -6,9 +6,8 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
- 
 
-# Make data base, printed on Thu Nov  3 09:50:03 2022
+# Make data base, printed on Thu Nov  3 13:18:08 2022
 
 # Variables
 
@@ -17,7 +16,6 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # automatic
 ?F = $(notdir $?)
 # environment
- 
 NVM_INC = /Users/jakoh/.nvm/versions/node/v18.12.0/include/node
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
@@ -60,7 +58,7 @@ LIB := -L./libft -lft -lreadline -L/usr/local/opt/readline/lib
 # makefile (from `Makefile', line 29)
 PURPLE := \033[0;35m
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.Xl2gAJAajk/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.SdqQoaeeX6/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -172,7 +170,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 56995
+VSCODE_PID = 3310
 # variable set hash-table stats:
 # Load=80/1024=8%, Rehash=0, Collisions=4/111=4%
 
@@ -183,10 +181,10 @@ VSCODE_PID = 56995
 # Directories
 
 # . (device 16777228, inode 19040): 14 files, no impossibilities.
-# ./srcs (device 16777228, inode 19165): 25 files, no impossibilities so far.
-# srcs (device 16777228, inode 19165): 25 files, no impossibilities so far.
+# ./srcs (device 16777228, inode 19165): 24 files, 1 impossibilities.
+# srcs (device 16777228, inode 19165): 24 files, 1 impossibilities.
 
-# 64 files, no impossibilities in 3 directories.
+# 62 files, 2 impossibilities in 3 directories.
 
 # Implicit Rules
 
@@ -209,7 +207,6 @@ srcs/free2.c:
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
- 
 objs/direct_utils.o: srcs/direct_utils.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `direct_utils'
@@ -258,7 +255,7 @@ all: minishell
 objs/error.o: srcs/error.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `error'
-#  Last modified 2022-11-03 09:49:46
+#  Last modified 2022-11-03 11:48:41
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -288,6 +285,7 @@ objs/parse_utils.o: srcs/parse_utils.c
 #  Last modified 2022-11-03 09:49:47
 #  File has been updated.
 #  Successfully updated.
+ 
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 #  commands to execute (from `Makefile', line 51):
@@ -324,7 +322,7 @@ objs/init_utils.o: srcs/init_utils.c
 objs/execution_utils.o: srcs/execution_utils.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `execution_utils'
-#  Last modified 2022-11-03 09:49:47
+#  Last modified 2022-11-03 11:48:41
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -396,7 +394,7 @@ srcs/main.c:
 # Not a target:
 srcs/error.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-10-28 16:16:27
+#  Last modified 2022-11-03 09:59:05
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -432,7 +430,7 @@ srcs/init_utils.c:
 # Not a target:
 srcs/execution_utils.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-10-29 11:19:27
+#  Last modified 2022-11-03 11:48:37
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -466,7 +464,7 @@ objs/inits.o: srcs/inits.c
 
 minishell: objs/main.o objs/inits.o objs/init_utils.o objs/node_utils.o objs/checker.o objs/tokenize.o objs/expand.o objs/expand_utils.o objs/here_doc.o objs/env.o objs/error.o objs/direct.o objs/direct_utils.o objs/parse.o objs/parse_utils.o objs/execution.o objs/execution_utils.o objs/free1.o objs/free2.o objs/see.o objs/cdpwd.o objs/builtins.o objs/exportenv.o
 #  Implicit rule search has not been done.
-#  Last modified 2022-11-03 09:49:50
+#  Last modified 2022-11-03 11:48:42
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -477,7 +475,6 @@ minishell: objs/main.o objs/inits.o objs/init_utils.o objs/node_utils.o objs/che
 	@echo "$(GREEN)Minishell Compiled Successful.$(NC)"
 	
 
- 
 # Not a target:
 srcs/cdpwd.c:
 #  Implicit rule search has been done.
@@ -490,7 +487,7 @@ srcs/cdpwd.c:
 # Not a target:
 srcs/tokenize.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-10-21 12:58:11
+#  Last modified 2022-11-03 09:56:48
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -516,18 +513,14 @@ fclean: clean
 	@echo "$(RED)Full Cleaned.$(NC)"
 	
 
-objs/see.o: srcs/see.c
+# Not a target:
+objs/see.o:
 #  Implicit rule search has been done.
-#  Implicit/static pattern stem: `see'
 #  Last modified 2022-11-03 09:49:47
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 51):
-	@mkdir -p $(OBJS_DIR)
-	@$(CC) -I includes -I libft $(INC_RL) -c $< -o $@
-	
 
 objs/parse.o: srcs/parse.c
 #  Implicit rule search has been done.
@@ -567,6 +560,7 @@ srcs/direct.c:
 #  Last modified 2022-10-28 15:32:33
 #  File has been updated.
 #  Successfully updated.
+ 
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
@@ -595,7 +589,7 @@ objs/free1.o: srcs/free1.c
 objs/tokenize.o: srcs/tokenize.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `tokenize'
-#  Last modified 2022-11-03 09:49:46
+#  Last modified 2022-11-03 09:56:50
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -647,15 +641,6 @@ clean:
 	@make clean -C ./libft
 	@echo "$(YELLOW)Cleaned.$(NC)"
 	
-
-# Not a target:
-srcs/see.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-10-30 15:27:07
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 # Not a target:
 srcs/parse.c:
@@ -764,7 +749,6 @@ srcs/env.c:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 objs/exportenv.o: srcs/exportenv.c
- 
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `exportenv'
 #  Last modified 2022-11-03 09:49:47
@@ -787,7 +771,7 @@ srcs/expand_utils.c:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 # files hash-table stats:
-# Load=55/1024=5%, Rehash=0, Collisions=3/168=2%
+# Load=54/1024=5%, Rehash=0, Collisions=3/166=2%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -799,6 +783,6 @@ srcs/expand_utils.c:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Thu Nov  3 09:50:03 2022
+# Finished Make data base on Thu Nov  3 13:18:08 2022
 
  

@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 15:28:26 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/19 21:12:35 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/11/03 13:23:55 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,10 @@ char	*here_doc(char *delim)
 	while (1)
 	{
 		rl = readline("heredoc> ");
-		if (ft_strcmp(rl, delim) == 0)
+		if (rl == NULL || ft_strcmp(rl, delim) == 0)
 			break ;
-		if (store != NULL)
-			store = sjoin_ext(store, ft_strdup("\n"));
 		store = sjoin_ext(store, rl);
+		store = sjoin_ext(store, ft_strdup("\n"));
 	}
 	if (rl)
 		free(rl);
