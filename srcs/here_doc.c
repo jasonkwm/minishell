@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: edlim <edlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 15:28:26 by jakoh             #+#    #+#             */
-/*   Updated: 2022/11/03 13:23:55 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/11/04 13:48:44 by edlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ t_node	*here_quote(char *str, char quote, t_node **cur_node)
 	while (1)
 	{
 		rl = readline("> ");
+		if (rl == NULL)
+			rl = c_to_s(quote);
 		store = ft_strjoin(temp, rl);
 		free(temp);
 		schr = ft_strchr(rl, quote);
@@ -65,6 +67,8 @@ char	*here_doc(char *delim)
 	char	*store;
 
 	store = NULL;
+	if (delim == NULL)
+		return (store);
 	while (1)
 	{
 		rl = readline("heredoc> ");
@@ -129,4 +133,14 @@ void	write_to_heredoc(t_direct **direct)
 	temp = *direct;
 	while (++i < temp->tol_heredoc)
 		temp->heredoc[i] = here_doc(temp->delim[i]);
+}
+
+char	*c_to_s(char c)
+{
+	char	*str;
+
+	str = malloc(2 * sizeof(char));
+	str[0] = c;
+	str[1] = 0;
+	return (str);
 }

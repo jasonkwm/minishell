@@ -6,7 +6,7 @@
 /*   By: edlim <edlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 15:12:21 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/30 14:00:45 by edlim            ###   ########.fr       */
+/*   Updated: 2022/11/04 11:38:14 by edlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,9 @@ void	function(t_main *m_var, t_direct **direct, t_cmds **cmds)
 	temp = *cmds;
 	while (temp != NULL)
 	{
-		if (is_built_in(temp->args[0]) == 1)
+		if (temp->args[0] == NULL)
+			;
+		else if (is_built_in(temp->args[0]) == 1)
 		{
 			handle_io(temp->input, temp->output, 3);
 			builtins(m_var, &temp);
@@ -75,7 +77,6 @@ void	function(t_main *m_var, t_direct **direct, t_cmds **cmds)
 	while (waitpid(-1, &(utils.status), WUNTRACED) > 0)
 		;
 	m_var->exit_code = WEXITSTATUS(utils.status);
-	return ;
 }
 
 /**

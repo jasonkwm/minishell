@@ -6,7 +6,7 @@
 /*   By: edlim <edlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 15:48:23 by edlim             #+#    #+#             */
-/*   Updated: 2022/11/03 13:40:39 by edlim            ###   ########.fr       */
+/*   Updated: 2022/11/04 13:36:57 by edlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void	exitbuiltin(t_main *m_var, t_cmds **cmd_groups)
 		}
 		exit(ft_atoi((*cmd_groups)->args[1]));
 	}
+	system("leaks minishell");
 	exit(0);
 }
 

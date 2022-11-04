@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: edlim <edlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 21:01:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/28 14:31:43 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/11/04 12:54:12 by edlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int	grouping_ext(t_node **list, t_cmds **cur_group, int *i, int *hd)
 		else if (ft_strcmp((*list)->val, ">") == 0)
 			check = check_access((*list)->next->val, 1, cur_group);
 		else if (ft_strcmp((*list)->val, ">>") == 0)
-			check = check_access((*list)->next->val, 1, cur_group);
+			check = check_access((*list)->next->val, 2, cur_group);
 		*list = (*list)->next;
 	}
 	return (check);

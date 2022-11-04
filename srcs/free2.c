@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: edlim <edlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:39:14 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/28 16:13:41 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/11/04 13:33:25 by edlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	free_direct_fd(t_direct **direct)
  */
 void	free_direct(t_direct **direct)
 {
+	free_direct_fd(direct);
 	free_direct_str(direct);
 	if ((*direct) != NULL)
 		free(*direct);

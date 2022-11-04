@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: edlim <edlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:59:14 by jakoh             #+#    #+#             */
-/*   Updated: 2022/11/03 11:48:37 by jakoh            ###   ########.fr       */
+/*   Updated: 2022/11/04 13:36:00 by edlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,30 +45,30 @@ void	handle_io(int input, int output, int check)
  */
 void	ft_close_pipes(t_direct **direct)
 {
-	t_direct	*temp;
 	int			i;
 
 	i = -1;
-	temp = *direct;
-	if (temp->fd_pipes != NULL)
+	if ((*direct)->fd_pipes != NULL)
 	{
-		while (temp->fd_pipes[++i] != NULL)
+		while ((*direct)->fd_pipes[++i] != NULL)
 		{
-			close(temp->fd_pipes[i][0]);
-			close(temp->fd_pipes[i][1]);
-			free(temp->fd_pipes[i]);
+			close((*direct)->fd_pipes[i][0]);
+			close((*direct)->fd_pipes[i][1]);
+			free((*direct)->fd_pipes[i]);
 		}
-		free(temp->fd_pipes);
+		free((*direct)->fd_pipes);
+		(*direct)->fd_pipes = NULL;
 	}
 	i = -1;
-	if (temp->fd_heredoc != NULL)
+	if ((*direct)->fd_heredoc != NULL)
 	{
-		while (temp->fd_heredoc[++i] != NULL)
+		while ((*direct)->fd_heredoc[++i] != NULL)
 		{
-			close(temp->fd_heredoc[i][0]);
-			free(temp->fd_heredoc[i]);
+			close((*direct)->fd_heredoc[i][0]);
+			free((*direct)->fd_heredoc[i]);
 		}
-		free(temp->fd_heredoc);
+		free((*direct)->fd_heredoc);
+		(*direct)->fd_heredoc = NULL;
 	}
 }
 
@@ -140,7 +140,9 @@ char	*get_path(t_cmds **cmds)
 	free(paths);
 	if (temp == NULL && (*cmds)->args[0] != NULL)
 	{
-		printf("minishell: %s: command not found\n", (*cmds)->args[0]);
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd((*cmds)->args[0], 2);
+		ft_putstr_fd(": command not found\n", 2);
 		exit(127);
 	}
 	return (temp);

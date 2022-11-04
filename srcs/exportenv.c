@@ -6,7 +6,7 @@
 /*   By: edlim <edlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 13:47:03 by edlim             #+#    #+#             */
-/*   Updated: 2022/11/03 14:10:57 by edlim            ###   ########.fr       */
+/*   Updated: 2022/11/04 13:39:10 by edlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	export(t_main *m_var, t_cmds **cmd_groups)
 	{
 		while (temp != NULL)
 		{
-			printf("delcare -x ");
+			printf("declare -x ");
 			if (temp->val == NULL)
 				printf("%s", temp->key);
 			else

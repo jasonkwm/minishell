@@ -157,7 +157,7 @@ Redirection
 - Check if multiple of the same redirections fail
 - Test << redirection (it doesn't need to update history).
  Yes No
-
+ 
 Pipes
 -----
 - Execute commands with pipes like 'cat file | grep bla | more'

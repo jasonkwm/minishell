@@ -62,6 +62,6 @@ fclean : clean
 	@make fclean -C ./libft
 	@echo "$(RED)Full Cleaned.$(NC)"
 
-re : fclean all
+re: fclean all
 
 .PHONY: all clean fclean re

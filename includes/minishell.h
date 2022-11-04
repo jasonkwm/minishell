@@ -6,7 +6,7 @@
 /*   By: edlim <edlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:04:18 by jakoh             #+#    #+#             */
-/*   Updated: 2022/11/03 14:10:26 by edlim            ###   ########.fr       */
+/*   Updated: 2022/11/04 10:47:13 by edlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,6 +197,7 @@ void		malloc_pipes(t_direct **direct);
 void		malloc_heredoc(t_direct **direct);
 
 // here_doc.c
+char		*c_to_s(char c);
 char		*here_doc(char *delim);
 void		write_to_heredoc(t_direct **direct);
 void		get_delim(t_node **lists, t_direct **direct);
