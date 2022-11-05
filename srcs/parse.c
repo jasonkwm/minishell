@@ -6,7 +6,7 @@
 /*   By: edlim <edlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 21:01:55 by jakoh             #+#    #+#             */
-/*   Updated: 2022/11/04 12:54:12 by edlim            ###   ########.fr       */
+/*   Updated: 2022/11/04 14:31:34 by edlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ int	check_access(char *path, int type, t_cmds **cur)
 	else if (type == 1 || type == 2)
 	{
 		if (type == 1)
-			(*cur)->output = open(path, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+			(*cur)->output = open(path, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 		else
-			(*cur)->output = open(path, O_CREAT | O_RDWR | O_APPEND, 0644);
+			(*cur)->output = open(path, O_CREAT | O_WRONLY | O_APPEND, 0644);
 		if ((*cur)->output == -1 && access(path, W_OK) == -1)
 		{
 			printf("%s: %s\n", path, strerror(errno));

@@ -6,7 +6,7 @@
 /*   By: edlim <edlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 15:48:23 by edlim             #+#    #+#             */
-/*   Updated: 2022/11/04 13:36:57 by edlim            ###   ########.fr       */
+/*   Updated: 2022/11/05 09:30:59 by edlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,25 +41,28 @@ void	unset(t_main *m_var, t_cmds **cmd_groups)
 {
 	t_envp	*temp;
 	t_envp	*tofree;
+	int		i;
 
-	temp = m_var->envp;
-	if ((*cmd_groups)->args[1] == NULL)
-		return ;
-	while (temp->next != NULL)
+	i = 0;
+	while ((*cmd_groups)->args[++i] != NULL)
 	{
-		if (ft_strcmp(temp->next->key, (*cmd_groups)->args[1]) == 0)
+		temp = m_var->envp;
+		while (temp->next != NULL)
 		{
-			free(temp->next->key);
-			free(temp->next->val);
-			tofree = temp->next;
-			if (temp->next->next != NULL)
-				temp->next = temp->next->next;
+			if (ft_strcmp(temp->next->key, (*cmd_groups)->args[i]) == 0)
+			{
+				free(temp->next->key);
+				free(temp->next->val);
+				tofree = temp->next;
+				if (temp->next->next != NULL)
+					temp->next = temp->next->next;
+				else
+					temp->next = NULL;
+				free(tofree);
+			}
 			else
-				temp->next = NULL;
-			free(tofree);
-			return ;
-		}
-		temp = temp->next;
+				temp = temp->next;
+		}	
 	}
 }
 
@@ -67,33 +70,34 @@ void	exitbuiltin(t_main *m_var, t_cmds **cmd_groups)
 {
 	int	i;
 
-	i = 0;
+	i = -1;
 	tcsetattr(0, 0, &m_var->ogterm);
 	printf("exit\n");
+	if ((*cmd_groups)->args[1] != NULL && (*cmd_groups)->args[2] != NULL)
+	{
+		printf("minishell: exit: too many arguments\n");
+		return ;
+	}
 	if ((*cmd_groups)->args[1] != NULL)
 	{
-		while ((*cmd_groups)->args[1][i] != '\0')
+		checkifnegative(cmd_groups);
+		while ((*cmd_groups)->args[1][++i] != '\0')
 		{
 			if ((*cmd_groups)->args[1][i] < '0'
 				|| (*cmd_groups)->args[1][i] > '9')
-			{
-				printf("minishell: exit: %s: numeric argument required\n",
-					(*cmd_groups)->args[1]);
-				exit(255);
-			}
-			i++;
+				printnumericexit(cmd_groups);
 		}
 		exit(ft_atoi((*cmd_groups)->args[1]));
 	}
-	system("leaks minishell");
 	exit(0);
 }
 
 void	builtins(t_main *m_var, t_cmds **cmd_groups)
 {
+	m_var->exit_code = 0;
 	if (ft_strcmp((*cmd_groups)->args[0], "cd") == 0
 		|| ft_strcmp((*cmd_groups)->args[0], "pwd") == 0)
-		cdpwd(cmd_groups);
+		cdpwd(m_var, cmd_groups);
 	else if (ft_strcmp((*cmd_groups)->args[0], "echo") == 0)
 		echo(cmd_groups);
 	else if (ft_strcmp((*cmd_groups)->args[0], "export") == 0)
@@ -104,5 +108,4 @@ void	builtins(t_main *m_var, t_cmds **cmd_groups)
 		unset(m_var, cmd_groups);
 	else if (ft_strcmp((*cmd_groups)->args[0], "exit") == 0)
 		exitbuiltin(m_var, cmd_groups);
-	(void)m_var;
 }

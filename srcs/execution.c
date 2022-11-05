@@ -6,7 +6,7 @@
 /*   By: edlim <edlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 15:12:21 by jakoh             #+#    #+#             */
-/*   Updated: 2022/11/04 11:38:14 by edlim            ###   ########.fr       */
+/*   Updated: 2022/11/04 17:55:03 by edlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	function(t_main *m_var, t_direct **direct, t_cmds **cmds)
 	}
 	handle_io(utils.input, utils.output, 3);
 	ft_close_pipes(direct);
-	while (waitpid(-1, &(utils.status), WUNTRACED) > 0)
+	while (waitpid(-1, &(utils.status), 0) > 0)
 		;
 	m_var->exit_code = WEXITSTATUS(utils.status);
 }

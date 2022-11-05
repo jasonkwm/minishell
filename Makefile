@@ -11,7 +11,8 @@ SRCS := main.c inits.c init_utils.c \
 		parse.c parse_utils.c \
 		execution.c execution_utils.c \
 		free1.c free2.c \
-		cdpwd.c builtins.c exportenv.c exportutils.c
+		cdpwd.c builtins.c exportenv.c exportutils.c \
+		exitutils.c
 OBJS := $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
 CC := gcc -Wall -Werror -Wextra 
