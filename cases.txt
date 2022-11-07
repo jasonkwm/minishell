@@ -13,3 +13,20 @@ asdf < a > a | > b | > c
 asdf < d > a | > b | > c
 asdf > a < d | > b | > c
 !(s->right - s->left == 1 && is_op(str[s->left]) == 9)
+
+echo hello world
+<Makefile cat
+<Makefile cat | wc -l > a
+<Makefile cat | wc -l >> a
+<<heredoc cat 
+<<heredoc cat | wc -l > a
+
+echo $USER
+env
+export a=b
+unset a=b
+echo "$USER" '$USER'
+
+exit code
+
+exit

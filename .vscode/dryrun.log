@@ -44,8 +44,12 @@ mkdir -p ./objs
 gcc -Wall -Werror -Wextra  -I includes -I libft -I/usr/local/opt/readline/include -c srcs/builtins.c -o objs/builtins.o
 mkdir -p ./objs
 gcc -Wall -Werror -Wextra  -I includes -I libft -I/usr/local/opt/readline/include -c srcs/exportenv.c -o objs/exportenv.o
+mkdir -p ./objs
+gcc -Wall -Werror -Wextra  -I includes -I libft -I/usr/local/opt/readline/include -c srcs/exportutils.c -o objs/exportutils.o
+mkdir -p ./objs
+gcc -Wall -Werror -Wextra  -I includes -I libft -I/usr/local/opt/readline/include -c srcs/exitutils.c -o objs/exitutils.o
 make -C ./libft
-gcc -Wall -Werror -Wextra  -g3 -fsanitize=address -I includes -I libft -L./libft -lft -lreadline -L/usr/local/opt/readline/lib ./objs/main.o ./objs/inits.o ./objs/init_utils.o ./objs/node_utils.o ./objs/checker.o ./objs/tokenize.o ./objs/expand.o ./objs/expand_utils.o ./objs/here_doc.o ./objs/env.o ./objs/error.o ./objs/direct.o ./objs/direct_utils.o ./objs/parse.o ./objs/parse_utils.o ./objs/execution.o ./objs/execution_utils.o ./objs/free1.o ./objs/free2.o ./objs/see.o ./objs/cdpwd.o ./objs/builtins.o ./objs/exportenv.o -o minishell
+gcc -Wall -Werror -Wextra   -I includes -I libft -L./libft -lft -lreadline -L/usr/local/opt/readline/lib ./objs/main.o ./objs/inits.o ./objs/init_utils.o ./objs/node_utils.o ./objs/checker.o ./objs/tokenize.o ./objs/expand.o ./objs/expand_utils.o ./objs/here_doc.o ./objs/env.o ./objs/error.o ./objs/direct.o ./objs/direct_utils.o ./objs/parse.o ./objs/parse_utils.o ./objs/execution.o ./objs/execution_utils.o ./objs/free1.o ./objs/free2.o ./objs/cdpwd.o ./objs/builtins.o ./objs/exportenv.o ./objs/exportutils.o ./objs/exitutils.o -o minishell
 echo "\033[0;32mMinishell Compiled Successful.\033[0m"
 make: Leaving directory `/Users/jakoh/Desktop/minishell'
  
