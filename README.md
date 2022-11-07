@@ -57,19 +57,6 @@ relative or absolute path)
     - ctrl-D exit the shell.
     - ctrl-\ do nothing
     
-    
-#### Allowed functions :
-`
-readline, rl_clear_history, rl_on_new_line,
-rl_replace_line, rl_redisplay, add_history, printf,
-malloc, free, write, open, read, close, fork, wait,
-waitpid, wait3, wait4, signal, kill, exit, getcwd,
-chdir, stat, lstat, fstat, unlink, execve, dup,
-dup2, pipe, opendir, readdir, closedir, strerror,
-perror, isatty, ttyname, ttyslot, ioctl, getenv,
-tcsetattr, tcgetattr, tgetent, tgetflag, tgetnum,
-tgetstr, tgoto, tputs
-`
 ### Prerequisites
 Before starting on the project, it is mandatory to have a basic understanding of some concepts. You might or might not have learnt this in your past projects, but its always a good time to revisit them. These concepts include:
 - Linked lists
