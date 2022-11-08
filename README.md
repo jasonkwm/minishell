@@ -20,7 +20,7 @@ The only requirements are:
 
 1. Download/Clone this repo
 
-        git clone https://github.com/jasonkwm/minishell.git
+        git clone https://github.com/jasonkwm/minishell.git minishell
 2. `cd` into the root directory and run `make`
 
         cd minishell
