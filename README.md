@@ -1,5 +1,7 @@
 # Minishell @ 42KualaLumpur
 
+This project is about creating a simple shell. Yes, your own little bash. You will learn a lot about processes and file descriptors.
+
 ![VN20221107_172330](https://user-images.githubusercontent.com/32697686/200279017-5fa85c4a-c526-469b-82eb-cb86e774201a.gif)
 
 ## About
