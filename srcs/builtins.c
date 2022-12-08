@@ -12,6 +12,7 @@
 
 #include "minishell.h"
 
+//test
 void	echo(t_cmds **cmd_groups)
 {
 	int		i;
