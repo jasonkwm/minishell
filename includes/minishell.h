@@ -24,6 +24,7 @@
 # include <limits.h>
 # include <signal.h>
 # include <termios.h>
+# include <sys/wait.h>
 
 enum e_type
 {

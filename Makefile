@@ -42,7 +42,7 @@ all : $(NAME)
 # "$@" is to match target
 $(NAME) : $(OBJS)
 	make -C ./libft
-	$(CC) $(FLAGS) -I includes -I libft $(LIB) $(OBJS) -o $@
+	$(CC) $(FLAGS) $(OBJS) -I includes -I libft $(LIB) -o $@
 	@echo "$(GREEN)Minishell Compiled Successful.$(NC)"
 
 # "mkdir -p" creates dir if necessary, if dir exist, no error specified

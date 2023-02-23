@@ -12,17 +12,15 @@
 
 #include "libft.h"
 
-int	get_first(char const *s1, char const *set);
-int	get_last(char const *s1, char const *set);
+int get_first(char const *s1, char const *set);
+int get_last(char const *s1, char const *set);
 
 // Trim/Remove spaces and tabs from the start and end of string.
-char	*ft_strtrim(char const *s1, char const *set)
+char *ft_strtrim(char const *s1, char const *set)
 {
-	int		first;
-	int		last;
-	int		i;
+	int first;
+	int last;
 
-	i = 0;
 	if (!s1 || !set)
 		return (NULL);
 	first = get_first(s1, set);
@@ -30,11 +28,11 @@ char	*ft_strtrim(char const *s1, char const *set)
 	return (ft_substr(s1, first, (last - first + 1)));
 }
 
-int	get_first(char const *s1, char const *set)
+int get_first(char const *s1, char const *set)
 {
-	int	i;
-	int	j;
-	int	have;
+	int i;
+	int j;
+	int have;
 
 	i = 0;
 	while (s1[i] != 0)
@@ -54,15 +52,13 @@ int	get_first(char const *s1, char const *set)
 	return (i);
 }
 
-int	get_last(char const *s1, char const *set)
+int get_last(char const *s1, char const *set)
 {
-	int	j;
-	int	len;
-	int	last;
-	int	have;
+	int j;
+	int len;
+	int have;
 
 	len = ft_strlen(s1);
-	last = 0;
 	while (--len != 0)
 	{
 		j = 0;
