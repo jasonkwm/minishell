@@ -17,7 +17,7 @@
  * @brief sets status = 0 and store default input and output
  * @param utils pointer to utils variable in function
  */
-void	utils_init(t_utils *utils)
+void utils_init(t_utils *utils)
 {
 	utils->status = 0;
 	utils->input = dup(0);
@@ -26,17 +26,15 @@ void	utils_init(t_utils *utils)
 
 /**
  * @brief execute non builtin functions
- * 
+ *
  * @param cmds current command group
  */
-void	executor(t_cmds **cmds)
+void executor(t_cmds **cmds)
 {
-	char	*path;
-	int		i;
+	char *path;
 
-	i = -1;
 	if ((*cmds)->args[0] == NULL)
-		return ;
+		return;
 	path = get_path(cmds);
 	execve(path, (*cmds)->args, (*cmds)->envp);
 	exit(127);
@@ -45,15 +43,15 @@ void	executor(t_cmds **cmds)
 /**
  * @brief function to execute command group\
  * @brief this is where we fork processes to execute commands
- * 
+ *
  * @param m_var main variable contains envp and error code
  * @param direct contains all fd needed to handle input and output
  * @param cmds commands groups in linked list
  */
-void	function(t_main *m_var, t_direct **direct, t_cmds **cmds)
+void function(t_main *m_var, t_direct **direct, t_cmds **cmds)
 {
-	t_cmds	*temp;
-	t_utils	utils;
+	t_cmds *temp;
+	t_utils utils;
 
 	utils_init(&utils);
 	temp = *cmds;
@@ -81,14 +79,14 @@ void	function(t_main *m_var, t_direct **direct, t_cmds **cmds)
 
 /**
  * @brief forking is done here
- * 
+ *
  * @param cur_cmd current command group
  * @param direct contains fd to close after dupping
- * @return pid_t 
+ * @return pid_t
  */
-pid_t	forker(t_cmds **cur_cmd, t_direct **direct)
+pid_t forker(t_cmds **cur_cmd, t_direct **direct)
 {
-	pid_t	id;
+	pid_t id;
 
 	id = fork();
 	if (id < 0)
